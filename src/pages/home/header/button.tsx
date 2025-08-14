@@ -12,7 +12,7 @@ const Button = memo(() => {
         { opacity: 1, scale: 1 },
         {
           duration: 500,
-          delay: 3000,
+          delay: 3500,
           easing: Bezier.outBack,
           onEnd: () => {
             setState((S) => ({ ...S, step: HomeStepType.loop }));

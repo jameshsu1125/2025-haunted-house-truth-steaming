@@ -9,7 +9,7 @@ const Headline = memo(() => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ step }] = useContext(HomeContext);
 
-  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+  const [style, setStyle] = useTween({ opacity: 0, y: 0, scale: 1.2 });
 
   useEffect(() => {
     const app = new Application();
@@ -25,7 +25,7 @@ const Headline = memo(() => {
       });
     };
 
-    const addHuntedText = async () => {
+    const createHuntedText = async () => {
       if (ref.current && ref.current.clientWidth > 0 && ref.current.clientHeight > 0) {
         await Assets.load([Image, displacement]);
 
@@ -70,13 +70,13 @@ const Headline = memo(() => {
         window.addEventListener('resize', resize);
       } else {
         requestAnimationFrame(() => {
-          addHuntedText();
+          createHuntedText();
         });
       }
     };
 
     requestAnimationFrame(() => {
-      addHuntedText();
+      createHuntedText();
     });
 
     return () => window.removeEventListener('resize', resize);
@@ -84,7 +84,10 @@ const Headline = memo(() => {
 
   useEffect(() => {
     if (step === HomeStepType.fadeIn) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 2000, delay: 500, easing: Bezier.inOutCubic });
+      setStyle(
+        { opacity: 1, y: 0, scale: 1 },
+        { duration: 2000, delay: 500, easing: Bezier.inOutCubic },
+      );
     }
   }, [step]);
 

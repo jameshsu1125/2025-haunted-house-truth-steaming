@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pixi.js v8 煙霧 Shader</title>
+    <style>
+      html,
+      body {
+        overflow: hidden;
+        margin: 0;
+        height: 100%;
+        background: #000;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.x/dist/pixi.min.js"></script>
+    <script>
+      (async () => {
+        // 建立 Application
+        const app = new PIXI.Application();
+        await app.init({ resizeTo: window });
+        document.body.appendChild(app.canvas);
+
+        // 頂點著色器（用 Pixi 預設全螢幕 quad）
+        const vertexSrc = /* glsl */ `
+    precision mediump float;
+    attribute vec2 aVertexPosition;
+    attribute vec2 aTextureCoord;
+    uniform mat3 projectionMatrix;
+    varying vec2 vTextureCoord;
+    void main(void){
+      vTextureCoord = aTextureCoord;
+      gl_Position = vec4((projectionMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);
+    }
+  `;
+
+        // 片段著色器
+        const fragmentSrc = /* glsl */ `
+    precision mediump float;
+    uniform float uTime;
+    uniform vec2 uResolution;
+    uniform float uSpeed;
+    uniform float uShift;
+    uniform float uAlpha;
+
+    float hash(vec2 p) {
+      return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5);
+    }
+    float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      float a = hash(i), b = hash(i + vec2(1.0, 0.0));
+      float c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+    }
+    float fbm(vec2 p) {
+      float v = 0.0, a = 0.5;
+      mat2 rot = mat2(0.8, -0.6, 0.6, 0.8);
+      for(int i=0; i<5; i++){
+        v += a * noise(p);
+        p = rot * p * 2.0;
+        a *= 0.5;
+      }
+      return v;
+    }
+
+    void main(){
+      vec2 uv = gl_FragCoord.xy / uResolution;
+      uv.x *= uResolution.x / uResolution.y;
+      float t = uTime * (0.2 + uSpeed * 2.0);
+      float n = fbm(uv * 2.5 + vec2(0.0, t));
+      n += 0.5 * fbm(uv * 4.0 + vec2(t * 0.5, -t * 0.25));
+      n = clamp(n, 0.0, 1.0);
+      float g = 0.5 + 0.5 * cos((uv.y + n) * 3.14159 * uShift);
+      vec3 base = mix(vec3(0.05, 0.07, 0.10), vec3(0.55), g * 0.8);
+      vec3 smoke = mix(base, vec3(0.85), n * 0.6);
+      float alpha = smoothstep(0.0, 1.0, n) * (0.3 + uAlpha * 0.7);
+      gl_FragColor = vec4(smoke, alpha);
+    }
+  `;
+
+        // 建立 Filter（提供 vertex + fragment）
+        const smokeFilter = PIXI.Filter.from({
+          gl: { vertex: vertexSrc, fragment: fragmentSrc },
+          resources: {
+            uniforms: {
+              uTime: { value: 0.0, type: 'f32' },
+              uResolution: { value: [app.renderer.width, app.renderer.height], type: 'vec2<f32>' },
+              uSpeed: { value: 0.2, type: 'f32' },
+              uShift: { value: 1.0, type: 'f32' },
+              uAlpha: { value: 0.75, type: 'f32' },
+            },
+          },
+        });
+
+        // 全畫面 sprite 套濾鏡
+        const quad = new PIXI.Sprite(PIXI.Texture.WHITE);
+        quad.width = app.screen.width;
+        quad.height = app.screen.height;
+        quad.filters = [smokeFilter];
+        app.stage.addChild(quad);
+
+        // 動畫
+        app.ticker.add((delta) => {
+          smokeFilter.resources.uniforms.uniforms.uTime.value += delta / 60;
+        });
+
+        // 視窗調整
+        window.addEventListener('resize', () => {
+          const w = app.renderer.width,
+            h = app.renderer.height;
+          smokeFilter.resources.uniforms.uniforms.uResolution.value = [w, h];
+          quad.width = w;
+          quad.height = h;
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -3,6 +3,7 @@ import { certificateFor } from 'devcert';
 import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import glsl from 'vite-plugin-glsl';
 
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
@@ -43,6 +44,7 @@ export default defineConfig(async ({ mode }) => {
           },
         },
       }),
+      glsl(),
     ],
     resolve: {
       alias: {

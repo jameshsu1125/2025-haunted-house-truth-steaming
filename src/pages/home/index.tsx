@@ -7,6 +7,7 @@ import Header from './header';
 import './index.less';
 import Logo from './logo';
 import { ActionType } from '@/settings/type';
+import Effect from './effect';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -26,6 +27,7 @@ const Home = memo(() => {
       >
         <div className='Home'>
           <Background />
+          <Effect />
           <Logo />
           <Header />
         </div>
