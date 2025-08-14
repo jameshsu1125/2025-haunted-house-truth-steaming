@@ -11,7 +11,7 @@ import {
 
 export const LoadingProcessState: TLoadingProcessState = {
   enabled: false,
-  type: LoadingProcessType.Spokes,
+  type: LoadingProcessType.SpinningBubbles,
   body: '',
 };
 

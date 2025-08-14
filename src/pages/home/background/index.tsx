@@ -1,9 +1,14 @@
-import { memo, useEffect, useRef, useState } from 'react';
-import './index.less';
 import { IReactProps } from '@/settings/type';
 import { CoverSize } from 'lesca-number';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { HomeContext, HomeStepType } from '../config';
+import './index.less';
 
-const CoverNode = ({ children }: IReactProps) => {
+const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
+  const [state] = useContext(HomeContext);
+
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0, top: 0, left: 0 });
   useEffect(() => {
@@ -22,7 +27,13 @@ const CoverNode = ({ children }: IReactProps) => {
     return () => window.removeEventListener('resize', resize);
   }, []);
   return (
-    <div ref={ref} className='absolute top-0 left-0 h-full w-full'>
+    <div
+      ref={ref}
+      className={twMerge(
+        'absolute top-0 left-0 h-full w-full',
+        state.locationIndex === index ? 'visible' : 'invisible',
+      )}
+    >
       <div
         className='absolute'
         style={{
@@ -39,12 +50,21 @@ const CoverNode = ({ children }: IReactProps) => {
 };
 
 const Background = memo(() => {
-  useEffect(() => {}, []);
+  const [state] = useContext(HomeContext);
+  const [style, setStyle] = useTween({ opacity: 0 });
+  const { step } = state;
+
+  useEffect(() => {
+    if (step === HomeStepType.fadeIn) {
+      setStyle({ opacity: 1 }, { duration: 2000 });
+    }
+  }, [step]);
+
   return (
-    <div className='Background h-full w-full'>
+    <div className='Background h-full w-full' style={style}>
       {[...new Array(3).keys()].map((index) => {
         return (
-          <CoverNode key={`bg-${index}`}>
+          <CoverNode key={`bg-${index}`} index={index}>
             <div className={`bg-${index}`}></div>
           </CoverNode>
         );

@@ -1,0 +1,96 @@
+@import url('@/settings/global.css');
+
+.Header {
+  padding-top: 69%;
+  @apply absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center space-y-3;
+
+  .headline {
+    width: (862 / 1280) * 100%;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/headline-static.png';
+
+      @apply relative h-full bg-cover;
+
+      & > div {
+        @apply absolute top-0 right-0 bottom-0 left-0;
+
+        .haunted-text {
+          top: -50.5%;
+          left: 35.6%;
+          @apply absolute h-full w-1/2;
+        }
+      }
+    }
+  }
+
+  .body {
+    @apply flex w-full flex-col items-center space-y-3;
+
+    & > div {
+      & > div {
+        @apply w-full bg-cover;
+      }
+    }
+
+    & > div:nth-child(1) {
+      width: 577 / 1280 * 100%;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/body-line-0.png';
+      }
+    }
+
+    & > div:nth-child(2) {
+      width: 494 / 1280 * 100%;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/body-line-1.png';
+      }
+    }
+  }
+
+  .button {
+    width: 497 / 1280 * 100%;
+    @apply mt-5;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%) * 0.5;
+      background-image: url(@img);
+
+      @img: './img/button-background.png';
+
+      @apply relative w-full cursor-pointer bg-cover;
+
+      &:active {
+        & {
+          background-position-y: 100%;
+          & > div {
+            & > div {
+              transform: translateY(2px);
+            }
+          }
+        }
+      }
+
+      & > div {
+        @apply absolute top-0 right-0 bottom-0 left-0;
+
+        .start {
+          background-image: url('./img/button-text.png');
+          background-size: 73%;
+          @apply absolute h-full w-full bg-center bg-no-repeat;
+        }
+      }
+    }
+  }
+}
