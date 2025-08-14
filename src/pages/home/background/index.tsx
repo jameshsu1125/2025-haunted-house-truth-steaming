@@ -1,15 +1,19 @@
+import { HOME_BACKGROUND_LOOP_DURATION } from '@/settings/config';
 import { IReactProps } from '@/settings/type';
+import EnterFrame from 'lesca-enterframe';
 import { CoverSize } from 'lesca-number';
-import useTween from 'lesca-use-tween';
+import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomeStepType } from '../config';
 import './index.less';
 
 const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
-  const [state] = useContext(HomeContext);
+  const [{ locationIndex }] = useContext(HomeContext);
+  const locationStartIndex = useRef(locationIndex);
+  const [style, setStyle] = useTween({ opacity: 0 });
 
   const ref = useRef<HTMLDivElement>(null);
+
   const [size, setSize] = useState({ width: 0, height: 0, top: 0, left: 0 });
   useEffect(() => {
     const resize = () => {
@@ -26,14 +30,22 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
   }, []);
+
+  useEffect(() => {
+    if (locationStartIndex.current === locationIndex) {
+      if (index === locationIndex % 3) setStyle({ opacity: 1 }, 1);
+      return;
+    }
+
+    if (index === locationIndex % 3) {
+      setStyle({ opacity: 1 }, { duration: 2000, delay: 300, easing: Bezier.inQuart });
+    } else {
+      setStyle({ opacity: 0 }, { duration: 2000, easing: Bezier.outQuart });
+    }
+  }, [locationIndex]);
+
   return (
-    <div
-      ref={ref}
-      className={twMerge(
-        'absolute top-0 left-0 h-full w-full',
-        state.locationIndex === index ? 'visible' : 'invisible',
-      )}
-    >
+    <div ref={ref} className='absolute top-0 left-0 h-full w-full' style={style}>
       <div
         className='absolute'
         style={{
@@ -50,13 +62,26 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
 };
 
 const Background = memo(() => {
-  const [state] = useContext(HomeContext);
+  const [{ step, locationIndex }, setState] = useContext(HomeContext);
   const [style, setStyle] = useTween({ opacity: 0 });
-  const { step } = state;
+  const locationStartIndex = useRef(locationIndex);
+  const [index, setIndex] = useState(locationIndex);
+
+  useEffect(() => {
+    if (locationStartIndex.current !== index) {
+      setState((S) => ({ ...S, locationIndex: index }));
+    }
+  }, [index]);
 
   useEffect(() => {
     if (step === HomeStepType.fadeIn) {
       setStyle({ opacity: 1 }, { duration: 2000 });
+    }
+    if (step === HomeStepType.loop) {
+      EnterFrame.add(({ delta }) => {
+        setIndex(locationStartIndex.current + Math.floor(delta / HOME_BACKGROUND_LOOP_DURATION));
+      });
+      EnterFrame.play();
     }
   }, [step]);
 

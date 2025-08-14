@@ -7,8 +7,7 @@ import useTween, { Bezier } from 'lesca-use-tween';
 
 const Headline = memo(() => {
   const ref = useRef<HTMLDivElement>(null);
-  const [state] = useContext(HomeContext);
-  const { step } = state;
+  const [{ step }] = useContext(HomeContext);
 
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
