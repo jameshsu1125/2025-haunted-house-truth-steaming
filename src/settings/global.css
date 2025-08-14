@@ -5,9 +5,10 @@ body {
 
   text-size-adjust: none;
   overscroll-behavior: none;
-  @apply bg-backgroundColor text-textColor;
+
+  @apply text-textColor;
 }
 
 .App {
-  @apply absolute h-full w-full;
+  @apply absolute top-0 w-full;
 }

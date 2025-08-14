@@ -1,0 +1,20 @@
+@reference 'tailwindcss';
+
+.Background {
+  @apply relative h-full w-full overflow-hidden;
+
+  .bg-0 {
+    background-image: url('./img/bg-taipei.jpg');
+    @apply h-full w-full bg-cover bg-center;
+  }
+
+  .bg-1 {
+    background-image: url('./img/bg-zhongli.jpg');
+    @apply h-full w-full bg-cover bg-center;
+  }
+
+  .bg-2 {
+    background-image: url('./img/bg-chiayi.jpg');
+    @apply h-full w-full bg-cover bg-center;
+  }
+}

@@ -1,0 +1,16 @@
+@reference 'tailwindcss';
+
+.Logo {
+  width: 291 / 1280 * 100%;
+  @apply absolute top-10 left-10;
+
+  & > div {
+    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+    width: 100%;
+    background-image: url(@img);
+    background-size: cover;
+
+    @img: './img/logo.svg';
+    @apply w-full;
+  }
+}

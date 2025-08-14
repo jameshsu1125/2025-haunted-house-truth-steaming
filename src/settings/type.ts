@@ -3,6 +3,7 @@ import { Dispatch, ReactNode } from 'react';
 export enum ActionType {
   Page = 'page',
   LoadingProcess = 'loadingProcess',
+  location = 'location',
 }
 
 export enum LoadingProcessType {
@@ -24,6 +25,12 @@ export enum TransitionType {
   DidFadeOut = 4,
   Loop = 5,
   Stop = 6,
+}
+
+export enum TLocationType {
+  taipei = 'taipei',
+  zhongli = 'zhongli',
+  chiayi = 'chiayi',
 }
 
 export type TLoadingProcessState = {
