@@ -17,8 +17,11 @@ const Headline = memo(() => {
 
     const resize = () => {
       app.stage.children.forEach((child) => {
-        if (child instanceof Container) {
-          child.scale.set((0.55 / 259) * ref.current!.clientWidth);
+        if (child instanceof Container && ref.current) {
+          child.scale.set((0.55 / 259) * ref.current.clientWidth);
+          app.canvas.width = ref.current.clientWidth || 259;
+          app.canvas.height = (ref.current.clientHeight || 172) + 200;
+          app.renderer.resize(app.canvas.width, app.canvas.height);
         }
       });
     };
@@ -34,7 +37,7 @@ const Headline = memo(() => {
         });
         app.stage.eventMode = 'static';
         app.stage.width = ref.current.clientWidth || 259;
-        app.stage.height = ref.current.clientHeight || 372;
+        app.stage.height = (ref.current.clientHeight || 172) + 200;
         ref.current.appendChild(app.canvas);
 
         const container = new Container();
