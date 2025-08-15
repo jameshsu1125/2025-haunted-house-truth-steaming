@@ -19,6 +19,7 @@ const Effect = memo(() => {
         },
         noise: '3.0',
         shaderImage,
+        fps: 24,
       });
     }
   }, []);

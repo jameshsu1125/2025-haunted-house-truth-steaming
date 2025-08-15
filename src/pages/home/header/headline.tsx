@@ -1,9 +1,9 @@
-import { Application, Assets, Container, DisplacementFilter, Sprite, WRAP_MODES } from 'pixi.js';
+import useTween, { Bezier } from 'lesca-use-tween';
+import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
 import { memo, useContext, useEffect, useRef } from 'react';
 import { HomeContext, HomeStepType } from '../config';
 import displacement from './img/displacement_map_repeat.jpg';
 import Image from './img/headline-animate.png';
-import useTween, { Bezier } from 'lesca-use-tween';
 
 const Headline = memo(() => {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +49,7 @@ const Headline = memo(() => {
         text.y = 100;
 
         const displacementSprite = Sprite.from(displacement);
-        displacementSprite.texture.baseTexture.wrapMode = WRAP_MODES.REPEAT;
+        displacementSprite.texture.source.addressMode = 'repeat';
 
         const displacementFilter = new DisplacementFilter({
           sprite: displacementSprite,
