@@ -20,7 +20,7 @@
     "lesca-react-onload": "^2.0.10",
     "lesca-use-tween": "^4.0.0",
     "pixi.js": "^8.12.0",
-    "pixijs-shader-smoke": "^1.0.4",
+    "pixijs-shader-smoke": "^1.0.7",
     "react": "^19.1.1",
     "react-div-100vh": "^0.7.0",
     "react-dom": "^19.1.1",

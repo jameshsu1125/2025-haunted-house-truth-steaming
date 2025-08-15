@@ -37,8 +37,14 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     const onVideoReady = () => {
       setState((S) => ({ ...S, videoLoadedIndex: S.videoLoadedIndex + 1 }));
       videoRef.current?.removeEventListener('loadeddata', onVideoReady);
+      videoRef.current?.removeEventListener('playing', onVideoReady);
     };
-    videoRef.current?.addEventListener('loadeddata', onVideoReady);
+
+    if (videoRef.current?.readyState === 0) {
+      videoRef.current?.addEventListener('loadeddata', onVideoReady);
+    } else {
+      videoRef.current?.addEventListener('playing', onVideoReady);
+    }
 
     const onVideoEnd = () => {
       if (videoRef.current) {
