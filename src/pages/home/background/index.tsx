@@ -5,14 +5,20 @@ import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { HomeContext, HomeStepType } from '../config';
+import ReactPlayer from 'react-player';
+import ZhongliVideo from './img/bg-zhongli.mp4';
+import TaipeiVideo from './img/bg-taipei.mp4';
+import ChiayiVideo from './img/bg-chiayi.mp4';
+
 import './index.less';
 
 const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
-  const [{ locationIndex }] = useContext(HomeContext);
+  const [{ locationIndex }, setState] = useContext(HomeContext);
   const locationStartIndex = useRef(locationIndex);
   const [style, setStyle] = useTween({ opacity: 0 });
 
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const [size, setSize] = useState({ width: 0, height: 0, top: 0, left: 0 });
   useEffect(() => {
@@ -28,6 +34,14 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     };
     resize();
     window.addEventListener('resize', resize);
+
+    const onVideoReady = () => {
+      setState((S) => ({ ...S, videoLoadedIndex: S.videoLoadedIndex + 1 }));
+      videoRef.current?.removeEventListener('playing', onVideoReady);
+    };
+
+    videoRef.current?.addEventListener('playing', onVideoReady);
+
     return () => window.removeEventListener('resize', resize);
   }, []);
 
@@ -56,6 +70,21 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
         }}
       >
         {children}
+        <ReactPlayer
+          ref={videoRef}
+          src={[ZhongliVideo, TaipeiVideo, ChiayiVideo][index] || ZhongliVideo}
+          width='100%'
+          height='100%'
+          autoPlay
+          loop
+          muted
+          playbackRate={1}
+          // onReady={() => {
+          //   console.log('a');
+
+          //   setState((S) => ({ ...S, videoLoadedIndex: S.videoLoadedIndex + 1 }));
+          // }}
+        />
       </div>
     </div>
   );
@@ -90,7 +119,7 @@ const Background = memo(() => {
       {[...new Array(3).keys()].map((index) => {
         return (
           <CoverNode key={`bg-${index}`} index={index}>
-            <div className={`bg-${index}`}></div>
+            <div className={`bg-${index}`} />
           </CoverNode>
         );
       })}

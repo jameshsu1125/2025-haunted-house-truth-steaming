@@ -17,12 +17,24 @@ const Home = memo(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
   }, []);
 
+  useEffect(() => {
+    const { step, smokeImageLoaded, steamImageLoaded, videoLoadedIndex } = state;
+    if (
+      step === HomeStepType.loaded &&
+      smokeImageLoaded &&
+      steamImageLoaded &&
+      videoLoadedIndex === 3
+    ) {
+      setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+      setState((S) => ({ ...S, step: HomeStepType.fadeIn }));
+    }
+  }, [state]);
+
   return (
     <HomeContext.Provider value={[state, setState]}>
       <OnloadProvider
         onload={() => {
-          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-          setState((S) => ({ ...S, step: HomeStepType.fadeIn }));
+          setState((S) => ({ ...S, step: HomeStepType.loaded }));
         }}
       >
         <div className='Home'>

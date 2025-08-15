@@ -7,7 +7,7 @@ import useTween, { Bezier } from 'lesca-use-tween';
 
 const Headline = memo(() => {
   const ref = useRef<HTMLDivElement>(null);
-  const [{ step }] = useContext(HomeContext);
+  const [{ step }, setState] = useContext(HomeContext);
 
   const [style, setStyle] = useTween({ opacity: 0, y: 0, scale: 1.2 });
 
@@ -66,6 +66,9 @@ const Headline = memo(() => {
             displacementSprite.x = 0;
           }
         });
+
+        setState((S) => ({ ...S, steamImageLoaded: true }));
+
         resize();
         window.addEventListener('resize', resize);
       } else {

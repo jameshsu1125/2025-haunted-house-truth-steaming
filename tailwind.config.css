@@ -18,5 +18,6 @@
     }
   }
 
-  --animate-fade-in: fadeIn ease-in-out forwards;
+  --animate-fade-in-1s: fadeIn 1s ease-in-out forwards;
+  --animate-fade-in-2s: fadeIn 2s ease-in-out forwards;
 }
