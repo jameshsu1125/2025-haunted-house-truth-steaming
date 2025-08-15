@@ -54,6 +54,13 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     };
     videoRef.current?.addEventListener('ended', onVideoEnd);
 
+    videoRef.current?.addEventListener('pause', () => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play();
+      }
+    });
+
     return () => window.removeEventListener('resize', resize);
   }, []);
 
@@ -64,7 +71,20 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     }
 
     if (index === locationIndex % 3) {
-      setStyle({ opacity: 1 }, { duration: 2000, delay: 300, easing: Bezier.inQuart });
+      setStyle(
+        { opacity: 1 },
+        {
+          duration: 2000,
+          delay: 300,
+          easing: Bezier.inQuart,
+          onStart: () => {
+            if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.play();
+            }
+          },
+        },
+      );
     } else {
       setStyle({ opacity: 0 }, { duration: 2000, easing: Bezier.outQuart });
     }
