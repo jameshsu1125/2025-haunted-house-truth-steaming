@@ -77,13 +77,9 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
           height='100%'
           autoPlay
           loop
-          muted
           playbackRate={1}
-          // onReady={() => {
-          //   console.log('a');
-
-          //   setState((S) => ({ ...S, videoLoadedIndex: S.videoLoadedIndex + 1 }));
-          // }}
+          playsInline
+          muted
         />
       </div>
     </div>
