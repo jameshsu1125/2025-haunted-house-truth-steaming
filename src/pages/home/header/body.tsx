@@ -12,7 +12,7 @@ const Line = memo(({ index }: { index: number }) => {
     if (step === HomeStepType.fadeIn) {
       setStyle(
         { opacity: 1, y: 0 },
-        { duration: 2000, delay: 500 + 500 + index * 400, easing: Bezier.inOutCubic },
+        { duration: 2000, delay: 500 + 500 + index * 200, easing: Bezier.inOutCubic },
       );
     }
   }, [step]);
