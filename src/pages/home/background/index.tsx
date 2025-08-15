@@ -4,12 +4,11 @@ import EnterFrame from 'lesca-enterframe';
 import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { HomeContext, HomeStepType } from '../config';
 import ReactPlayer from 'react-player';
-import ZhongliVideo from './img/bg-zhongli.mp4';
-import TaipeiVideo from './img/bg-taipei.mp4';
+import { HomeContext, HomeStepType } from '../config';
 import ChiayiVideo from './img/bg-chiayi.mp4';
-
+import TaipeiVideo from './img/bg-taipei.mp4';
+import ZhongliVideo from './img/bg-zhongli.mp4';
 import './index.less';
 
 const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
@@ -37,10 +36,17 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
 
     const onVideoReady = () => {
       setState((S) => ({ ...S, videoLoadedIndex: S.videoLoadedIndex + 1 }));
-      videoRef.current?.removeEventListener('playing', onVideoReady);
+      videoRef.current?.removeEventListener('loadeddata', onVideoReady);
     };
+    videoRef.current?.addEventListener('loadeddata', onVideoReady);
 
-    videoRef.current?.addEventListener('playing', onVideoReady);
+    const onVideoEnd = () => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play();
+      }
+    };
+    videoRef.current?.addEventListener('ended', onVideoEnd);
 
     return () => window.removeEventListener('resize', resize);
   }, []);

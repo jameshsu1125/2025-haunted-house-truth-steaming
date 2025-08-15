@@ -3,6 +3,7 @@ import { memo, useContext, useEffect, useRef } from 'react';
 import './index.less';
 import { HomeContext, HomeStepType } from '../config';
 import { twMerge } from 'tailwind-merge';
+import shaderImage from './img/smoke-effect.jpg';
 
 const Effect = memo(() => {
   const [{ step }, setState] = useContext(HomeContext);
@@ -16,6 +17,7 @@ const Effect = memo(() => {
         onload: () => {
           setState((S) => ({ ...S, smokeImageLoaded: true }));
         },
+        shaderImage,
       });
     }
   }, []);

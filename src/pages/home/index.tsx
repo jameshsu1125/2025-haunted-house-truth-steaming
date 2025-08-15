@@ -19,6 +19,7 @@ const Home = memo(() => {
 
   useEffect(() => {
     const { step, smokeImageLoaded, steamImageLoaded, videoLoadedIndex } = state;
+    // alert(JSON.stringify(state));
     if (
       step === HomeStepType.loaded &&
       smokeImageLoaded &&
