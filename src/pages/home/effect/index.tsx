@@ -17,6 +17,7 @@ const Effect = memo(() => {
         onload: () => {
           setState((S) => ({ ...S, smokeImageLoaded: true }));
         },
+        noise: '3.0',
         shaderImage,
       });
     }

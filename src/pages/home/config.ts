@@ -19,7 +19,7 @@ export const HomeState: THomeState = {
   step: HomeStepType.unset,
   locationIndex: Math.floor(Math.random() * 3),
   steamImageLoaded: false,
-  smokeImageLoaded: false,
+  smokeImageLoaded: true,
   videoLoadedIndex: 0,
 };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);
