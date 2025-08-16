@@ -5,6 +5,7 @@ export enum HomeStepType {
   loaded = 1,
   fadeIn = 2,
   loop = 3,
+  fadeOut = 4,
 }
 
 export enum HomePageType {
@@ -19,7 +20,6 @@ export type THomeState = {
   steamImageLoaded: boolean;
   smokeImageLoaded: boolean;
   locationIndex: number;
-  chooseIndex: number;
 };
 
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
@@ -30,7 +30,6 @@ export const HomeState: THomeState = {
   steamImageLoaded: false,
   smokeImageLoaded: true,
   videoLoadedIndex: 0,
-  page: HomePageType.choose,
-  chooseIndex: 0,
+  page: HomePageType.landing,
 };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);

@@ -14,6 +14,8 @@ const Line = memo(({ index }: { index: number }) => {
         { opacity: 1, y: 0 },
         { duration: 2000, delay: 500 + 500 + index * 200, easing: Bezier.inOutCubic },
       );
+    } else if (step === HomeStepType.fadeOut) {
+      setStyle({ opacity: 0 }, 500);
     }
   }, [step]);
 

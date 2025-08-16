@@ -91,6 +91,8 @@ const Headline = memo(() => {
         { opacity: 1, y: 0, scale: 1 },
         { duration: 2000, delay: 500, easing: Bezier.inOutCubic },
       );
+    } else if (step === HomeStepType.fadeOut) {
+      setStyle({ opacity: 0, scale: 1.2 }, { duration: 500, easing: Bezier.outQuart });
     }
   }, [step]);
 

@@ -5,7 +5,7 @@ import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
-import { HomeContext, HomeStepType } from '../../config';
+import { HomeContext, HomePageType, HomeStepType } from '../../config';
 import ChiayiVideo from './img/bg-chiayi.mp4';
 import TaipeiVideo from './img/bg-taipei.mp4';
 import ZhongliVideo from './img/bg-zhongli.mp4';
@@ -120,7 +120,7 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
 
 const Background = memo(() => {
   const [{ step, locationIndex }, setState] = useContext(HomeContext);
-  const [style, setStyle] = useTween({ opacity: 0 });
+  const [style, setStyle] = useTween({ opacity: 0, scale: 1 });
   const locationStartIndex = useRef(locationIndex);
   const [index, setIndex] = useState(locationIndex);
 
@@ -133,6 +133,18 @@ const Background = memo(() => {
   useEffect(() => {
     if (step === HomeStepType.fadeIn) {
       setStyle({ opacity: 1 }, { duration: 2000 });
+    } else if (step === HomeStepType.fadeOut) {
+      EnterFrame.stop();
+      setStyle(
+        { opacity: 0, scale: 1.2 },
+        {
+          duration: 1000,
+          easing: Bezier.inOutQuart,
+          onEnd: () => {
+            setState((S) => ({ ...S, page: HomePageType.choose }));
+          },
+        },
+      );
     }
     if (step === HomeStepType.loop) {
       EnterFrame.add(({ delta }) => {

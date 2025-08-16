@@ -19,12 +19,19 @@ const Button = memo(() => {
           },
         },
       );
+    } else if (step === HomeStepType.fadeOut) {
+      setStyle({ opacity: 0, scale: 1 }, 1);
     }
   }, [step]);
 
   return (
     <div className='button'>
-      <div style={style}>
+      <div
+        style={style}
+        onClick={() => {
+          setState((S) => ({ ...S, step: HomeStepType.fadeOut }));
+        }}
+      >
         <div>
           <div className='start' />
         </div>
