@@ -1,0 +1,27 @@
+@import url('@/settings/global.css');
+
+.Choose .Arrow {
+  @apply pointer-events-none absolute top-0 flex h-full w-full items-center justify-center;
+
+  .cistern {
+    @apply flex w-full flex-row justify-between p-6;
+
+    & > div {
+      width: 75 / 1280 * 100%;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/arrow.png';
+        @apply pointer-events-auto w-full cursor-pointer bg-contain;
+      }
+    }
+
+    & > div:nth-child(1) {
+      & > div {
+        transform: scale(-1, 1);
+      }
+    }
+  }
+}

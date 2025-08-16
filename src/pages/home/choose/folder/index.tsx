@@ -1,0 +1,64 @@
+import CoverNode from '@/components/coverNode';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { HomeContext, HomePageType, HomeStepType } from '../../config';
+import './index.less';
+
+const Seal = memo(({ active }: { active: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
+
+  useEffect(() => {
+    if (active) {
+      setStyle({ opacity: 1, scale: 1 }, { delay: 1000, duration: 500 });
+    } else setStyle({ opacity: 0, scale: 2 });
+  }, [active]);
+
+  return <div style={style} />;
+});
+
+const Slider = memo(({ index }: { index: number }) => {
+  const [{ chooseIndex }] = useContext(HomeContext);
+  const [style, setStyle] = useTween({ opacity: 0, y: -80, x: -20 });
+
+  useEffect(() => {
+    if (index === chooseIndex) {
+      setStyle({ opacity: 1, y: 0, x: 0 }, { delay: 100, duration: 600 });
+    }
+  }, [chooseIndex]);
+
+  return (
+    <div key={`file-${index}`} className={twMerge('file', `file-${index}`)} style={style}>
+      <div>
+        <div>
+          <Seal active={index === chooseIndex} />
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const Folder = memo(() => {
+  const [{ step, page }] = useContext(HomeContext);
+  const [style, setStyle] = useTween({ opacity: 0, scale: 1.2 });
+
+  useEffect(() => {
+    if (step >= HomeStepType.fadeIn && page === HomePageType.choose) {
+      setStyle({ opacity: 1, scale: 1 });
+    }
+  }, [page, step]);
+
+  return (
+    <div className='Folder' style={style}>
+      <CoverNode>
+        <div className='bg-cover'>
+          {[...new Array(3).keys()].map((index) => (
+            <Slider index={index} key={`file-${index}`} />
+          ))}
+        </div>
+      </CoverNode>
+    </div>
+  );
+});
+
+export default Folder;

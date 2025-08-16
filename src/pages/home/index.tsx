@@ -1,13 +1,11 @@
 import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
-import Background from './background';
 import { HomeContext, HomeState, HomeStepType, THomeState } from './config';
-import Header from './header';
 import './index.less';
-import Logo from './logo';
-import { ActionType } from '@/settings/type';
-import Effect from './effect';
+import Landing from './landing';
+import Choose from './choose';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -19,7 +17,6 @@ const Home = memo(() => {
 
   useEffect(() => {
     const { step, smokeImageLoaded, steamImageLoaded, videoLoadedIndex } = state;
-    // alert(JSON.stringify(state));
     if (
       step === HomeStepType.loaded &&
       smokeImageLoaded &&
@@ -39,10 +36,8 @@ const Home = memo(() => {
         }}
       >
         <div className='Home'>
-          <Background />
-          <Effect />
-          <Logo />
-          <Header />
+          <Landing />
+          <Choose />
         </div>
       </OnloadProvider>
     </HomeContext.Provider>

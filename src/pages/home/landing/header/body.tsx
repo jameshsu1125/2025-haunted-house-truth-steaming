@@ -1,6 +1,6 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
-import { HomeContext, HomeStepType } from '../config';
+import { HomeContext, HomeStepType } from '../../config';
 import './index.less';
 
 const Line = memo(({ index }: { index: number }) => {

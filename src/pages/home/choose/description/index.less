@@ -1,0 +1,38 @@
+@import url('@/settings/global.css');
+
+.Choose > .Description {
+  @apply absolute top-0 flex h-3/12 w-full flex-col items-center justify-center;
+
+  .text {
+    @apply flex w-full flex-col items-center justify-center space-y-3;
+    & > div {
+      & > div {
+        @apply w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+  }
+
+  .text-0 {
+    & > div:nth-child(1) {
+      width: 671 / 1280 * 100%;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/description-0-0.png';
+      }
+    }
+
+    & > div:nth-child(2) {
+      width: 473 / 1280 * 100%;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/description-0-1.png';
+      }
+    }
+  }
+}

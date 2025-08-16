@@ -1,0 +1,65 @@
+@reference 'tailwindcss';
+
+.Folder {
+  @apply relative h-full w-full overflow-hidden;
+
+  video {
+    @apply absolute top-0 left-0 h-full w-full;
+  }
+
+  .bg-cover {
+    background-image: url('./img/background.jpg');
+    @apply h-full w-full bg-cover bg-center;
+
+    .file {
+      top: 42.7%;
+      left: 19.4%;
+      width: 737 / 1280 * 100%;
+      @apply absolute;
+
+      & > div {
+        @apply w-full bg-cover;
+
+        & > div {
+          @apply absolute top-0 right-0 bottom-0 left-0;
+
+          & > div {
+            top: -3.6%;
+            left: -2%;
+            background-image: url('./img/seal.png');
+            background-size: 49%;
+            transform-origin: 20% 10%;
+            @apply absolute h-full w-full bg-no-repeat;
+          }
+        }
+      }
+    }
+
+    .file-0 {
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/file-0.png';
+      }
+    }
+
+    .file-1 {
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/file-1.png';
+      }
+    }
+
+    .file-2 {
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @img: './img/file-2.png';
+      }
+    }
+  }
+}

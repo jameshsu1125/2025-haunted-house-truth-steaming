@@ -5,7 +5,7 @@ import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
-import { HomeContext, HomeStepType } from '../config';
+import { HomeContext, HomeStepType } from '../../config';
 import ChiayiVideo from './img/bg-chiayi.mp4';
 import TaipeiVideo from './img/bg-taipei.mp4';
 import ZhongliVideo from './img/bg-zhongli.mp4';

@@ -1,7 +1,7 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
 import { memo, useContext, useEffect, useRef } from 'react';
-import { HomeContext, HomeStepType } from '../config';
+import { HomeContext, HomeStepType } from '../../config';
 import displacement from './img/displacement_map_repeat.jpg';
 import Image from './img/headline-animate.png';
 

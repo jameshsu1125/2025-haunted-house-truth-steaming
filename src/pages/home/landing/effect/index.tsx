@@ -1,7 +1,7 @@
 import SmokeEffect from 'pixijs-shader-smoke';
 import { memo, useContext, useEffect, useRef } from 'react';
 import './index.less';
-import { HomeContext, HomeStepType } from '../config';
+import { HomeContext, HomeStepType } from '../../config';
 import { twMerge } from 'tailwind-merge';
 import shaderImage from './img/smoke-effect.jpg';
 
