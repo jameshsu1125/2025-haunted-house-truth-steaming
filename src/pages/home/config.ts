@@ -30,6 +30,6 @@ export const HomeState: THomeState = {
   steamImageLoaded: false,
   smokeImageLoaded: true,
   videoLoadedIndex: 0,
-  page: HomePageType.landing,
+  page: HomePageType.choose,
 };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);

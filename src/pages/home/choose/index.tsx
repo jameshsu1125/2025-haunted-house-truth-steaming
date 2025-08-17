@@ -6,6 +6,7 @@ import Button from './button';
 import { ChooseContext, ChooseState } from './config';
 import Description from './description';
 import Folder from './folder';
+import Touch from './touch';
 
 const Choose = memo(() => {
   const state = useState(ChooseState);
@@ -22,6 +23,7 @@ const Choose = memo(() => {
       >
         <Folder />
         <Description />
+        <Touch />
         <Arrow />
         <Button />
       </div>

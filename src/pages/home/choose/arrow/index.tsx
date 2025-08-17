@@ -11,8 +11,6 @@ const Arrow = memo(() => {
 
   useEffect(() => {
     Click.add(`#${leftArrowId}`, () => {
-      console.log(step);
-
       if (step === ChooseStepType.unset) {
         setState((S) => ({
           ...S,
@@ -23,8 +21,6 @@ const Arrow = memo(() => {
       }
     });
     Click.add(`#${rightArrowId}`, () => {
-      console.log(step);
-
       if (step === ChooseStepType.unset) {
         setState((S) => ({
           ...S,
