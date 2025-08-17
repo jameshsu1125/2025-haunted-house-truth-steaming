@@ -11,6 +11,8 @@ const Arrow = memo(() => {
 
   useEffect(() => {
     Click.add(`#${leftArrowId}`, () => {
+      console.log(step);
+
       if (step === ChooseStepType.unset) {
         setState((S) => ({
           ...S,
@@ -21,6 +23,8 @@ const Arrow = memo(() => {
       }
     });
     Click.add(`#${rightArrowId}`, () => {
+      console.log(step);
+
       if (step === ChooseStepType.unset) {
         setState((S) => ({
           ...S,
@@ -35,10 +39,10 @@ const Arrow = memo(() => {
   return (
     <div className='Arrow'>
       <div className='cistern'>
-        <div id={leftArrowId}>
+        <div id={leftArrowId} className='[&_*]:pointer-events-none'>
           <div />
         </div>
-        <div id={rightArrowId}>
+        <div id={rightArrowId} className='[&_*]:pointer-events-none'>
           <div />
         </div>
       </div>

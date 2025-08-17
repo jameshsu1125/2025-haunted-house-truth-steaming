@@ -37,7 +37,7 @@ const Button = memo(() => {
 
   return (
     <div className='button'>
-      <div id={id} style={style}>
+      <div id={id} style={style} className='[&_*]:pointer-events-none'>
         <div>
           <div className='start' />
         </div>

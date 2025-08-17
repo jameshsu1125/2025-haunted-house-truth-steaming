@@ -8,13 +8,14 @@
 
     & > div {
       width: 75 / 1280 * 100%;
+      @apply pointer-events-auto cursor-pointer;
 
       & > div {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
         background-image: url(@img);
 
         @img: './img/arrow.png';
-        @apply pointer-events-auto w-full cursor-pointer bg-contain;
+        @apply w-full bg-contain;
       }
     }
 
