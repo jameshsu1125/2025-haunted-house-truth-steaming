@@ -6,6 +6,10 @@
     width: 494 / 1280 * 100%;
     @apply relative cursor-pointer;
 
+    & > * {
+      @apply pointer-events-none;
+    }
+
     & > div {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%) / 2;
       background-image: url(@img);
