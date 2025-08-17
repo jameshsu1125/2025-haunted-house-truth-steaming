@@ -1,38 +1,44 @@
-import { memo, useContext } from 'react';
+import { memo, useContext, useEffect, useId } from 'react';
 import { ChooseContext, ChooseStepType } from '../config';
 import './index.less';
+import Click from 'lesca-click';
 
 const Arrow = memo(() => {
+  const leftArrowId = useId();
+  const rightArrowId = useId();
+
   const [{ step }, setState] = useContext(ChooseContext);
+
+  useEffect(() => {
+    Click.add(`#${leftArrowId}`, () => {
+      if (step === ChooseStepType.unset) {
+        setState((S) => ({
+          ...S,
+          step: ChooseStepType.fadeOut,
+          lastIndex: S.index,
+          index: (S.index + 2) % 3,
+        }));
+      }
+    });
+    Click.add(`#${rightArrowId}`, () => {
+      if (step === ChooseStepType.unset) {
+        setState((S) => ({
+          ...S,
+          step: ChooseStepType.fadeOut,
+          lastIndex: S.index,
+          index: (S.index + 1) % 3,
+        }));
+      }
+    });
+  }, [step]);
+
   return (
     <div className='Arrow'>
       <div className='cistern'>
-        <div
-          onClick={() => {
-            if (step === ChooseStepType.unset) {
-              setState((S) => ({
-                ...S,
-                step: ChooseStepType.fadeOut,
-                lastIndex: S.index,
-                index: (S.index + 2) % 3,
-              }));
-            }
-          }}
-        >
+        <div id={leftArrowId}>
           <div />
         </div>
-        <div
-          onClick={() => {
-            if (step === ChooseStepType.unset) {
-              setState((S) => ({
-                ...S,
-                step: ChooseStepType.fadeOut,
-                lastIndex: S.index,
-                index: (S.index + 1) % 3,
-              }));
-            }
-          }}
-        >
+        <div id={rightArrowId}>
           <div />
         </div>
       </div>

@@ -138,7 +138,7 @@ const Background = memo(() => {
       setStyle(
         { opacity: 0, scale: 1.2 },
         {
-          duration: 1000,
+          duration: 1200,
           easing: Bezier.inOutQuart,
           onEnd: () => {
             setState((S) => ({ ...S, page: HomePageType.choose }));
