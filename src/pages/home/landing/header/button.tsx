@@ -2,6 +2,7 @@ import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId } from 'react';
 import { HomeContext, HomeStepType } from '../../config';
 import Click from 'lesca-click';
+import { twMerge } from 'tailwind-merge';
 
 const Button = memo(() => {
   const id = useId();
@@ -29,14 +30,15 @@ const Button = memo(() => {
 
   useEffect(() => {
     Click.add(`#${id}`, () => {
-      setState((S) => ({ ...S, step: HomeStepType.fadeOut }));
-
-      Click.remove(`#${id}`);
+      if (step === HomeStepType.loop) {
+        setState((S) => ({ ...S, step: HomeStepType.fadeOut }));
+        Click.remove(`#${id}`);
+      }
     });
-  }, []);
+  }, [step]);
 
   return (
-    <div className='button'>
+    <div className={twMerge('button', step === HomeStepType.loop && 'cursor-pointer')}>
       <div id={id} style={style} className='[&_*]:pointer-events-none'>
         <div>
           <div className='start' />

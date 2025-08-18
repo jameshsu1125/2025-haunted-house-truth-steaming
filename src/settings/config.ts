@@ -1,5 +1,8 @@
 export const PAGE = {
   home: 'home',
+  taipei: 'taipei',
+  zhongli: 'zhongli',
+  chiayi: 'chiayi',
 };
 
 export const REST_PATH = {

@@ -12,7 +12,7 @@ import ZhongliVideo from './img/bg-zhongli.mp4';
 import './index.less';
 
 const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
-  const [{ locationIndex }, setState] = useContext(HomeContext);
+  const [{ locationIndex, page }, setState] = useContext(HomeContext);
   const locationStartIndex = useRef(locationIndex);
   const [style, setStyle] = useTween({ opacity: 0 });
 
@@ -90,6 +90,14 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     }
   }, [locationIndex]);
 
+  useEffect(() => {
+    if (page === HomePageType.choose) {
+      videoRef.current?.pause();
+    } else if (page === HomePageType.landing) {
+      videoRef.current?.play();
+    }
+  }, [page]);
+
   return (
     <div ref={ref} className='absolute top-0 left-0 h-full w-full' style={style}>
       <div
@@ -104,7 +112,7 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
         {children}
         <ReactPlayer
           ref={videoRef}
-          src={[ZhongliVideo, TaipeiVideo, ChiayiVideo][index] || ZhongliVideo}
+          src={[TaipeiVideo, ZhongliVideo, ChiayiVideo][index] || TaipeiVideo}
           width='100%'
           height='100%'
           autoPlay

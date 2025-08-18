@@ -45,7 +45,7 @@ export interface IState {
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState;
+  state: IState | TLoadingProcessState | string;
   type: ActionType;
 }
 
