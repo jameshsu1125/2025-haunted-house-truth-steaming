@@ -1,5 +1,12 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
+export enum TaipeiPageType {
+  landing,
+  intro,
+  game,
+  result,
+}
+
 export enum TaipeiStepType {
   unset,
   loaded,

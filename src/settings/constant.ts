@@ -16,7 +16,7 @@ export const LoadingProcessState: TLoadingProcessState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.taipei,
+  [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
 };
 

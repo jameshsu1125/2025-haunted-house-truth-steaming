@@ -2,7 +2,7 @@ import { IReactProps } from '@/settings/type';
 import { CoverSize } from 'lesca-number';
 import { memo, useEffect, useRef, useState } from 'react';
 
-const CoverNode = ({ children }: IReactProps) => {
+const CoverNode = ({ children, align }: IReactProps & { align?: 'center' | 'top' }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0, top: 0, left: 0 });
 
@@ -12,7 +12,7 @@ const CoverNode = ({ children }: IReactProps) => {
         setSize(
           CoverSize(
             { width: 1280, height: 1920 },
-            { width: ref.current.clientWidth, height: ref.current.clientHeight },
+            { width: ref.current!.clientWidth, height: ref.current!.clientHeight },
           ),
         );
       }
@@ -29,7 +29,7 @@ const CoverNode = ({ children }: IReactProps) => {
         style={{
           width: `${size.width}px`,
           height: `${size.height}px`,
-          top: `${size.top}px`,
+          top: `${align === 'top' ? '0px' : size.top}px`,
           left: `${size.left}px`,
         }}
       >

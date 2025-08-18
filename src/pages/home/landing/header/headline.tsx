@@ -82,7 +82,10 @@ const Headline = memo(() => {
       createHuntedText();
     });
 
-    return () => window.removeEventListener('resize', resize);
+    return () => {
+      window.removeEventListener('resize', resize);
+      app.destroy();
+    };
   }, []);
 
   useEffect(() => {

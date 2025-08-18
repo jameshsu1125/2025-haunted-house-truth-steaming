@@ -61,7 +61,9 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
       }
     });
 
-    return () => window.removeEventListener('resize', resize);
+    return () => {
+      window.removeEventListener('resize', resize);
+    };
   }, []);
 
   useEffect(() => {

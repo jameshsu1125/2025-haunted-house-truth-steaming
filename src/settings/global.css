@@ -10,5 +10,5 @@ body {
 }
 
 .App {
-  @apply absolute top-0 w-full;
+  @apply from-backgroundGrey to-backgroundColor absolute top-0 w-full overflow-y-auto bg-gradient-to-b;
 }

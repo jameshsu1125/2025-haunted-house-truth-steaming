@@ -31,7 +31,10 @@ const Effect = memo(() => {
     };
 
     window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
+    return () => {
+      window.removeEventListener('resize', resize);
+      smokeEffect?.destroy();
+    };
   }, []);
 
   return (

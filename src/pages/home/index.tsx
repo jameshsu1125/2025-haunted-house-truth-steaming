@@ -6,6 +6,7 @@ import { HomeContext, HomeState, HomeStepType, THomeState } from './config';
 import './index.less';
 import Landing from './landing';
 import Choose from './choose';
+import Cistern from '@/components/cistern';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -36,8 +37,10 @@ const Home = memo(() => {
         }}
       >
         <div className='Home'>
-          <Landing />
-          <Choose />
+          <Cistern>
+            <Landing />
+            <Choose />
+          </Cistern>
         </div>
       </OnloadProvider>
     </HomeContext.Provider>
