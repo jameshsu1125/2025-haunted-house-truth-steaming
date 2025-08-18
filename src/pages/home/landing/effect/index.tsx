@@ -10,8 +10,9 @@ const Effect = memo(() => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let smokeEffect: SmokeEffect | null = null;
     if (ref.current) {
-      new SmokeEffect({
+      smokeEffect = new SmokeEffect({
         container: ref.current,
         height: '4.0',
         onload: () => {
@@ -22,6 +23,15 @@ const Effect = memo(() => {
         fps: 24,
       });
     }
+
+    const resize = () => {
+      if (ref.current) {
+        smokeEffect?.resizeTo(ref.current?.clientWidth, ref.current?.clientHeight);
+      }
+    };
+
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
   }, []);
 
   return (
