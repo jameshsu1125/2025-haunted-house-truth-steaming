@@ -1,12 +1,13 @@
+import Cistern from '@/components/cistern';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
 import { TaipeiContext, TaipeiState, TaipeiStepType } from './config';
+import Game from './game';
 import './index.less';
-import Landing from './landing';
-import { Context } from '@/settings/constant';
-import { ActionType } from '@/settings/type';
-import Cistern from '@/components/cistern';
 import Intro from './intro';
+import Landing from './landing';
 
 const Taipei = memo(() => {
   const [, setContext] = useContext(Context);
@@ -28,6 +29,7 @@ const Taipei = memo(() => {
           <Cistern>
             <Landing />
             <Intro />
+            <Game />
           </Cistern>
         </div>
       </OnloadProvider>

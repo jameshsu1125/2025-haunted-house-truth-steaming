@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 @theme {
   --color-backgroundColor: #182226;
   --color-backgroundGrey: #1d2719;
@@ -32,4 +34,6 @@
 
   --animate-fade-out-1s: fadeOut 1s ease-in-out forwards;
   --animate-fade-out-2s: fadeOut 2s ease-in-out forwards;
+
+  --font-roboto: 'Roboto Condensed', sans-serif;
 }

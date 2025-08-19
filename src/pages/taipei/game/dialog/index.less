@@ -1,0 +1,139 @@
+@import url('@/settings/global.css');
+
+.Taipei .Game .Dialog {
+  @apply absolute flex h-full w-full items-center justify-center;
+
+  .dialog {
+    width: 931 / 1280 * 100%;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/bg.png';
+      @apply relative w-full bg-cover;
+
+      & > div {
+        @apply absolute top-0 right-0 bottom-0 left-0;
+
+        .ctx {
+          @apply flex h-full w-full flex-col items-center justify-center space-y-4;
+
+          & > div {
+            @apply relative;
+            &::before {
+              content: '';
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
+          .text-0 {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/text-0.png';
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .text-1 {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/text-1.png';
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .text-2 {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/text-2.png';
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .text-3 {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/text-3.png';
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .text-4 {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/text-4.png';
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .image {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/image.png';
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .button {
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/btn.png';
+            @apply relative;
+
+            &:active {
+              &::before {
+                background-position-y: 100%;
+              }
+
+              & > div {
+                transform: translateY(2px);
+              }
+            }
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 50%);
+              background-image: url(@img);
+              background-position-y: 0;
+              background-size: 100%;
+            }
+
+            & > div {
+              background-image: url('./img/label.png');
+              background-size: 80%;
+              @apply absolute top-0 h-11/12 w-full bg-center bg-no-repeat;
+            }
+          }
+
+          .f25 {
+            top: 24%;
+            right: -21.7%;
+            width: (unit(image-width(@img))) / 931 * 100%;
+
+            @img: './img/f25.png';
+            @apply absolute;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+        }
+      }
+    }
+  }
+}

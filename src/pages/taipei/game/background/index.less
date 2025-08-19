@@ -1,0 +1,41 @@
+@import url('@/settings/global.css');
+.Taipei .Game .Background {
+  @apply absolute h-full w-full;
+
+  .image {
+    background-image: url('./img/bg.png');
+    @apply absolute h-full w-full bg-cover bg-center;
+  }
+
+  .ghost {
+    top: 14.8%;
+    left: 1.9%;
+    width: 800/1280 * 100%;
+    @apply absolute;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/ghost.jpg';
+
+      @apply w-full bg-cover;
+    }
+  }
+
+  .light {
+    top: 0%;
+    left: 0%;
+    width: 966 / 1280 * 100%;
+    @apply absolute;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/light.png';
+
+      @apply w-full bg-cover;
+    }
+  }
+}

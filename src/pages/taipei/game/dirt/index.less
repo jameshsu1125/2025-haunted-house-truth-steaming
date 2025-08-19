@@ -1,0 +1,20 @@
+@import url('@/settings/global.css');
+
+.Taipei .Game .Dirt {
+  @apply absolute h-full w-full;
+
+  & > div {
+    bottom: 5.3%;
+    left: 27%;
+    width: 408 / 1280 * 100%;
+    @apply absolute;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/dirt.png';
+      @apply w-full bg-cover bg-center;
+    }
+  }
+}
