@@ -1,0 +1,19 @@
+@import url('@/settings/global.css');
+.Taipei .Intro .Dialog {
+  @apply flex h-full w-full items-center justify-center;
+
+  & > div {
+    width: 891 / 1280 * 100%;
+
+    @apply relative;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/dialog.png';
+
+      @apply w-full bg-contain;
+    }
+  }
+}

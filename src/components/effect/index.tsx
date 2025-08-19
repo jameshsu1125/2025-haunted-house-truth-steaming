@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import shaderImage from './img/smoke-effect.jpg';
 import './index.less';
 
-const Effect = memo(() => {
+const Effect = memo(({ display = true }: { display?: boolean }) => {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -49,7 +49,7 @@ const Effect = memo(() => {
 
   return (
     <div
-      className={twMerge('Effect', visible && 'animate-fade-in-2s')}
+      className={twMerge('Effect', visible && (display ? 'animate-fade-in-2s' : 'opacity-0'))}
       ref={ref}
       style={{ width: '100%', height: '100%' }}
     />

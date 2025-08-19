@@ -6,6 +6,7 @@ import Landing from './landing';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Cistern from '@/components/cistern';
+import Intro from './intro';
 
 const Taipei = memo(() => {
   const [, setContext] = useContext(Context);
@@ -26,6 +27,7 @@ const Taipei = memo(() => {
         <div className='Taipei'>
           <Cistern>
             <Landing />
+            <Intro />
           </Cistern>
         </div>
       </OnloadProvider>

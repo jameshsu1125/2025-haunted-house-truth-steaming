@@ -3,7 +3,7 @@ import Effect from '@/components/effect';
 import { memo, useContext, useState } from 'react';
 import Background from './background';
 import Button from './button';
-import { TaipeiLandingContext, TaipeiLandingState } from './config';
+import { TaipeiLandingContext, TaipeiLandingState, TaipeiLandingStepType } from './config';
 import Description from './description';
 import './index.less';
 import Marker from './marker';
@@ -19,7 +19,7 @@ const Landing = memo(() => {
       <TaipeiLandingContext.Provider value={state}>
         <CoverNode align='top'>
           <Background />
-          <Effect />
+          <Effect display={state[0].step === TaipeiLandingStepType.entry} />
           <Description />
           <Marker />
           <Button />

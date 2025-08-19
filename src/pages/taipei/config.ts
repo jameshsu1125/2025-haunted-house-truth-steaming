@@ -16,6 +16,6 @@ export type TTaipeiContext = [TTaipeiState, Dispatch<SetStateAction<TTaipeiState
 
 export const TaipeiState: TTaipeiState = {
   step: TaipeiStepType.unset,
-  page: TaipeiPageType.landing,
+  page: TaipeiPageType.intro,
 };
 export const TaipeiContext = createContext<TTaipeiContext>([TaipeiState, () => {}]);

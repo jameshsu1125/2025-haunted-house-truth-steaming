@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useState } from 'react';
+import { memo, useContext, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType } from '../config';
 import Arrow from './arrow';
@@ -12,7 +12,6 @@ const Choose = memo(() => {
   const state = useState(ChooseState);
   const [{ page }] = useContext(HomeContext);
 
-  useEffect(() => {}, []);
   return (
     <ChooseContext.Provider value={state}>
       <div

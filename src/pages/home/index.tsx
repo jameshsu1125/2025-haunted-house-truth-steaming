@@ -1,12 +1,12 @@
+import Cistern from '@/components/cistern';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
+import Choose from './choose';
 import { HomeContext, HomeState, HomeStepType, THomeState } from './config';
 import './index.less';
 import Landing from './landing';
-import Choose from './choose';
-import Cistern from '@/components/cistern';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
