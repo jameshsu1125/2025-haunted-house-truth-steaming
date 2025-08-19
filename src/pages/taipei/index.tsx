@@ -11,8 +11,6 @@ const Taipei = memo(() => {
   const [, setContext] = useContext(Context);
   const [state, setState] = useState(TaipeiState);
 
-  const { step } = state;
-
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
   }, []);
@@ -26,7 +24,9 @@ const Taipei = memo(() => {
         }}
       >
         <div className='Taipei'>
-          <Cistern>{step <= TaipeiStepType.loaded && <Landing />}</Cistern>
+          <Cistern>
+            <Landing />
+          </Cistern>
         </div>
       </OnloadProvider>
     </TaipeiContext.Provider>

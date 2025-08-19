@@ -11,8 +11,11 @@ export enum TaipeiStepType {
   unset,
   loaded,
 }
-export type TTaipeiState = { step: TaipeiStepType };
+export type TTaipeiState = { step: TaipeiStepType; page: TaipeiPageType };
 export type TTaipeiContext = [TTaipeiState, Dispatch<SetStateAction<TTaipeiState>>];
 
-export const TaipeiState: TTaipeiState = { step: TaipeiStepType.unset };
+export const TaipeiState: TTaipeiState = {
+  step: TaipeiStepType.unset,
+  page: TaipeiPageType.landing,
+};
 export const TaipeiContext = createContext<TTaipeiContext>([TaipeiState, () => {}]);

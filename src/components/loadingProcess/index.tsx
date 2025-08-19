@@ -18,7 +18,7 @@ const LoadingSvg = ({ className, type }: { className: string; type?: string }) =
       className={twMerge(
         className,
         'mask-contain mask-center',
-        'h-16 w-16',
+        'h-20 w-20',
         'bg-white',
         type || LoadingProcessType.Spin,
       )}
