@@ -12,6 +12,7 @@ const Background = memo(() => {
       <div className='light'>
         <div />
       </div>
+      <div className='clear' />
     </div>
   );
 });
