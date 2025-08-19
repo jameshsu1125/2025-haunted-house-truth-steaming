@@ -3,7 +3,7 @@ import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
-import { TaipeiContext, TaipeiState, TaipeiStepType } from './config';
+import { TaipeiContext, TaipeiPageType, TaipeiState, TaipeiStepType } from './config';
 import Game from './game';
 import './index.less';
 import Intro from './intro';
@@ -27,9 +27,9 @@ const Taipei = memo(() => {
       >
         <div className='Taipei'>
           <Cistern>
-            <Landing />
-            <Intro />
-            <Game />
+            {state.page <= TaipeiPageType.landing && <Landing />}
+            {state.page <= TaipeiPageType.intro && <Intro />}
+            {state.page <= TaipeiPageType.game && <Game />}
           </Cistern>
         </div>
       </OnloadProvider>
