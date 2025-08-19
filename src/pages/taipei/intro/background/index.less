@@ -3,7 +3,26 @@
   background-image: url('./img/bg.jpg');
   @apply absolute h-full w-full bg-cover bg-center;
 
-  & > div {
+  .darkScreen {
     @apply absolute h-full w-full bg-black;
+  }
+
+  .kitchen {
+    top: 30.33%;
+    left: 34%;
+    @apply absolute w-full;
+
+    & > div {
+      width: 611 / 2105 * 100%;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        width: 100%;
+        background-image: url(@img);
+        background-size: cover;
+
+        @img: './img/kitchen.png';
+      }
+    }
   }
 }

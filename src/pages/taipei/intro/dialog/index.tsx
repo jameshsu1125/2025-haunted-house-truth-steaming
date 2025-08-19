@@ -2,16 +2,22 @@ import { memo, useContext, useEffect } from 'react';
 import './index.less';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import useTween, { Bezier } from 'lesca-use-tween';
+import { TaipeiIntroContext, TaipeiIntroStepType } from '../config';
 
 const Dialog = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
-  const [style, setStyle] = useTween({ opacity: 0, y: -300 });
+  const [{ step }] = useContext(TaipeiIntroContext);
+  const [style, setStyle] = useTween({ opacity: 0, y: -300, scale: 1 });
 
   useEffect(() => {
     if (page === TaipeiPageType.intro) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 2200, easing: Bezier.outQuart });
+      if (step === TaipeiIntroStepType.unset) {
+        setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 2200, easing: Bezier.outQuart });
+      } else if (step === TaipeiIntroStepType.entry) {
+        setStyle({ opacity: 0 }, { duration: 1, easing: Bezier.inOutQuart });
+      }
     }
-  }, [page]);
+  }, [page, step]);
 
   return (
     <div className='Dialog'>
