@@ -1,11 +1,18 @@
-import { memo, useEffect } from 'react';
+import { memo, useContext } from 'react';
+import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 
 const Dirt = memo(() => {
-  useEffect(() => {}, []);
+  const [{ step }, setState] = useContext(TaipeiGameContext);
+  const onPointerDown = () => {
+    if (step === TaipeiGameStepType.start) {
+      setState((S) => ({ ...S, step: TaipeiGameStepType.dirt }));
+    }
+  };
+
   return (
     <div className='Dirt'>
-      <div>
+      <div onPointerDown={onPointerDown}>
         <div />
       </div>
     </div>

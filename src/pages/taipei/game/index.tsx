@@ -12,6 +12,7 @@ import End from './end';
 import Error from './error';
 import './index.less';
 import Picture from './picture';
+import Vacuum from './vacuum';
 
 const Game = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
@@ -27,6 +28,7 @@ const Game = memo(() => {
           <Dirt />
           <Error />
           {step < TaipeiGameStepType.start && <Dialog />}
+          {step <= TaipeiGameStepType.dirt && <Vacuum />}
           <Clear />
           <End />
         </CoverNode>

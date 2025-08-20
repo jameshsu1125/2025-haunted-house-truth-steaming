@@ -145,6 +145,7 @@ const Background = memo(() => {
       setStyle({ opacity: 1 }, { duration: 2000 });
     } else if (step === HomeStepType.fadeOut) {
       EnterFrame.stop();
+      EnterFrame.destroy();
       setStyle(
         { opacity: 0, scale: 1.2 },
         {

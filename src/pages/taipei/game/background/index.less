@@ -9,15 +9,15 @@
 
   .ghost {
     top: 14.8%;
-    left: 1.9%;
-    width: 800/1280 * 100%;
+    left: 12.7%;
+    width: (unit(image-width(@img)) / 1280 * 100%);
+
+    @img: './img/ghost.jpg';
     @apply absolute;
 
     & > div {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
       background-image: url(@img);
-
-      @img: './img/ghost.jpg';
 
       @apply w-full bg-cover;
     }

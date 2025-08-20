@@ -9,8 +9,9 @@ const Text = memo(() => {
   const [time, setTime] = useState(GAME_TIME / 1000);
 
   useEffect(() => {
-    if (time === 0) {
+    if (time <= 0) {
       EnterFrame.stop();
+      EnterFrame.destroy();
       // TODO: Handle game over state
     }
   }, [time]);
@@ -24,7 +25,7 @@ const Text = memo(() => {
       EnterFrame.play();
     }
   }, [step]);
-  return <div className='text'>{time}</div>;
+  return <div className='text'>{Math.max(time, 0)}</div>;
 });
 
 const Countdown = memo(() => {
@@ -33,6 +34,10 @@ const Countdown = memo(() => {
   useEffect(() => {
     if (step === TaipeiGameStepType.start) {
       setStyle({ opacity: 1 });
+    } else if (step > TaipeiGameStepType.start) {
+      setStyle({ opacity: 0 }, 300);
+      EnterFrame.stop();
+      EnterFrame.destroy();
     }
   }, [step]);
   return (

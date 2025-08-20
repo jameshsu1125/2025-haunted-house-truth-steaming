@@ -1,11 +1,24 @@
-import { memo, useEffect } from 'react';
+import { memo, useContext, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 
 const Picture = memo(() => {
-  useEffect(() => {}, []);
+  const [shake, setShake] = useState(false);
+
+  const [{ step }] = useContext(TaipeiGameContext);
+  const onPointerDown = () => {
+    if (step === TaipeiGameStepType.start) {
+      console.log('sound');
+      setShake(true);
+      setTimeout(() => {
+        setShake(false);
+      }, 1000);
+    }
+  };
   return (
     <div className='Picture'>
-      <div>
+      <div onPointerDown={onPointerDown} className={twMerge(shake && 'animate-shake')}>
         <div />
       </div>
     </div>

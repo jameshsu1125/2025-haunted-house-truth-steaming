@@ -1,0 +1,21 @@
+@import url('@/settings/global.css');
+.Taipei .Game .Vacuum {
+  @apply absolute top-0 h-full w-full;
+
+  .cleaner {
+    bottom: 6.3%;
+    left: 39%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/cleaner.png';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}
