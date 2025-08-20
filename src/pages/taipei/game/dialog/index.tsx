@@ -21,12 +21,9 @@ const Text = memo(({ index }: { index: number }) => {
 });
 
 const Image = memo(() => {
-  const [style, setStyle] = useTween({ opacity: 0, scale: 0, rotate: 60 });
+  const [style, setStyle] = useTween({ opacity: 0, scale: 0, rotate: 90 });
   useEffect(() => {
-    setStyle(
-      { opacity: 1, scale: 1, rotate: 0 },
-      { duration: 500, delay: 1800, easing: Bezier.outBack },
-    );
+    setStyle({ opacity: 1, scale: 1, rotate: 0 }, { duration: 500, delay: 1800 });
   }, []);
   return <div className='image' style={style} />;
 });
@@ -65,13 +62,22 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
   );
 });
 
+const F25 = memo(() => {
+  const [style, setStyle] = useTween({ opacity: 0, x: 50 });
+  useEffect(() => {
+    setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 2800, easing: Bezier.outBack });
+  }, []);
+
+  return <div className='f25' style={style} />;
+});
+
 const Dialog = memo(() => {
-  const [style, setStyle] = useTween({ opacity: 0 });
+  const [style, setStyle] = useTween({ opacity: 0, scale: 0.2 });
   const [{ step }, setState] = useContext(TaipeiGameContext);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (step === TaipeiGameStepType.unset) setStyle({ opacity: 1 }, 800);
+    if (step === TaipeiGameStepType.unset) setStyle({ opacity: 1, scale: 1 }, { duration: 500 });
   }, [step]);
 
   useEffect(() => {
@@ -97,7 +103,7 @@ const Dialog = memo(() => {
               ))}
               <Image />
               <Button setFadeOut={setFadeOut} />
-              <div className='f25' />
+              <F25 />
             </div>
           </div>
         </div>

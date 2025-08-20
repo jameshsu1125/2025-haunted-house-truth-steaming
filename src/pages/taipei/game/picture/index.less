@@ -1,5 +1,5 @@
 .Taipei .Game .Picture {
-  @apply absolute h-full w-full;
+  @apply pointer-events-none absolute h-full w-full;
 
   & > div {
     top: 52.8%;
@@ -12,7 +12,7 @@
       background-image: url(@img);
 
       @img: './img/picture.png';
-      @apply w-full bg-contain bg-center bg-no-repeat;
+      @apply pointer-events-auto w-full bg-contain bg-center bg-no-repeat;
     }
   }
 }

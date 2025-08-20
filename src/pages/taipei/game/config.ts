@@ -15,3 +15,4 @@ export const TaipeiGameState: TTaipeiGameState = { step: TaipeiGameStepType.unse
 export const TaipeiGameContext = createContext<TTaipeiGameContext>([TaipeiGameState, () => {}]);
 
 export const ERROR_TIME = 5000;
+export const GAME_TIME = 60 * 1000;

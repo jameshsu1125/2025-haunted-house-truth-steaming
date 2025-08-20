@@ -1,7 +1,7 @@
 @import url('@/settings/global.css');
 
 .Taipei .Game .Dirt {
-  @apply absolute h-full w-full;
+  @apply pointer-events-none absolute h-full w-full;
 
   & > div {
     bottom: 5.3%;
@@ -14,7 +14,7 @@
       background-image: url(@img);
 
       @img: './img/dirt.png';
-      @apply w-full bg-cover bg-center;
+      @apply pointer-events-auto w-full bg-cover bg-center;
     }
   }
 }

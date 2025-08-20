@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../config';
 import Background from './background';
 import Clear from './clear';
-import { TaipeiGameContext, TaipeiGameState } from './config';
+import { TaipeiGameContext, TaipeiGameState, TaipeiGameStepType } from './config';
 import Countdown from './countdown';
 import Dialog from './dialog';
 import Dirt from './dirt';
@@ -16,6 +16,7 @@ import Picture from './picture';
 const Game = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
   const value = useState(TaipeiGameState);
+  const [{ step }] = value;
 
   return (
     <TaipeiGameContext.Provider value={value}>
@@ -25,7 +26,7 @@ const Game = memo(() => {
           <Picture />
           <Dirt />
           <Error />
-          <Dialog />
+          {step < TaipeiGameStepType.start && <Dialog />}
           <Clear />
           <End />
         </CoverNode>

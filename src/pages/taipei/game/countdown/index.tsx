@@ -1,14 +1,46 @@
-import { memo, useEffect } from 'react';
+import EnterFrame from 'lesca-enterframe';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useState } from 'react';
+import { GAME_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 
+const Text = memo(() => {
+  const [{ step }] = useContext(TaipeiGameContext);
+  const [time, setTime] = useState(GAME_TIME / 1000);
+
+  useEffect(() => {
+    if (time === 0) {
+      EnterFrame.stop();
+      // TODO: Handle game over state
+    }
+  }, [time]);
+
+  useEffect(() => {
+    if (step === TaipeiGameStepType.start) {
+      EnterFrame.add(({ delta }) => {
+        const time = GAME_TIME - delta;
+        setTime(Math.floor(time / 1000));
+      });
+      EnterFrame.play();
+    }
+  }, [step]);
+  return <div className='text'>{time}</div>;
+});
+
 const Countdown = memo(() => {
-  useEffect(() => {}, []);
+  const [style, setStyle] = useTween({ opacity: 0 });
+  const [{ step }] = useContext(TaipeiGameContext);
+  useEffect(() => {
+    if (step === TaipeiGameStepType.start) {
+      setStyle({ opacity: 1 });
+    }
+  }, [step]);
   return (
-    <div className='Countdown'>
+    <div className='Countdown' style={style}>
       <div className='ico'>
         <div />
       </div>
-      <div className='text'>59</div>
+      <Text />
     </div>
   );
 });

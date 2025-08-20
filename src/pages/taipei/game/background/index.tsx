@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect } from 'react';
+import { memo, useCallback, useContext, useEffect } from 'react';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 import useTween from 'lesca-use-tween';
@@ -29,8 +29,21 @@ const Ghost = memo(() => {
   );
 });
 
+const Touch = memo(() => {
+  const [{ step }, setState] = useContext(TaipeiGameContext);
+  const onPointerDown = useCallback(() => {
+    if (step === TaipeiGameStepType.start) {
+      setState((S) => ({ ...S, isError: true }));
+    }
+  }, [step]);
+  return (
+    <div className='absolute top-0 h-full w-full bg-transparent' onPointerDown={onPointerDown} />
+  );
+});
+
 const Background = memo(() => (
   <div className='Background'>
+    <Touch />
     <Ghost />
     <div className='image' />
     <div className='light'>

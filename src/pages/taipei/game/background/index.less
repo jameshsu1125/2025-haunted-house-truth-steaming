@@ -4,7 +4,7 @@
 
   .image {
     background-image: url('./img/bg.png');
-    @apply absolute h-full w-full bg-cover bg-center;
+    @apply pointer-events-none absolute h-full w-full bg-cover bg-center;
   }
 
   .ghost {
@@ -27,7 +27,7 @@
     top: 0%;
     left: 0%;
     width: 966 / 1280 * 100%;
-    @apply absolute;
+    @apply pointer-events-none absolute;
 
     & > div {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -41,6 +41,6 @@
 
   .clear {
     background-image: url('./img/bg-clear.jpg');
-    @apply absolute h-full w-full bg-cover bg-center;
+    @apply pointer-events-none absolute h-full w-full bg-cover bg-center;
   }
 }
