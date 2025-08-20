@@ -1,11 +1,15 @@
-import { memo, useEffect } from 'react';
+import { memo, useContext, useEffect } from 'react';
 import './index.less';
 import SteamText from '@/components/steamText';
+import { TaipeiGameContext, TaipeiGameStepType } from '../config';
+import { twMerge } from 'tailwind-merge';
 
 const End = memo(() => {
-  useEffect(() => {}, []);
+  const [{ step }] = useContext(TaipeiGameContext);
+  useEffect(() => {}, [step]);
+
   return (
-    <div className='End'>
+    <div className={twMerge('End', step === TaipeiGameStepType.end ? 'visible' : 'invisible')}>
       <div>
         <div>
           <div>

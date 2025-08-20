@@ -110,12 +110,13 @@
               background-image: url(@img);
               background-position-y: 0;
               background-size: 100%;
+              @apply pointer-events-none;
             }
 
             & > div {
               background-image: url('./img/label.png');
               background-size: 80%;
-              @apply absolute top-0 h-11/12 w-full bg-center bg-no-repeat;
+              @apply pointer-events-none absolute top-0 h-11/12 w-full bg-center bg-no-repeat;
             }
           }
 
