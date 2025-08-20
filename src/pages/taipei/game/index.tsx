@@ -9,6 +9,8 @@ import Dirt from './dirt';
 import './index.less';
 import Picture from './picture';
 import Dialog from './dialog';
+import Clear from './clear';
+import End from './end';
 
 const Game = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
@@ -22,6 +24,8 @@ const Game = memo(() => {
           <Picture />
           <Dirt />
           <Dialog />
+          <Clear />
+          <End />
         </CoverNode>
         <Countdown />
       </div>
