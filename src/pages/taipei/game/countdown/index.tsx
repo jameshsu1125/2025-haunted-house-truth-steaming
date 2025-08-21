@@ -18,6 +18,7 @@ const Text = memo(() => {
 
   useEffect(() => {
     if (step === TaipeiGameStepType.start) {
+      EnterFrame.reset();
       EnterFrame.add(({ delta }) => {
         const time = GAME_TIME - delta;
         setTime(Math.floor(time / 1000));
