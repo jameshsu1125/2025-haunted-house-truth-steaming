@@ -37,6 +37,7 @@ const Button = memo(() => {
     Click.add(`#${id}`, () => {
       const page = [PAGE.taipei, PAGE.zhongli, PAGE.chiayi][Math.max(Math.min(index, 2), 0)];
       setContext({ type: ActionType.Page, state: page });
+      setContext({ type: ActionType.location, state: page });
     });
   }, [index]);
 

@@ -25,12 +25,12 @@ export type THomeState = {
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
 
 export const HomeState: THomeState = {
+  page: HomePageType.landing,
   step: HomeStepType.unset,
   locationIndex: Math.floor(Math.random() * 3),
   steamImageLoaded: false,
   smokeImageLoaded: true,
   videoLoadedIndex: 0,
-  page: HomePageType.landing,
 };
 
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);

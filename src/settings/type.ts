@@ -42,10 +42,11 @@ export type TLoadingProcessState = {
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
+  location?: TLocationType;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | string;
+  state: IState | TLoadingProcessState | TLocationType | string;
   type: ActionType;
 }
 

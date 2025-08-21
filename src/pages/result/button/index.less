@@ -1,0 +1,51 @@
+@import url('@/settings/global.css');
+.Result .Button {
+  padding-bottom: 12%;
+  @apply absolute top-0 flex h-full w-full flex-row items-end justify-center space-x-4;
+
+  .share {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/share.png';
+    @apply relative;
+
+    &:active {
+      &::before {
+        background-position-y: 100%;
+      }
+    }
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%) * 0.5;
+      background-image: url(@img);
+      background-position-y: 0;
+      background-size: 100%;
+      content: '';
+
+      @apply pointer-events-none inline-block w-full;
+    }
+  }
+
+  .again {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/again.png';
+    @apply relative;
+
+    &:active {
+      &::before {
+        background-position-y: 100%;
+      }
+    }
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%) * 0.5;
+      background-image: url(@img);
+      background-position-y: 0;
+      background-size: 100%;
+      content: '';
+
+      @apply pointer-events-none inline-block w-full;
+    }
+  }
+}

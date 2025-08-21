@@ -1,7 +1,7 @@
-@reference 'tailwindcss';
+@import url('@/settings/global.css');
 
-.Choose .Folder {
-  @apply relative h-full w-full overflow-hidden;
+.Result .Folder {
+  @apply absolute top-0 h-full w-full overflow-hidden;
 
   video {
     @apply absolute top-0 left-0 h-full w-full;
@@ -13,7 +13,7 @@
 
     .file {
       top: 42.7%;
-      left: 19.4%;
+      left: 25.4%;
       width: 737 / 1280 * 100%;
       transform-origin: 150% -50%;
       @apply absolute;
@@ -25,18 +25,18 @@
           @apply absolute top-0 right-0 bottom-0 left-0;
 
           & > div {
-            top: -3.6%;
-            left: -2%;
+            top: -10.6%;
+            left: -11.6%;
             background-image: url('./img/seal.png');
-            background-size: 49%;
+            background-size: 56.9%;
             transform-origin: 20% 10%;
-            @apply absolute h-full w-full bg-no-repeat;
+            @apply absolute h-full w-full bg-no-repeat mix-blend-multiply;
           }
         }
       }
     }
 
-    .file-0 {
+    .file-taipei {
       & > div {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
         background-image: url(@img);
@@ -45,7 +45,7 @@
       }
     }
 
-    .file-1 {
+    .file-zhongli {
       & > div {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
         background-image: url(@img);
@@ -54,7 +54,7 @@
       }
     }
 
-    .file-2 {
+    .file-chiayi {
       & > div {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
         background-image: url(@img);

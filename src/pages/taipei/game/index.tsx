@@ -1,7 +1,7 @@
 import CoverNode from '@/components/coverNode';
 import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { TaipeiContext, TaipeiPageType } from '../config';
+import { TaipeiContext, TaipeiPageType, TaipeiState } from '../config';
 import Background from './background';
 import Clear from './clear';
 import { TaipeiGameContext, TaipeiGameState, TaipeiGameStepType } from './config';
@@ -20,8 +20,8 @@ import { PAGE } from '@/settings/config';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
-  const [{ page }] = useContext(TaipeiContext);
-  const [{ step }] = useContext(TaipeiGameContext);
+  const [{ page }, setState] = useContext(TaipeiContext);
+  const [{ step }, setGameState] = useContext(TaipeiGameContext);
 
   const [style, setStyle] = useTween({ opacity: 1 });
 
@@ -30,7 +30,11 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
       setStyle(
         { opacity: 0 },
         {
-          onEnd: () => setContext({ type: ActionType.Page, state: PAGE.result }),
+          onEnd: () => {
+            setContext({ type: ActionType.Page, state: PAGE.result });
+            setState(TaipeiState);
+            setGameState(TaipeiGameState);
+          },
         },
       );
     }

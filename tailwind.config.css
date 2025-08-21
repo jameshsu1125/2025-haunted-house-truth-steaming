@@ -355,6 +355,27 @@
     }
   }
 
+  @keyframes shock {
+    10% {
+      transform: translate3d(-4px, 0, 0);
+    }
+    20% {
+      transform: translate3d(2px, 0, 0);
+    }
+    30% {
+      transform: translate3d(-2px, 0, 0);
+    }
+    40% {
+      transform: translate3d(4px, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
   --animate-fade-in-1s: fadeIn 1s ease-in-out forwards;
   --animate-fade-in-2s: fadeIn 2s ease-in-out forwards;
 
@@ -364,6 +385,7 @@
   --animate-blank-1s: blank 1s linear forwards;
 
   --animate-shake: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  --animate-shock: shock 0.15s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
   --font-roboto: 'Roboto Condensed', sans-serif;
 }

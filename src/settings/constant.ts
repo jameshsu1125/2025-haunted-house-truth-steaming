@@ -7,6 +7,7 @@ import {
   LoadingProcessType,
   TContext,
   TLoadingProcessState,
+  TLocationType,
 } from './type';
 
 export const LoadingProcessState: TLoadingProcessState = {
@@ -16,8 +17,9 @@ export const LoadingProcessState: TLoadingProcessState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.taipei,
+  [ActionType.Page]: PAGE.result,
   [ActionType.LoadingProcess]: LoadingProcessState,
+  [ActionType.location]: TLocationType.taipei,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);
