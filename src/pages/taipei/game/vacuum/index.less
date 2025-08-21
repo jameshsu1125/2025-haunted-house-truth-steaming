@@ -2,9 +2,17 @@
 .Taipei .Game .Vacuum {
   @apply absolute top-0 h-full w-full;
 
+  .smoke {
+    @apply pointer-events-none absolute top-0 h-full w-full;
+
+    & > canvas {
+      @apply absolute h-full w-full;
+    }
+  }
+
   .cleaner {
-    bottom: 6.3%;
-    left: 39%;
+    bottom: 5.8%;
+    left: 27.1%;
     width: (unit(image-width(@img))) / 1280 * 100%;
 
     @img: './img/cleaner.png';
@@ -16,6 +24,13 @@
       content: '';
 
       @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+
+    .dot {
+      top: 87%;
+      left: -11%;
+
+      @apply absolute h-1 w-1 rounded-full bg-white opacity-0;
     }
   }
 }

@@ -25,14 +25,14 @@ const Game = memo(() => {
         <CoverNode>
           <Background />
           <Picture />
-          <Dirt />
-          <Error />
+          {step < TaipeiGameStepType.clear && <Dirt />}
+          {step < TaipeiGameStepType.dirt && <Error />}
           {step < TaipeiGameStepType.start && <Dialog />}
-          {step <= TaipeiGameStepType.dirt && <Vacuum />}
-          <Clear />
+          {step <= TaipeiGameStepType.dirt2Clear && <Vacuum />}
+          {step < TaipeiGameStepType.end && <Clear />}
           <End />
         </CoverNode>
-        <Countdown />
+        {step <= TaipeiGameStepType.start && <Countdown />}
       </div>
     </TaipeiGameContext.Provider>
   );

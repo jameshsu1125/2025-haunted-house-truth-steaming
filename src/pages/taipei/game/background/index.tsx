@@ -3,12 +3,13 @@ import { memo, useCallback, useContext, useEffect, useRef, useState } from 'reac
 import { twMerge } from 'tailwind-merge';
 import { GHOST_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import { TaipeiContext, TaipeiPageType } from '../../config';
 
 const Clear = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(TaipeiGameContext);
   useEffect(() => {
-    if (step === TaipeiGameStepType.clear) setStyle({ opacity: 1 });
+    if (step >= TaipeiGameStepType.dirt2Clear) setStyle({ opacity: 1 }, 2000);
   }, [step]);
   return <div className='clear' style={style} />;
 });
@@ -111,13 +112,24 @@ const Light = memo(() => {
   );
 });
 
-const Background = memo(() => (
-  <div className='Background'>
-    <Touch />
-    <Ghost />
-    <div className='image' />
-    <Light />
-    <Clear />
-  </div>
-));
+const Background = memo(() => {
+  const [style, setStyle] = useTween({ opacity: 0 });
+  const [{ page }] = useContext(TaipeiContext);
+
+  useEffect(() => {
+    if (page === TaipeiPageType.game) {
+      setStyle({ opacity: 1 }, { duration: 500 });
+    }
+  }, [page]);
+
+  return (
+    <div className='Background' style={style}>
+      <Touch />
+      <Ghost />
+      <div className='image' />
+      <Light />
+      <Clear />
+    </div>
+  );
+});
 export default Background;

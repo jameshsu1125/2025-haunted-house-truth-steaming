@@ -50,7 +50,7 @@ const Background = memo(() => {
         setStyle({ scale: 1.7, opacity: 1 }, { duration: 3000, easing: Bezier.inOutQuart });
       } else if (step === TaipeiIntroStepType.entry) {
         setStyle(
-          { scale: 2.9, opacity: 1, x: 10 },
+          { scale: 2.9, opacity: 0, x: 10 },
           {
             duration: 800,
             easing: Bezier.inOutQuart,

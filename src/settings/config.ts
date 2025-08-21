@@ -3,6 +3,7 @@ export const PAGE = {
   taipei: 'taipei',
   zhongli: 'zhongli',
   chiayi: 'chiayi',
+  result: 'result',
 };
 
 export const REST_PATH = {
