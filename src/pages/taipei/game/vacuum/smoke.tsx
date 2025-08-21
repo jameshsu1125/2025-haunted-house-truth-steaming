@@ -25,7 +25,7 @@ const Smoke = memo(({ dot }: { dot: React.RefObject<HTMLDivElement | null> }) =>
 
           interval.current = setInterval(function () {
             const { x, y } = dot.current!.getBoundingClientRect();
-            smoke.addsmoke(x, y, 1, 4000);
+            smoke.addsmoke(x, y, 5, 2000);
           }, 100);
         } else {
           requestAnimationFrame(createSmokeEffect);

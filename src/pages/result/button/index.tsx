@@ -1,17 +1,14 @@
-import { memo, useContext, useEffect, useId, useState } from 'react';
-import './index.less';
-import { ActionType, IReactProps } from '@/settings/type';
-import { ResultContext, ResultStepType } from '../config';
-import useTween from 'lesca-use-tween';
-import { twMerge } from 'tailwind-merge';
+import { IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
-import { Context } from '@/settings/constant';
-import { PAGE } from '@/settings/config';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useId, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { ResultContext, ResultStepType } from '../config';
+import './index.less';
 
 let index = 0;
 
 const TweenProvider = ({ children, className }: IReactProps & { className: string }) => {
-  const [, setContext] = useContext(Context);
   const id = useId();
   const [{ step }] = useContext(ResultContext);
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -33,7 +30,8 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
           // Handle again button click
           console.log('share button clicked');
         } else if (className === 'again') {
-          setContext({ type: ActionType.Page, state: PAGE.home });
+          window.location.reload();
+          // setContext({ type: ActionType.Page, state: PAGE.home });
         }
       });
     }

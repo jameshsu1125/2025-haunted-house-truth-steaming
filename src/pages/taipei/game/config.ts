@@ -27,4 +27,4 @@ export const GHOST_TIME = 500;
 
 export const VACUUM_OFFSET = 100;
 export const VACUUM_DURATION = 800;
-export const VACUUM_WAIT = 3000;
+export const VACUUM_WAIT = 1000;
