@@ -4,6 +4,7 @@ export enum ActionType {
   Page = 'page',
   LoadingProcess = 'loadingProcess',
   location = 'location',
+  smokeEffect = 'smokeEffect',
 }
 
 export enum LoadingProcessType {
@@ -43,10 +44,11 @@ export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
   location?: TLocationType;
+  smokeEffect?: boolean;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | TLocationType | string;
+  state: IState | TLoadingProcessState | TLocationType | string | boolean;
   type: ActionType;
 }
 

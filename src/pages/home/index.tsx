@@ -4,13 +4,21 @@ import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
 import Choose from './choose';
-import { HomeContext, HomeState, HomeStepType, THomeState } from './config';
+import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
 import './index.less';
 import Landing from './landing';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
   const [state, setState] = useState<THomeState>(HomeState);
+
+  useEffect(() => {
+    if (state.page === HomePageType.landing) {
+      setContext({ type: ActionType.smokeEffect, state: true });
+    } else {
+      setContext({ type: ActionType.smokeEffect, state: false });
+    }
+  }, [state.page]);
 
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });

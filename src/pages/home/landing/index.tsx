@@ -2,7 +2,6 @@ import { memo, useContext } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType } from '../config';
 import Background from './background';
-import Effect from './effect';
 import Header from './header';
 import Logo from './logo';
 
@@ -17,7 +16,6 @@ const Landing = memo(() => {
       )}
     >
       <Background />
-      <Effect />
       <Logo />
       <Header />
     </div>
