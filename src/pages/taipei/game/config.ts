@@ -7,6 +7,7 @@ export enum TaipeiGameStepType {
   dirt2Clear,
   clear,
   end,
+  fadeOut,
   fail,
 }
 
@@ -14,7 +15,7 @@ export type TTaipeiGameState = { step: TaipeiGameStepType; isError: boolean; cle
 export type TTaipeiGameContext = [TTaipeiGameState, Dispatch<SetStateAction<TTaipeiGameState>>];
 
 export const TaipeiGameState: TTaipeiGameState = {
-  step: TaipeiGameStepType.unset,
+  step: TaipeiGameStepType.end,
   isError: false,
   clearTimes: 0,
 };

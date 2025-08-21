@@ -1,9 +1,10 @@
-import { memo, useContext, useEffect } from 'react';
-import './index.less';
 import SteamText from '@/components/steamText';
-import { TaipeiGameContext, TaipeiGameStepType } from '../config';
-import { twMerge } from 'tailwind-merge';
 import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { TaipeiGameContext, TaipeiGameStepType } from '../config';
+import './index.less';
+import { GAME_END_WAIT_DURATION } from '@/settings/config';
 
 const F25 = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, x: 100 });
@@ -93,30 +94,62 @@ const 的 = memo(() => {
   return <div className='t5' style={style} />;
 });
 
+const Touch = memo(() => {
+  const [{ step }, setState] = useContext(TaipeiGameContext);
+
+  useEffect(() => {
+    if (step === TaipeiGameStepType.end) {
+      setTimeout(
+        () => {
+          setState((S) => ({ ...S, step: TaipeiGameStepType.fadeOut }));
+        },
+        GAME_END_WAIT_DURATION + 2500 + 800,
+      ); // Wait for 5 seconds before fading out
+    }
+  }, [step]);
+
+  const onPointerDown = () => {
+    setState((S) => ({ ...S, step: TaipeiGameStepType.fadeOut }));
+  };
+
+  return (
+    <div
+      className={twMerge(
+        'absolute top-0 left-0 h-full w-full',
+        step === TaipeiGameStepType.end ? 'visible' : 'invisible',
+      )}
+      onPointerDown={onPointerDown}
+    />
+  );
+});
+
 const End = memo(() => {
   const [{ step }] = useContext(TaipeiGameContext);
   return (
-    <div className={twMerge('End', step === TaipeiGameStepType.end ? 'visible' : 'invisible')}>
-      <div>
+    <>
+      <div className={twMerge('End', step === TaipeiGameStepType.end ? 'visible' : 'invisible')}>
         <div>
           <div>
-            <div className='row'>
-              <F25 />
-              <OutlineText />
-            </div>
-            <div className='row justify-between'>
-              <div className='c1'>
-                <去污 />
-                <點 />
-                <我們來 />
+            <div>
+              <div className='row'>
+                <F25 />
+                <OutlineText />
               </div>
-              <的 />
+              <div className='row justify-between'>
+                <div className='c1'>
+                  <去污 />
+                  <點 />
+                  <我們來 />
+                </div>
+                <的 />
+              </div>
+              <蒸 />
             </div>
-            <蒸 />
           </div>
         </div>
       </div>
-    </div>
+      <Touch />
+    </>
   );
 });
 export default End;
