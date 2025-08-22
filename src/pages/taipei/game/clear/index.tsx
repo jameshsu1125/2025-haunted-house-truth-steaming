@@ -49,6 +49,7 @@ const Clear = memo(() => {
           loop={false}
           width={1280}
           height={720}
+          playsInline
         />
       </div>
       <div>
