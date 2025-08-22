@@ -14,10 +14,11 @@ import useTween, { Bezier } from 'lesca-use-tween';
 
 const Cleaner = memo(({ children }: IReactProps) => {
   const [{ step }, setState] = useContext(TaipeiGameContext);
-  const [style, setStyle] = useTween({ x: window.innerWidth / 2 });
+  const [style, setStyle] = useTween({ x: 0 });
 
   useEffect(() => {
     if (step === TaipeiGameStepType.dirt) {
+      return;
       setStyle(
         { x: -VACUUM_OFFSET },
         {

@@ -98,7 +98,7 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
     } else if (page === HomePageType.landing) {
       videoRef.current?.play().catch((error) => {
         if (error.name === 'NotAllowedError' && index === 0) {
-          alert('請關閉手機低耗電模式');
+          alert('請關閉手機低耗電模式，關閉後再重新試一次');
         }
       });
     }
