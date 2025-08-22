@@ -97,7 +97,7 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
       videoRef.current?.pause();
     } else if (page === HomePageType.landing) {
       videoRef.current?.play().catch((error) => {
-        if (error.name === 'NotAllowedError') {
+        if (error.name === 'NotAllowedError' && index === 0) {
           alert('請關閉手機低耗電模式');
         }
       });
