@@ -7,6 +7,7 @@ import { ZhongliContext, ZhongliPageType, ZhongliState, ZhongliStepType } from '
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
+import Game from './game';
 
 const Zhongli = memo(() => {
   const [, setContext] = useContext(Context);
@@ -33,7 +34,8 @@ const Zhongli = memo(() => {
         <div className='Zhongli'>
           <Cistern>
             {state.page <= ZhongliPageType.landing && <Landing />}
-            <Intro />
+            {state.page <= ZhongliPageType.intro && <Intro />}
+            {state.page <= ZhongliPageType.game && <Game />}
           </Cistern>
         </div>
       </OnloadProvider>

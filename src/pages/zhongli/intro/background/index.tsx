@@ -34,12 +34,13 @@ const DarkScreen = memo(() => {
 });
 
 const Video = memo(() => {
+  const [, setZhongliState] = useContext(ZhongliContext);
   const [, setState] = useContext(ZhongliIntroContext);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const onVideoReady = () => {
-      // TODO => ready
+      setZhongliState((S) => ({ ...S, videoLoaded: true }));
       videoRef.current?.removeEventListener('loadeddata', onVideoReady);
       videoRef.current?.removeEventListener('playing', onVideoReady);
     };
@@ -96,8 +97,25 @@ const Video = memo(() => {
 
 const Background = memo(() => {
   const [{ step }] = useContext(ZhongliIntroContext);
+  const [, setState] = useContext(ZhongliContext);
+  const [style, setStyle] = useTween({ opacity: 1, scale: 1 });
+
+  useEffect(() => {
+    if (step === ZhongliIntroStepType.entry) {
+      setStyle(
+        { opacity: 0, scale: 1.2 },
+        {
+          duration: 800,
+          onEnd: () => {
+            setState((S) => ({ ...S, page: ZhongliPageType.game }));
+          },
+        },
+      );
+    }
+  }, [step]);
+
   return (
-    <div className='Background'>
+    <div className='Background' style={style}>
       {step <= ZhongliIntroStepType.fadeOut && <Video />}
       <DarkScreen />
     </div>
