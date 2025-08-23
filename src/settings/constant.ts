@@ -17,7 +17,7 @@ export const LoadingProcessState: TLoadingProcessState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.home,
+  [ActionType.Page]: PAGE.zhongli,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.location]: TLocationType.taipei,
   [ActionType.smokeEffect]: false,

@@ -20,6 +20,7 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const [size, setSize] = useState({ width: 0, height: 0, top: 0, left: 0 });
+
   useEffect(() => {
     const resize = () => {
       if (ref.current) {
