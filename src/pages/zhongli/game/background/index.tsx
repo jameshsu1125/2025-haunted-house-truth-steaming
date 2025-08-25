@@ -100,7 +100,7 @@ const Background = memo(() => {
     <div className='Background'>
       <div className='image' />
       <div
-        className={twMerge('clear', step === ZhongliGameStepType.clear && 'animate-fade-in-1s')}
+        className={twMerge('clear', step >= ZhongliGameStepType.clear && 'animate-fade-in-1s')}
       />
       <div className='card'>
         <div ref={cardNode}>

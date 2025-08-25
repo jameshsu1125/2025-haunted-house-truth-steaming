@@ -12,6 +12,8 @@ import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './con
 import Dialog from './dialog';
 import './index.less';
 import UnderBed from './underBed';
+import Clear from './clear';
+import End from './end';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -55,6 +57,8 @@ const Game = memo(() => {
           <Background />
           {step <= ZhongliGameStepType.dialog && <Dialog />}
           {step <= ZhongliGameStepType.dirt2Clear && <UnderBed />}
+          {step <= ZhongliGameStepType.clear && <Clear />}
+          <End />
         </CoverNode>
         {step <= ZhongliGameStepType.unset && (
           <Countdown

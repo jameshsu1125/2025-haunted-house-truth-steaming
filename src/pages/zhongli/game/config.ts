@@ -7,6 +7,7 @@ export enum ZhongliGameStepType {
   dirt,
   dirt2Clear,
   clear,
+  end,
   fadeOut,
   fail,
 }
