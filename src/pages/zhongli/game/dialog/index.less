@@ -119,20 +119,6 @@
               @apply pointer-events-none absolute top-0 h-11/12 w-full bg-center bg-no-repeat;
             }
           }
-
-          .f25 {
-            top: 24%;
-            right: -21.7%;
-            width: (unit(image-width(@img))) / 931 * 100%;
-
-            @img: './img/f25.png';
-            @apply absolute;
-
-            &::before {
-              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-              background-image: url(@img);
-            }
-          }
         }
       }
     }

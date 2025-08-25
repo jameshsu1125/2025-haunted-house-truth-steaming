@@ -40,7 +40,7 @@ const Button = memo(() => {
       setContext({ type: ActionType.location, state: page });
 
       setChooseState(ChooseState);
-      setHomeState(HomeState);
+      setHomeState({ ...HomeState, page: HomePageType.choose });
     });
   }, [index]);
 
