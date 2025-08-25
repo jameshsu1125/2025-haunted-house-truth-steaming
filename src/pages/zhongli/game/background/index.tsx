@@ -102,26 +102,28 @@ const Background = memo(() => {
       <div
         className={twMerge('clear', step >= ZhongliGameStepType.clear && 'animate-fade-in-1s')}
       />
-      <div className='card'>
-        <div ref={cardNode}>
-          <div>
-            {step === ZhongliGameStepType.unset && shouldAppend && (
-              <ScratchCard
-                cover={Cover}
-                width={cardNode.current?.offsetWidth}
-                height={cardNode.current?.offsetHeight}
-                percent={60}
-                onComplete={() => {
-                  setState((S) => ({ ...S, step: ZhongliGameStepType.dialog }));
-                }}
-                brushSize={{ width: 150, height: 150 }}
-              >
-                <div className='content' />
-              </ScratchCard>
-            )}
+      {step === ZhongliGameStepType.unset && (
+        <div className='card'>
+          <div ref={cardNode}>
+            <div>
+              {shouldAppend && (
+                <ScratchCard
+                  cover={Cover}
+                  width={cardNode.current?.offsetWidth}
+                  height={cardNode.current?.offsetHeight}
+                  percent={60}
+                  onComplete={() => {
+                    setState((S) => ({ ...S, step: ZhongliGameStepType.dialog }));
+                  }}
+                  brushSize={{ width: 150, height: 150 }}
+                >
+                  <div className='content' />
+                </ScratchCard>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       {step <= ZhongliGameStepType.dialog && <Footprint active={active} />}
       {step === ZhongliGameStepType.unset && <Vacuum position={position} />}
       {step <= ZhongliGameStepType.dialog && <div className='mask' />}

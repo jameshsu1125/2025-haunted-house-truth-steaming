@@ -181,6 +181,7 @@ const UnderBed = memo(() => {
         page === ZhongliPageType.game && step <= ZhongliGameStepType.dirt2Clear
           ? 'visible'
           : 'invisible',
+        step === ZhongliGameStepType.underBed && 'pointer-events-auto',
       )}
       style={style}
     >

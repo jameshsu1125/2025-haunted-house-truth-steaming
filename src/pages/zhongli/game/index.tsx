@@ -8,18 +8,17 @@ import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType, ZhongliState } from '../config';
 import Background from './background';
+import Clear from './clear';
 import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './config';
 import Dialog from './dialog';
+import End from './end';
 import './index.less';
 import UnderBed from './underBed';
-import Clear from './clear';
-import End from './end';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
   const [{ page }, setState] = useContext(ZhongliContext);
   const [{ step }, setGameState] = useContext(ZhongliGameContext);
-
   const [style, setStyle] = useTween({ opacity: 1 });
 
   useEffect(() => {
@@ -28,9 +27,9 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
         { opacity: 0 },
         {
           onEnd: () => {
-            setContext({ type: ActionType.Page, state: PAGE.result });
             setState(ZhongliState);
             setGameState(ZhongliGameState);
+            setContext({ type: ActionType.Page, state: PAGE.result });
           },
         },
       );
@@ -49,6 +48,7 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
 
 const Game = memo(() => {
   const value = useState(ZhongliGameState);
+  const [{ page }] = useContext(ZhongliContext);
   const [{ step }] = value;
   return (
     <ZhongliGameContext.Provider value={value}>
@@ -60,7 +60,7 @@ const Game = memo(() => {
           {step <= ZhongliGameStepType.clear && <Clear />}
           <End />
         </CoverNode>
-        {step <= ZhongliGameStepType.unset && (
+        {page === ZhongliPageType.game && step <= ZhongliGameStepType.unset && (
           <Countdown
             totalTime={30000}
             status={step === ZhongliGameStepType.unset ? 'start' : 'stop'}

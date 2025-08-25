@@ -11,6 +11,7 @@ import SVG from './svg';
 const TweenerProvider = ({ children, active }: IReactProps & { active: boolean }) => {
   const [, setState] = useContext(ZhongliGameContext);
   const [style, setStyle] = useTween({ opacity: 1 });
+
   useEffect(() => {
     if (active)
       setStyle(
@@ -45,7 +46,7 @@ const Clear = memo(() => {
           ref={ref}
           src={videoURL}
           muted
-          autoPlay
+          autoPlay={false}
           loop={false}
           width={1280}
           height={720}

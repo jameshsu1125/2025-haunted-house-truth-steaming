@@ -16,7 +16,7 @@ export type TZhongliGameState = { step: ZhongliGameStepType; isError: boolean; c
 export type TZhongliGameContext = [TZhongliGameState, Dispatch<SetStateAction<TZhongliGameState>>];
 
 export const ZhongliGameState: TZhongliGameState = {
-  step: ZhongliGameStepType.clear,
+  step: ZhongliGameStepType.unset,
   isError: false,
   clearTimes: 0,
 };

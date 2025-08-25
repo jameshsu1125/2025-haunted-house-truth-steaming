@@ -16,7 +16,7 @@ export type TZhongliContext = [TZhongliState, Dispatch<SetStateAction<TZhongliSt
 
 export const ZhongliState = {
   step: ZhongliStepType.unset,
-  page: ZhongliPageType.game,
-  videoLoaded: true, // TODO =>
+  page: ZhongliPageType.landing,
+  videoLoaded: false,
 };
 export const ZhongliContext = createContext<TZhongliContext>([ZhongliState, () => {}]);

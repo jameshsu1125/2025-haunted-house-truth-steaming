@@ -34,13 +34,23 @@ const DarkScreen = memo(() => {
 });
 
 const Video = memo(() => {
-  const [, setZhongliState] = useContext(ZhongliContext);
+  const [{ page }, setZhongliState] = useContext(ZhongliContext);
   const [, setState] = useContext(ZhongliIntroContext);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    if (page === ZhongliPageType.intro) {
+      videoRef.current?.play();
+    }
+  }, [page]);
+
+  useEffect(() => {
     const onVideoReady = () => {
       setZhongliState((S) => ({ ...S, videoLoaded: true }));
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 1;
+      }
       videoRef.current?.removeEventListener('loadeddata', onVideoReady);
       videoRef.current?.removeEventListener('playing', onVideoReady);
     };
@@ -71,13 +81,6 @@ const Video = memo(() => {
       }
     };
     videoRef.current?.addEventListener('timeupdate', onUpdate);
-
-    videoRef.current?.addEventListener('pause', () => {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play();
-      }
-    });
   }, []);
 
   return (
@@ -87,6 +90,7 @@ const Video = memo(() => {
       width='100%'
       height='100%'
       autoPlay
+      preload='auto'
       playbackRate={1}
       playsInline
       muted

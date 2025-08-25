@@ -1,6 +1,6 @@
 @import url('@/settings/global.css');
 .Zhongli .Game .UnderBed {
-  @apply absolute top-0 h-full w-full;
+  @apply pointer-events-none absolute top-0 h-full w-full;
 
   .background {
     background-image: url('./img/background.jpg');
@@ -51,7 +51,7 @@
     width: (unit(image-width(@img))) / 1280 * 100%;
 
     @img: './img/dirt.png';
-    @apply absolute;
+    @apply pointer-events-auto absolute;
 
     & > div:nth-child(1) {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
