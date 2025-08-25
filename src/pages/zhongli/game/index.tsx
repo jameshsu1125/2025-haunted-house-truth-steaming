@@ -9,6 +9,8 @@ import { ZhongliContext, ZhongliPageType, ZhongliState } from '../config';
 import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './config';
 // import Countdown from './countdown';
 import './index.less';
+import Countdown from '@/components/countdown';
+import Background from './background';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -44,12 +46,27 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
 
 const Game = memo(() => {
   const value = useState(ZhongliGameState);
-  // const [{ step }] = value;
+  const [{ step }] = value;
   return (
     <ZhongliGameContext.Provider value={value}>
       <TweenerProvider>
-        <CoverNode>asdasdasd</CoverNode>
-        {/* {step <= ZhongliGameStepType.unset && <Countdown />} */}
+        <CoverNode>
+          <Background />
+        </CoverNode>
+        {step <= ZhongliGameStepType.unset && (
+          <Countdown
+            totalTime={30000}
+            status={step === ZhongliGameStepType.unset ? 'start' : 'stop'}
+            onGameOver={() => {
+              // Handle game over
+              console.log('a');
+            }}
+            onFadeOut={() => {
+              // Handle fade out
+              console.log('b');
+            }}
+          />
+        )}
       </TweenerProvider>
     </ZhongliGameContext.Provider>
   );
