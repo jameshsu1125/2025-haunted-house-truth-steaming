@@ -2,6 +2,7 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 
 export enum ZhongliGameStepType {
   unset,
+  dialog,
   underBed,
   dirt,
   clear,
@@ -13,7 +14,7 @@ export type TZhongliGameState = { step: ZhongliGameStepType; isError: boolean; c
 export type TZhongliGameContext = [TZhongliGameState, Dispatch<SetStateAction<TZhongliGameState>>];
 
 export const ZhongliGameState: TZhongliGameState = {
-  step: ZhongliGameStepType.unset,
+  step: ZhongliGameStepType.dialog,
   isError: false,
   clearTimes: 0,
 };

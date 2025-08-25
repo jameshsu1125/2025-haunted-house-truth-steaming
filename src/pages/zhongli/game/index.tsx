@@ -1,3 +1,4 @@
+import Countdown from '@/components/countdown';
 import CoverNode from '@/components/coverNode';
 import { PAGE } from '@/settings/config';
 import { Context } from '@/settings/constant';
@@ -6,11 +7,10 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType, ZhongliState } from '../config';
-import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './config';
-// import Countdown from './countdown';
-import './index.less';
-import Countdown from '@/components/countdown';
 import Background from './background';
+import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './config';
+import Dialog from './dialog';
+import './index.less';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -52,6 +52,7 @@ const Game = memo(() => {
       <TweenerProvider>
         <CoverNode>
           <Background />
+          <Dialog />
         </CoverNode>
         {step <= ZhongliGameStepType.unset && (
           <Countdown
