@@ -1,0 +1,97 @@
+@import url('@/settings/global.css');
+.Zhongli .Game .UnderBed {
+  @apply absolute top-0 h-full w-full;
+
+  .background {
+    background-image: url('./img/background.jpg');
+    @apply absolute h-full w-full bg-cover bg-center;
+  }
+
+  .vacuum {
+    @apply pointer-events-none absolute top-0 h-full w-full;
+
+    .smoke {
+      @apply pointer-events-none absolute top-0 h-full w-full;
+
+      & > canvas {
+        @apply absolute h-full w-full;
+      }
+    }
+
+    .cleaner {
+      bottom: 16.8%;
+      left: 29.1%;
+      width: (unit(image-width(@img))) / 1280 * 100%;
+
+      @img: './img/cleaner.png';
+      @apply absolute;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+
+        @apply relative w-full bg-contain bg-center bg-no-repeat;
+
+        & > div {
+          @apply absolute top-0 right-0 bottom-0 left-0;
+
+          .dot {
+            top: 89.2%;
+            left: 10%;
+            @apply absolute h-2 w-2 rounded-full bg-white opacity-0;
+          }
+        }
+      }
+    }
+  }
+
+  .dirt {
+    bottom: 14.2%;
+    left: 23%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/dirt.png';
+    @apply absolute;
+
+    & > div:nth-child(1) {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @apply w-full bg-contain bg-center bg-no-repeat mix-blend-multiply;
+    }
+
+    .out-line {
+      top: 0%;
+      left: 0%;
+      width: 100%;
+
+      @img: './img/dirt-outline.png';
+      @apply pointer-events-none absolute;
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+  }
+
+  .bed {
+    top: 12%;
+    left: 5.5%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/bed.png';
+    @apply pointer-events-none absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

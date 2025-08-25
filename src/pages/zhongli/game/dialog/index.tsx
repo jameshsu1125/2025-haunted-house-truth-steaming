@@ -82,7 +82,7 @@ export const F25 = memo(() => {
 
 const Dialog = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 0.2 });
-  const [{ step }] = useContext(ZhongliGameContext);
+  const [{ step }, setState] = useContext(ZhongliGameContext);
   const [{ page }] = useContext(ZhongliContext);
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -98,7 +98,7 @@ const Dialog = memo(() => {
         {
           duration: 500,
           onEnd: () => {
-            // setState((S) => ({ ...S, step: ZhongliGameStepType.dialog }));
+            setState((S) => ({ ...S, step: ZhongliGameStepType.underBed }));
           },
         },
       );

@@ -8,6 +8,11 @@
     @apply pointer-events-none absolute h-full w-full bg-cover bg-center;
   }
 
+  .clear {
+    background-image: url('./img/clear.jpg');
+    @apply pointer-events-none absolute h-full w-full bg-cover bg-center opacity-0;
+  }
+
   .card {
     @img: './img/card-cover.jpg';
     @apply absolute bottom-0 w-full;
@@ -99,6 +104,50 @@
       content: '';
 
       @apply animate-twinkle inline-block w-full bg-contain bg-center bg-no-repeat mix-blend-color-dodge;
+    }
+  }
+
+  .shock {
+    &::before {
+      @apply animate-shock;
+    }
+  }
+
+  .picture {
+    top: 34%;
+    left: 6%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+    transform-origin: bottom center;
+
+    @img: './img/picture.png';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .footprint {
+    bottom: 6%;
+    left: -6%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    mask-image: url('./img/footprint-mask.png');
+    mask-size: 100%;
+    mask-position: center (100% / 6 * 0);
+    @img: './img/footprint.png';
+    @apply pointer-events-none absolute mix-blend-multiply;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      background-size: 100%;
+
+      @apply w-full bg-center bg-no-repeat opacity-50;
     }
   }
 }
