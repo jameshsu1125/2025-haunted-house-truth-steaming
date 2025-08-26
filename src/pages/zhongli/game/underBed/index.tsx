@@ -14,10 +14,12 @@ import './index.less';
 import Smoke from './smoke';
 
 const Cleaner = memo(({ children }: IReactProps) => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ x: 672 });
   const [{ step }, setState] = useContext(ZhongliGameContext);
 
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.dirt) {
       setStyle(
         { x: -VACUUM_OFFSET },
@@ -130,10 +132,12 @@ const Vacuum = memo(() => {
 });
 
 const Dirt = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 1 });
   const [{ step, clearTimes }, setState] = useContext(ZhongliGameContext);
 
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.dirt) {
       setStyle({ opacity: 0 }, { duration: 500, onEnd: () => {} });
     }

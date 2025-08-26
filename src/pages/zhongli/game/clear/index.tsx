@@ -7,6 +7,7 @@ import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import videoURL from '@/pages/taipei/game/clear/img/smoke.mp4';
 import './index.less';
 import SVG from './svg';
+import { ZhongliContext, ZhongliPageType } from '../../config';
 
 const TweenerProvider = ({ children, active }: IReactProps & { active: boolean }) => {
   const [, setState] = useContext(ZhongliGameContext);
@@ -27,17 +28,18 @@ const TweenerProvider = ({ children, active }: IReactProps & { active: boolean }
 
 const Clear = memo(() => {
   const ref = useRef<HTMLVideoElement>(null);
+  const [{ page }] = useContext(ZhongliContext);
   const [{ step }] = useContext(ZhongliGameContext);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (step === ZhongliGameStepType.clear) {
+    if (step === ZhongliGameStepType.clear && page === ZhongliPageType.game) {
       if (ref.current) {
         ref.current!.currentTime = 0;
         ref.current!.play();
       }
     }
-  }, [step]);
+  }, [step, page]);
 
   return (
     <div className={twMerge('Clear', step === ZhongliGameStepType.clear ? 'visible' : 'invisible')}>

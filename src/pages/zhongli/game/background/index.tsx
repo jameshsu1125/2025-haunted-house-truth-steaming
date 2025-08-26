@@ -1,14 +1,16 @@
 import ScratchCard from 'lesca-react-scratch-card';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import Footprint from './footprint';
 import Cover from './img/card-cover.jpg';
 import './index.less';
 import Picture from './picture';
-import { twMerge } from 'tailwind-merge';
 
 const Vacuum = memo(({ position }: { position: { x: number; y: number } }) => {
+  const [{ page }] = useContext(ZhongliContext);
   const [{ step }] = useContext(ZhongliGameContext);
   const [style, setStyle] = useTween({ opacity: 1 });
 
@@ -21,10 +23,10 @@ const Vacuum = memo(({ position }: { position: { x: number; y: number } }) => {
   }, [position]);
 
   useEffect(() => {
-    if (step === ZhongliGameStepType.dialog) {
+    if (page === ZhongliPageType.game && step === ZhongliGameStepType.dialog) {
       setStyle({ opacity: 0 }, { duration: 300 });
     }
-  }, [step]);
+  }, [step, page]);
 
   return (
     <div>

@@ -101,11 +101,11 @@ const Video = memo(() => {
 
 const Background = memo(() => {
   const [{ step }] = useContext(ZhongliIntroContext);
-  const [, setState] = useContext(ZhongliContext);
+  const [{ page }, setState] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 1, scale: 1 });
 
   useEffect(() => {
-    if (step === ZhongliIntroStepType.entry) {
+    if (page === ZhongliPageType.intro && step === ZhongliIntroStepType.entry) {
       setStyle(
         { opacity: 0, scale: 1.2 },
         {
@@ -116,7 +116,7 @@ const Background = memo(() => {
         },
       );
     }
-  }, [step]);
+  }, [step, page]);
 
   return (
     <div className='Background' style={style}>

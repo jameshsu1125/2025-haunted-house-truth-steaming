@@ -5,23 +5,28 @@ import { memo, useContext, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import './index.less';
+import { ZhongliContext, ZhongliPageType } from '../../config';
 
 const F25 = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0, x: 100 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1, x: 0 }, 800);
     }
-  }, [step]);
+  }, [step, page]);
 
   return <div className='t0' style={style} />;
 });
 
 const OutlineText = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0, scale: 1.2 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1, scale: 1 }, { duration: 800, delay: 300 });
     }
@@ -31,9 +36,11 @@ const OutlineText = memo(() => {
 });
 
 const 去污 = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 800 });
     }
@@ -43,9 +50,11 @@ const 去污 = memo(() => {
 });
 
 const 點 = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1 }, { duration: 800, delay: 1200 });
     }
@@ -55,9 +64,11 @@ const 點 = memo(() => {
 });
 
 const 我們來 = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1200 });
     }
@@ -67,9 +78,11 @@ const 我們來 = memo(() => {
 });
 
 const 蒸 = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1 }, { duration: 800, delay: 2500 });
     }
@@ -83,9 +96,11 @@ const 蒸 = memo(() => {
 });
 
 const 的 = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(ZhongliGameContext);
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setStyle({ opacity: 1 }, { duration: 800, delay: 2500 });
     }
@@ -95,9 +110,11 @@ const 的 = memo(() => {
 });
 
 const Touch = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [{ step }, setState] = useContext(ZhongliGameContext);
 
   useEffect(() => {
+    if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
       setTimeout(
         () => {
@@ -116,7 +133,7 @@ const Touch = memo(() => {
     <div
       className={twMerge(
         'absolute top-0 left-0 h-full w-full',
-        step === ZhongliGameStepType.end ? 'visible' : 'invisible',
+        page === ZhongliPageType.game && step === ZhongliGameStepType.end ? 'visible' : 'invisible',
       )}
       onPointerDown={onPointerDown}
     />
@@ -124,10 +141,18 @@ const Touch = memo(() => {
 });
 
 const End = memo(() => {
+  const [{ page }] = useContext(ZhongliContext);
   const [{ step }] = useContext(ZhongliGameContext);
   return (
     <>
-      <div className={twMerge('End', step === ZhongliGameStepType.end ? 'visible' : 'invisible')}>
+      <div
+        className={twMerge(
+          'End',
+          page === ZhongliPageType.game && step === ZhongliGameStepType.end
+            ? 'visible'
+            : 'invisible',
+        )}
+      >
         <div>
           <div>
             <div>
