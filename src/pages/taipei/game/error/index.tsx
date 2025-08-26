@@ -10,7 +10,7 @@ const Error = memo(() => {
   const [blank, setBlank] = useState(false);
 
   useEffect(() => {
-    if (step !== TaipeiGameStepType.start) return;
+    if (step !== TaipeiGameStepType.unset) return;
     if (isError) {
       setStyle(
         { opacity: 1 },

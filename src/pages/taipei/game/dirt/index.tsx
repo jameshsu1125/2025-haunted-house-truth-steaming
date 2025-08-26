@@ -11,8 +11,8 @@ const Dirt = memo(() => {
 
   const [{ step, clearTimes }, setState] = useContext(TaipeiGameContext);
   const onPointerDown = () => {
-    if (step === TaipeiGameStepType.start) {
-      setState((S) => ({ ...S, step: TaipeiGameStepType.dirt }));
+    if (step === TaipeiGameStepType.unset) {
+      setState((S) => ({ ...S, step: TaipeiGameStepType.dialog }));
     }
   };
 

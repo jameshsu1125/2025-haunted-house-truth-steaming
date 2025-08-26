@@ -61,12 +61,12 @@ const Game = memo(() => {
           <Picture />
           {step < TaipeiGameStepType.clear && <Dirt />}
           {step < TaipeiGameStepType.dirt && <Error />}
-          {step < TaipeiGameStepType.start && <Dialog />}
+          {step <= TaipeiGameStepType.dialog && <Dialog />}
           {step <= TaipeiGameStepType.dirt2Clear && <Vacuum />}
           {step < TaipeiGameStepType.end && <Clear />}
           <End />
         </CoverNode>
-        {step <= TaipeiGameStepType.start && <Countdown />}
+        {step <= TaipeiGameStepType.unset && <Countdown />}
       </TweenerProvider>
     </TaipeiGameContext.Provider>
   );

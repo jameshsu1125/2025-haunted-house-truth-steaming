@@ -17,7 +17,7 @@ const Text = memo(() => {
   }, [time]);
 
   useEffect(() => {
-    if (step === TaipeiGameStepType.start) {
+    if (step === TaipeiGameStepType.unset) {
       EnterFrame.reset();
       EnterFrame.add(({ delta }) => {
         const time = GAME_TIME - delta;
@@ -33,9 +33,9 @@ const Countdown = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(TaipeiGameContext);
   useEffect(() => {
-    if (step === TaipeiGameStepType.start) {
+    if (step === TaipeiGameStepType.unset) {
       setStyle({ opacity: 1 });
-    } else if (step > TaipeiGameStepType.start) {
+    } else if (step > TaipeiGameStepType.unset) {
       setStyle({ opacity: 0 }, 300);
       EnterFrame.stop();
       EnterFrame.destroy();

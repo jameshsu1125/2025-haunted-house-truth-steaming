@@ -19,7 +19,7 @@ const Ghost = memo(() => {
   const [{ step }] = useContext(TaipeiGameContext);
 
   const onPointerDown = useCallback(() => {
-    if (step === TaipeiGameStepType.start) {
+    if (step === TaipeiGameStepType.unset) {
       setStyle(
         { opacity: 1 },
         {
@@ -45,7 +45,7 @@ const Ghost = memo(() => {
 const Touch = memo(() => {
   const [{ step, isError }, setState] = useContext(TaipeiGameContext);
   const onPointerDown = useCallback(() => {
-    if (step === TaipeiGameStepType.start && !isError) {
+    if (step === TaipeiGameStepType.unset && !isError) {
       setState((S) => ({ ...S, isError: true }));
     }
   }, [step]);
@@ -61,7 +61,7 @@ const Light = memo(() => {
   const [appendClass, setAppendClass] = useState(false);
 
   useEffect(() => {
-    if (step === TaipeiGameStepType.start) {
+    if (step === TaipeiGameStepType.unset) {
       const blank = () => {
         if (!isTween.current) {
           const is = Math.random() > 0.9;
@@ -99,7 +99,7 @@ const Light = memo(() => {
       };
       blank();
     }
-    if (step > TaipeiGameStepType.start) {
+    if (step > TaipeiGameStepType.unset) {
       isTween.current = true;
       destroy();
     }

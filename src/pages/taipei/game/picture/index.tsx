@@ -8,7 +8,7 @@ const Picture = memo(() => {
 
   const [{ step }] = useContext(TaipeiGameContext);
   const onPointerDown = () => {
-    if (step === TaipeiGameStepType.start) {
+    if (step === TaipeiGameStepType.unset) {
       console.log('sound');
       setShake(true);
       setTimeout(() => {

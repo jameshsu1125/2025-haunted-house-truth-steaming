@@ -2,7 +2,7 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 
 export enum TaipeiGameStepType {
   unset,
-  start,
+  dialog,
   dirt,
   dirt2Clear,
   clear,

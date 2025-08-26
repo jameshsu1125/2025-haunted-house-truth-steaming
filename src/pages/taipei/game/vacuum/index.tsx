@@ -64,7 +64,7 @@ const Cleaner = memo(({ children }: IReactProps) => {
                                               easing: Bezier.linear,
                                               onEnd: () => {
                                                 setStyle(
-                                                  { x: 672 / 2 },
+                                                  { x: 672 },
                                                   {
                                                     duration: 1000,
                                                     delay: VACUUM_WAIT,

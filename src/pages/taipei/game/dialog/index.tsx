@@ -87,7 +87,7 @@ const Dialog = memo(() => {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (page === TaipeiPageType.game && step === TaipeiGameStepType.unset)
+    if (page === TaipeiPageType.game && step === TaipeiGameStepType.dialog)
       setStyle({ opacity: 1, scale: 1 }, { duration: 500 });
   }, [step, page]);
 
@@ -97,7 +97,7 @@ const Dialog = memo(() => {
         { opacity: 0 },
         {
           duration: 500,
-          onEnd: () => setState((S) => ({ ...S, step: TaipeiGameStepType.start })),
+          onEnd: () => setState((S) => ({ ...S, step: TaipeiGameStepType.dirt })),
         },
       );
     }
@@ -107,7 +107,9 @@ const Dialog = memo(() => {
     <div
       className={twMerge(
         'Dialog',
-        page === TaipeiPageType.game && step === TaipeiGameStepType.unset ? 'visible' : 'invisible',
+        page === TaipeiPageType.game && step === TaipeiGameStepType.dialog
+          ? 'visible'
+          : 'invisible',
       )}
     >
       <div className='dialog' style={style}>
