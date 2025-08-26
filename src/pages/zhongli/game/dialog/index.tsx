@@ -5,6 +5,8 @@ import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import './index.less';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(ZhongliContext);
@@ -81,14 +83,17 @@ export const F25 = memo(() => {
 });
 
 const Dialog = memo(() => {
+  const [, setContext] = useContext(Context);
   const [style, setStyle] = useTween({ opacity: 0, scale: 0.2 });
   const [{ step }, setState] = useContext(ZhongliGameContext);
   const [{ page }] = useContext(ZhongliContext);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (page === ZhongliPageType.game && step === ZhongliGameStepType.dialog)
+    if (page === ZhongliPageType.game && step === ZhongliGameStepType.dialog) {
       setStyle({ opacity: 1, scale: 1 }, { duration: 500 });
+      setContext({ type: ActionType.Fail, state: { enabled: false } });
+    }
   }, [step, page]);
 
   useEffect(() => {

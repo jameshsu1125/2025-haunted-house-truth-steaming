@@ -2,9 +2,16 @@ import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+const devicePixelRatio = window.devicePixelRatio || 1;
+
 const Picture = memo(() => {
   const [shock, setShock] = useState(false);
-  const [tweener, setStyle] = useTween({ opacity: 1, y: 0, scale: 1, left: 0 });
+  const [tweener, setStyle] = useTween({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    left: 0,
+  });
 
   const style = useMemo(() => {
     const skew = `skew(${tweener.left}deg, 0deg)`;
@@ -20,7 +27,7 @@ const Picture = memo(() => {
       onPointerDown={() => {
         if (shock) return;
         setStyle(
-          { opacity: 1, y: 222, scale: 1 },
+          { opacity: 1, y: 125 * devicePixelRatio, scale: 1 },
           {
             duration: 500,
             easing: Bezier.inQuart,
