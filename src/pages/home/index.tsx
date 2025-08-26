@@ -14,9 +14,9 @@ const Home = memo(() => {
 
   useEffect(() => {
     if (state.page === HomePageType.landing) {
-      setContext({ type: ActionType.smokeEffect, state: true });
+      setContext({ type: ActionType.SmokeEffect, state: true });
     } else {
-      setContext({ type: ActionType.smokeEffect, state: false });
+      setContext({ type: ActionType.SmokeEffect, state: false });
     }
   }, [state.page]);
 

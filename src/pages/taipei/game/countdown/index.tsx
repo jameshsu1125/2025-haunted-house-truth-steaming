@@ -3,8 +3,10 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { GAME_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import { TaipeiContext, TaipeiPageType } from '../../config';
 
 const Text = memo(() => {
+  const [{ page }] = useContext(TaipeiContext);
   const [{ step }] = useContext(TaipeiGameContext);
   const [time, setTime] = useState(GAME_TIME / 1000);
 
@@ -17,7 +19,7 @@ const Text = memo(() => {
   }, [time]);
 
   useEffect(() => {
-    if (step === TaipeiGameStepType.unset) {
+    if (page === TaipeiPageType.game && step === TaipeiGameStepType.unset) {
       EnterFrame.reset();
       EnterFrame.add(({ delta }) => {
         const time = GAME_TIME - delta;
@@ -25,22 +27,23 @@ const Text = memo(() => {
       });
       EnterFrame.play();
     }
-  }, [step]);
+  }, [step, page]);
   return <div className='text'>{Math.max(time, 0)}</div>;
 });
 
 const Countdown = memo(() => {
+  const [{ page }] = useContext(TaipeiContext);
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(TaipeiGameContext);
   useEffect(() => {
-    if (step === TaipeiGameStepType.unset) {
+    if (page === TaipeiPageType.game && step === TaipeiGameStepType.unset) {
       setStyle({ opacity: 1 });
     } else if (step > TaipeiGameStepType.unset) {
       setStyle({ opacity: 0 }, 300);
       EnterFrame.stop();
       EnterFrame.destroy();
     }
-  }, [step]);
+  }, [step, page]);
   return (
     <div className='Countdown' style={style}>
       <div className='ico'>

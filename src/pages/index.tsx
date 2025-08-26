@@ -1,5 +1,6 @@
 import Container from '@/components/container';
 import Effect from '@/components/effect';
+import Fail from '@/components/fail';
 import LoadingProcess from '@/components/loadingProcess';
 import { PAGE } from '@/settings/config';
 import { Context, InitialState, Reducer } from '@/settings/constant';
@@ -52,7 +53,8 @@ const App = () => {
       <Context.Provider {...{ value }}>
         <Container>
           <Pages />
-          <Effect display={state[ActionType.smokeEffect]} />
+          <Effect display={state[ActionType.SmokeEffect]} />
+          {state[ActionType.Fail] && <Fail />}
         </Container>
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>

@@ -18,9 +18,9 @@ const Landing = memo(() => {
 
   useEffect(() => {
     if (state[0].step === ZhongliLandingStepType.entry) {
-      setContext({ type: ActionType.smokeEffect, state: true });
+      setContext({ type: ActionType.SmokeEffect, state: true });
     } else {
-      setContext({ type: ActionType.smokeEffect, state: false });
+      setContext({ type: ActionType.SmokeEffect, state: false });
     }
   }, [state[0].step]);
 

@@ -8,6 +8,7 @@ import './index.less';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(TaipeiContext);
+  const [{ step }] = useContext(TaipeiGameContext);
   const [style, setStyle] = useTween({
     opacity: 0,
     y: index === 0 ? 0 : 50,
@@ -15,48 +16,56 @@ const Text = memo(({ index }: { index: number }) => {
   });
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
-    setStyle(
-      { opacity: 1, y: 0, scale: 1 },
-      { duration: index === 0 ? 300 : 500, delay: 800 + (index === 0 ? 0 : 300) + index * 100 },
-    );
-  }, [page]);
+    if (step === TaipeiGameStepType.dialog) {
+      setStyle(
+        { opacity: 1, y: 0, scale: 1 },
+        { duration: index === 0 ? 300 : 500, delay: 800 + (index === 0 ? 0 : 300) + index * 100 },
+      );
+    }
+  }, [page, step]);
   return <div className={`text-${index}`} style={style} />;
 });
 
 const Image = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
+  const [{ step }] = useContext(TaipeiGameContext);
   const [style, setStyle] = useTween({ opacity: 0, scale: 0, rotate: 90 });
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
-    setStyle({ opacity: 1, scale: 1, rotate: 0 }, { duration: 500, delay: 1800 });
-  }, [page]);
+    if (step === TaipeiGameStepType.dialog) {
+      setStyle({ opacity: 1, scale: 1, rotate: 0 }, { duration: 500, delay: 1800 });
+    }
+  }, [page, step]);
   return <div className='image' style={style} />;
 });
 
 const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void }) => {
   const [{ page }] = useContext(TaipeiContext);
+  const [{ step }] = useContext(TaipeiGameContext);
   const id = useId();
   const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
 
   const [active, setActive] = useState(false);
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
-    setStyle(
-      { opacity: 1, scale: 1 },
-      {
-        duration: 500,
-        delay: 2200,
-        onEnd: () => {
-          setActive(true);
-          Click.add(`#${id}`, () => {
-            Click.remove(`#${id}`);
-            setActive(false);
-            setFadeOut(true);
-          });
+    if (step === TaipeiGameStepType.dialog) {
+      setStyle(
+        { opacity: 1, scale: 1 },
+        {
+          duration: 500,
+          delay: 2200,
+          onEnd: () => {
+            setActive(true);
+            Click.add(`#${id}`, () => {
+              Click.remove(`#${id}`);
+              setActive(false);
+              setFadeOut(true);
+            });
+          },
         },
-      },
-    );
-  }, [page]);
+      );
+    }
+  }, [page, step]);
 
   return (
     <div
@@ -71,11 +80,14 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
 
 const F25 = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
+  const [{ step }] = useContext(TaipeiGameContext);
   const [style, setStyle] = useTween({ opacity: 0, x: 50 });
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
-    setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 2800, easing: Bezier.outBack });
-  }, [page]);
+    if (step === TaipeiGameStepType.dialog) {
+      setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 2800, easing: Bezier.outBack });
+    }
+  }, [page, step]);
 
   return <div className='f25' style={style} />;
 });

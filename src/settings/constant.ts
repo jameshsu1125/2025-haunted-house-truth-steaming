@@ -19,8 +19,9 @@ export const LoadingProcessState: TLoadingProcessState = {
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
-  [ActionType.location]: TLocationType.taipei,
-  [ActionType.smokeEffect]: false,
+  [ActionType.Location]: TLocationType.taipei,
+  [ActionType.SmokeEffect]: false,
+  [ActionType.Fail]: false,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

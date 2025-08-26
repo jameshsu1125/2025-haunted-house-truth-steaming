@@ -3,8 +3,9 @@ import { Dispatch, ReactNode } from 'react';
 export enum ActionType {
   Page = 'page',
   LoadingProcess = 'loadingProcess',
-  location = 'location',
-  smokeEffect = 'smokeEffect',
+  Location = 'location',
+  SmokeEffect = 'smokeEffect',
+  Fail = 'fail',
 }
 
 export enum LoadingProcessType {
@@ -45,6 +46,7 @@ export interface IState {
   loadingProcess?: TLoadingProcessState;
   location?: TLocationType;
   smokeEffect?: boolean;
+  fail?: boolean;
 }
 
 export interface IAction {
