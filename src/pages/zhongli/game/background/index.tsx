@@ -16,9 +16,20 @@ const Vacuum = memo(({ position }: { position: { x: number; y: number } }) => {
 
   const itemRef = useRef<HTMLDivElement>(null);
   const { x, y } = useMemo(() => {
+    const devicePixelRatio = window.devicePixelRatio;
+    const offset = 30 * devicePixelRatio;
+    const x = position.x - (itemRef.current?.offsetWidth || 0) / 2;
+    const y = position.y - (itemRef.current?.offsetWidth || 0) / 2;
+
+    const minY = Math.max(offset, y);
+    const leftSpace = Math.min(39, x / devicePixelRatio) * devicePixelRatio;
+    const rightSpace = Math.max(149, x / devicePixelRatio) * devicePixelRatio;
+    const midSpace = 94 * devicePixelRatio;
+    const currentX = y / devicePixelRatio > 137 ? x : x < midSpace ? leftSpace : rightSpace;
+
     return {
-      x: position.x - (itemRef.current?.offsetWidth || 0) / 2,
-      y: Math.max(52, position.y - (itemRef.current?.offsetWidth || 0) / 2),
+      x: currentX,
+      y: minY,
     };
   }, [position]);
 
