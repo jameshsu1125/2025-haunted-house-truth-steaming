@@ -91,8 +91,16 @@ const Dialog = memo(() => {
 
   useEffect(() => {
     if (page === ZhongliPageType.game && step === ZhongliGameStepType.dialog) {
-      setStyle({ opacity: 1, scale: 1 }, { duration: 500 });
-      setContext({ type: ActionType.Fail, state: { enabled: false } });
+      setStyle(
+        { opacity: 1, scale: 1 },
+        {
+          duration: 500,
+          delay: 500,
+          onStart: () => {
+            setContext({ type: ActionType.Fail, state: { enabled: false } });
+          },
+        },
+      );
     }
   }, [step, page]);
 

@@ -173,8 +173,8 @@ const UnderBed = memo(() => {
 
   useEffect(() => {
     if (page !== ZhongliPageType.game) return;
-    if (step === ZhongliGameStepType.underBed) {
-      setStyle({ opacity: 1 }, { duration: 500 });
+    if (step === ZhongliGameStepType.dialog) {
+      setStyle({ opacity: 1 }, { duration: 500, onEnd: () => {} });
     } else if (step === ZhongliGameStepType.dirt2Clear) {
       setStyle({ opacity: 0 }, { duration: 1000, easing: Bezier.inOutCirc });
     }

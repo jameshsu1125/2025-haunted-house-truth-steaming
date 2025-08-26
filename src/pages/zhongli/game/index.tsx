@@ -55,15 +55,15 @@ const Game = memo(() => {
       <TweenerProvider>
         <CoverNode>
           <Background />
-          {step <= ZhongliGameStepType.dialog && <Dialog />}
           {step <= ZhongliGameStepType.dirt2Clear && <UnderBed />}
+          {step <= ZhongliGameStepType.dialog && <Dialog />}
           {step <= ZhongliGameStepType.clear && <Clear />}
           <End />
         </CoverNode>
         {page === ZhongliPageType.game && step <= ZhongliGameStepType.unset && (
           <Countdown
             totalTime={30000}
-            status={step === ZhongliGameStepType.unset ? 'stop' : 'stop'}
+            status={step === ZhongliGameStepType.unset ? 'start' : 'stop'}
           />
         )}
       </TweenerProvider>
