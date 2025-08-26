@@ -144,7 +144,9 @@ const Dirt = memo(() => {
   }, [step]);
 
   return (
-    <div className='dirt'>
+    <div
+      className={twMerge('dirt', step === ZhongliGameStepType.underBed && 'pointer-events-auto')}
+    >
       <div
         onPointerDown={() => {
           setState((S) => ({ ...S, step: ZhongliGameStepType.dirt }));
