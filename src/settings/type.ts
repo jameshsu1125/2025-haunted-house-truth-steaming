@@ -41,16 +41,22 @@ export type TLoadingProcessState = {
   body?: '';
 };
 
+export type TFailState = {
+  enabled?: boolean;
+  index?: number;
+  active?: boolean;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
   location?: TLocationType;
   smokeEffect?: boolean;
-  fail?: boolean;
+  fail?: TFailState;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | TLocationType | string | boolean;
+  state: IState | TLoadingProcessState | TLocationType | string | boolean | TFailState;
   type: ActionType;
 }
 

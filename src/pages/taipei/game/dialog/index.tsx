@@ -5,6 +5,8 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(TaipeiContext);
@@ -93,14 +95,17 @@ const F25 = memo(() => {
 });
 
 const Dialog = memo(() => {
+  const [, setContext] = useContext(Context);
   const [style, setStyle] = useTween({ opacity: 0, scale: 0.2 });
   const [{ step }, setState] = useContext(TaipeiGameContext);
   const [{ page }] = useContext(TaipeiContext);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (page === TaipeiPageType.game && step === TaipeiGameStepType.dialog)
+    if (page === TaipeiPageType.game && step === TaipeiGameStepType.dialog) {
       setStyle({ opacity: 1, scale: 1 }, { duration: 500 });
+      setContext({ type: ActionType.Fail, state: { enabled: false } });
+    }
   }, [step, page]);
 
   useEffect(() => {

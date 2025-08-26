@@ -2,7 +2,7 @@
 .Fail {
   @apply absolute top-0 h-full w-full overflow-hidden;
 
-  & > div {
+  & > div:nth-child(1) {
     @apply absolute top-1/2 left-1/2;
 
     .ink {
@@ -12,13 +12,184 @@
       height: image-height(@img) * @scale;
       background-image: url(@img);
       background-size: 100%;
-      animation-name: fadeIn;
-      animation-duration: 0.1s;
-      animation-timing-function: ease-out;
 
-      animation-fill-mode: forwards;
       @scale: 0.7;
       @img: './img/ink.png';
+
+      @apply absolute;
+    }
+  }
+  & > div:nth-child(2) {
+    @apply absolute flex h-full w-full flex-col items-center justify-center space-y-10;
+
+    .headline {
+      @apply flex w-full justify-center;
+
+      & > div {
+        width: (unit(image-width(@img))) / 1280 * 100%;
+
+        @img: './img/all.png';
+        @apply relative;
+
+        & > div {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          // background-image: url(@img);
+
+          @apply w-full bg-contain bg-center bg-no-repeat;
+
+          & > div {
+            @apply absolute top-0 right-0 bottom-0 left-0;
+
+            & > div {
+              @apply absolute;
+
+              &::before {
+                @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+              }
+            }
+
+            & > div:nth-child(1) {
+              top: 0%;
+              left: 0%;
+              width: (unit(image-width(@img))) / 893 * 100%;
+
+              @img: './img/t0.png';
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+              }
+            }
+
+            & > div:nth-child(2) {
+              top: 28.5%;
+              left: 27.9%;
+              width: (unit(image-width(@img))) / 893 * 100%;
+
+              @img: './img/t1.png';
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+              }
+            }
+
+            & > div:nth-child(3) {
+              top: 0%;
+              left: 49.3%;
+              width: (unit(image-width(@img))) / 893 * 100%;
+
+              @img: './img/t2.png';
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+              }
+            }
+
+            & > div:nth-child(4) {
+              top: 23.8%;
+              left: 76.5%;
+              width: (unit(image-width(@img))) / 893 * 100%;
+
+              @img: './img/t3.png';
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+              }
+            }
+
+            & > div:nth-child(5) {
+              top: 78.6%;
+              left: 32.9%;
+              width: (unit(image-width(@img))) / 893 * 100%;
+
+              @img: './img/t4.png';
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .buttons {
+      @apply flex w-full flex-row items-start justify-center space-x-16;
+
+      .restart {
+        width: (unit(image-width(@img))) / 1280 * 100%;
+
+        @img: './img/btn-restart.png';
+        @apply pointer-events-auto relative flex flex-col space-y-4;
+
+        & > div:nth-child(1) {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+
+          @apply w-full bg-contain bg-center bg-no-repeat;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+
+        & > div:nth-child(2) {
+          width: (unit(image-width(@img))) / 315 * 100%;
+
+          @img: './img/btn-restart-text.png';
+          @apply relative w-full;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+      }
+
+      .home {
+        width: (unit(image-width(@img))) / 1280 * 100%;
+
+        @img: './img/btn-home.png';
+        @apply pointer-events-auto relative flex flex-col space-y-4;
+
+        & > div:nth-child(1) {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+
+          @apply w-full bg-contain bg-center bg-no-repeat;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+
+        & > div:nth-child(2) {
+          width: (unit(image-width(@img))) / 315 * 100%;
+
+          @img: './img/btn-home-text.png';
+          @apply relative w-full;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+      }
     }
   }
 }

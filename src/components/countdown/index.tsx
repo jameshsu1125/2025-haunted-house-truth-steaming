@@ -1,6 +1,8 @@
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import EnterFrame from 'lesca-enterframe';
 import useTween from 'lesca-use-tween';
-import { memo, useEffect, useState } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import './index.less';
 
 const Text = memo(
@@ -13,26 +15,36 @@ const Text = memo(
     onGameOver?: () => void;
     totalTime: number;
   }) => {
+    const [, setContext] = useContext(Context);
     const [time, setTime] = useState(totalTime / 1000);
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+      setContext({ type: ActionType.Fail, state: { index } });
+    }, [index]);
 
     useEffect(() => {
       if (time <= 0) {
         EnterFrame.stop();
-        // TODO: Handle game over state
         onGameOver?.();
+        setContext({ type: ActionType.Fail, state: { active: true } });
       }
     }, [time]);
 
     useEffect(() => {
       if (status === 'start') {
+        setContext({ type: ActionType.Fail, state: { enabled: true } });
         EnterFrame.reset();
         EnterFrame.add(({ delta }) => {
           const time = totalTime - delta;
           setTime(Math.floor(time / 1000));
+          const idx = 10 - Math.ceil((time / totalTime) * 10);
+          setIndex(idx);
         });
         EnterFrame.play();
       }
     }, [status]);
+
     return <div className='text'>{Math.max(time, 0)}</div>;
   },
 );

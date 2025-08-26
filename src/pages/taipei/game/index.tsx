@@ -1,11 +1,15 @@
+import Countdown from '@/components/countdown';
 import CoverNode from '@/components/coverNode';
+import { PAGE } from '@/settings/config';
+import { Context } from '@/settings/constant';
+import { ActionType, IReactProps } from '@/settings/type';
+import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType, TaipeiState } from '../config';
 import Background from './background';
 import Clear from './clear';
 import { TaipeiGameContext, TaipeiGameState, TaipeiGameStepType } from './config';
-import Countdown from './countdown';
 import Dialog from './dialog';
 import Dirt from './dirt';
 import End from './end';
@@ -13,10 +17,6 @@ import Error from './error';
 import './index.less';
 import Picture from './picture';
 import Vacuum from './vacuum';
-import useTween from 'lesca-use-tween';
-import { ActionType, IReactProps } from '@/settings/type';
-import { Context } from '@/settings/constant';
-import { PAGE } from '@/settings/config';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -51,6 +51,7 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
 });
 
 const Game = memo(() => {
+  const [{ page }] = useContext(TaipeiContext);
   const value = useState(TaipeiGameState);
   const [{ step }] = value;
   return (
@@ -66,7 +67,9 @@ const Game = memo(() => {
           {step < TaipeiGameStepType.end && <Clear />}
           <End />
         </CoverNode>
-        {step <= TaipeiGameStepType.unset && <Countdown />}
+        {step <= TaipeiGameStepType.unset && (
+          <Countdown status={page === TaipeiPageType.game ? 'start' : 'stop'} totalTime={60000} />
+        )}
       </TweenerProvider>
     </TaipeiGameContext.Provider>
   );

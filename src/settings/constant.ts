@@ -6,6 +6,7 @@ import {
   IState,
   LoadingProcessType,
   TContext,
+  TFailState,
   TLoadingProcessState,
   TLocationType,
 } from './type';
@@ -16,12 +17,18 @@ export const LoadingProcessState: TLoadingProcessState = {
   body: '',
 };
 
+export const FailState: TFailState = {
+  enabled: false,
+  index: 0,
+  active: false,
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,
-  [ActionType.Fail]: false,
+  [ActionType.Fail]: FailState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

@@ -54,7 +54,7 @@ const App = () => {
         <Container>
           <Pages />
           <Effect display={state[ActionType.SmokeEffect]} />
-          {state[ActionType.Fail] && <Fail />}
+          {state[ActionType.Fail]?.enabled && <Fail />}
         </Container>
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>
