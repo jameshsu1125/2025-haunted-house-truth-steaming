@@ -24,7 +24,7 @@ export const FailState: TFailState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.zhongli,
+  [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,

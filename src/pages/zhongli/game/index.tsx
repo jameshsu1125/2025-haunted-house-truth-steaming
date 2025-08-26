@@ -63,15 +63,7 @@ const Game = memo(() => {
         {page === ZhongliPageType.game && step <= ZhongliGameStepType.unset && (
           <Countdown
             totalTime={30000}
-            status={step === ZhongliGameStepType.unset ? 'start' : 'stop'}
-            onGameOver={() => {
-              // Handle game over
-              console.log('a');
-            }}
-            onFadeOut={() => {
-              // Handle fade out
-              console.log('b');
-            }}
+            status={step === ZhongliGameStepType.unset ? 'stop' : 'stop'}
           />
         )}
       </TweenerProvider>
