@@ -1,0 +1,43 @@
+@import url('@/settings/global.css');
+.Chiayi .Intro .Background {
+  background-image: url('./img/bg.jpg');
+  @apply absolute h-full w-full bg-cover bg-center;
+
+  .darkScreen {
+    @apply absolute h-full w-full bg-black;
+  }
+
+  .cat {
+    top: 11%;
+    left: 13.3%;
+    width: (unit(image-width(@img))) / 1630 * 100%;
+
+    @img: './img/cat.png';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .well {
+    top: 53.6%;
+    left: 25.8%;
+    width: (unit(image-width(@img))) / 1630 * 100%;
+
+    @img: './img/well.png';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

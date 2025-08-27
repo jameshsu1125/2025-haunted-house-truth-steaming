@@ -1,0 +1,40 @@
+@import url('@/settings/global.css');
+.Chiayi .Marker {
+  @apply pointer-events-none absolute h-full w-full;
+
+  & > div {
+    @apply absolute;
+    & > div {
+      @apply w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .marker {
+    top: 8.7%;
+    left: 41.1%;
+    width: (unit(image-width(@img) - 50) / 1280) * 100%;
+
+    @img: './img/marker.png';
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      @apply animate-bounce;
+    }
+  }
+
+  .text {
+    top: 10.1%;
+    left: 49%;
+    width: (unit(image-width(@img) - 50) / 1280) * 100%;
+
+    @img: './img/text.png';
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @apply shadow-xl;
+    }
+  }
+}

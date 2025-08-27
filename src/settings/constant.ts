@@ -29,7 +29,7 @@ export const RedirectState: TRedirectState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.home,
+  [ActionType.Page]: PAGE.chiayi,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,
