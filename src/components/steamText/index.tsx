@@ -88,7 +88,10 @@ const SteamText = memo(
 
       return () => {
         window.removeEventListener('resize', resize);
-        app.destroy();
+
+        requestAnimationFrame(() => {
+          app?.destroy();
+        });
       };
     }, []);
     return <div ref={ref} className='SteamText' style={{ transform: `scale(${scale})` }} />;

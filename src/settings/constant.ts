@@ -9,6 +9,7 @@ import {
   TFailState,
   TLoadingProcessState,
   TLocationType,
+  TRedirectState,
 } from './type';
 
 export const LoadingProcessState: TLoadingProcessState = {
@@ -23,12 +24,17 @@ export const FailState: TFailState = {
   active: false,
 };
 
+export const RedirectState: TRedirectState = {
+  enabled: true,
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,
   [ActionType.Fail]: FailState,
+  [ActionType.Redirect]: RedirectState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

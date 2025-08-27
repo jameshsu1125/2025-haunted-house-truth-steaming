@@ -1,10 +1,12 @@
-import { FAIL_INK_COUNT } from '@/settings/config';
-import { Context } from '@/settings/constant';
+import { FAIL_INK_COUNT, PAGE } from '@/settings/config';
+import { Context, FailState } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useContext, useEffect, useId, useRef } from 'react';
-import './index.less';
+import { Dispatch, memo, SetStateAction, useContext, useEffect, useId, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
+import './index.less';
+import { HomePageType } from '@/pages/home/config';
 
 const Ink = memo(
   ({ style, index, active }: { style: React.CSSProperties; index: number; active: boolean }) => {
@@ -74,9 +76,22 @@ const Headline = memo(() => {
 });
 
 const Btn = memo(
-  ({ className, active, index }: { className: string; active: boolean; index: number }) => {
+  ({
+    className,
+    active,
+    index,
+    setKey,
+  }: {
+    className: string;
+    active: boolean;
+    index: number;
+    setKey: Dispatch<SetStateAction<number>>;
+  }) => {
     const id = useId();
     const ref = useRef<HTMLDivElement>(null);
+
+    const [, setContext] = useContext(Context);
+
     const [style, setStyle] = useTween({ opacity: 0, scale: 0 });
     const [textStyle, setTextStyle] = useTween({ opacity: 0, y: 50 });
     useEffect(() => {
@@ -92,7 +107,17 @@ const Btn = memo(
                 ref.current?.removeAttribute('style');
                 ref.current?.classList.add('cursor-pointer');
                 Click.add(`#${id}`, () => {
-                  console.log(className);
+                  if (className === 'home') {
+                    setContext({
+                      type: ActionType.Redirect,
+                      state: { enabled: true, category: HomePageType.choose },
+                    });
+                    setContext({ type: ActionType.Page, state: PAGE.home });
+                  }
+                  if (className === 'restart') {
+                    setKey((S) => S + 1);
+                  }
+                  setContext({ type: ActionType.Fail, state: FailState });
                 });
               });
             },
@@ -113,19 +138,19 @@ const Btn = memo(
   },
 );
 
-const Buttons = memo(() => {
+const Buttons = memo(({ setKey }: { setKey: Dispatch<SetStateAction<number>> }) => {
   const [{ fail }] = useContext(Context);
   const { active } = fail || { active: false };
 
   return (
     <div className='buttons'>
-      <Btn className='restart' active={active || false} index={0} />
-      <Btn className='home' active={active || false} index={1} />
+      <Btn className='restart' active={active || false} index={0} setKey={setKey} />
+      <Btn className='home' active={active || false} index={1} setKey={setKey} />
     </div>
   );
 });
 
-const Fail = memo(() => {
+const Fail = memo(({ setKey }: { setKey: Dispatch<SetStateAction<number>> }) => {
   const [{ fail }] = useContext(Context);
   const { active } = fail || { active: false };
   return (
@@ -150,7 +175,7 @@ const Fail = memo(() => {
       </div>
       <div>
         <Headline />
-        <Buttons />
+        <Buttons setKey={setKey} />
       </div>
     </div>
   );

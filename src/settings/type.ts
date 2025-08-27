@@ -1,3 +1,6 @@
+import { HomePageType } from '@/pages/home/config';
+import { TaipeiPageType } from '@/pages/taipei/config';
+import { ZhongliPageType } from '@/pages/zhongli/config';
 import { Dispatch, ReactNode } from 'react';
 
 export enum ActionType {
@@ -6,6 +9,7 @@ export enum ActionType {
   Location = 'location',
   SmokeEffect = 'smokeEffect',
   Fail = 'fail',
+  Redirect = 'redirect',
 }
 
 export enum LoadingProcessType {
@@ -47,16 +51,30 @@ export type TFailState = {
   active?: boolean;
 };
 
+export type TRedirectState = {
+  enabled?: boolean;
+  page?: string;
+  category?: HomePageType | TaipeiPageType | ZhongliPageType;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
   location?: TLocationType;
   smokeEffect?: boolean;
   fail?: TFailState;
+  redirect?: TRedirectState;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | TLocationType | string | boolean | TFailState;
+  state:
+    | IState
+    | TLoadingProcessState
+    | TLocationType
+    | string
+    | boolean
+    | TFailState
+    | TRedirectState;
   type: ActionType;
 }
 

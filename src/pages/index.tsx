@@ -8,7 +8,7 @@ import '@/settings/global.css';
 import { ActionType, TContext } from '@/settings/type';
 import Click from 'lesca-click';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
-import { Suspense, lazy, memo, useContext, useMemo, useReducer } from 'react';
+import { Suspense, lazy, memo, useContext, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 Click.install();
@@ -48,13 +48,15 @@ const Pages = memo(() => {
 const App = () => {
   const [state, setState] = useReducer(Reducer, InitialState);
   const value: TContext = useMemo(() => [state, setState], [state]);
+  const [key, setKey] = useState(0);
+
   return (
     <div className='App m-0'>
       <Context.Provider {...{ value }}>
         <Container>
-          <Pages />
+          <Pages key={key} />
           <Effect display={state[ActionType.SmokeEffect]} />
-          {state[ActionType.Fail]?.enabled && <Fail />}
+          {state[ActionType.Fail]?.enabled && <Fail setKey={setKey} />}
         </Container>
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>

@@ -7,10 +7,26 @@ import Choose from './choose';
 import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
 import './index.less';
 import Landing from './landing';
+import { PAGE } from '@/settings/config';
 
 const Home = memo(() => {
-  const [, setContext] = useContext(Context);
+  const [{ redirect }, setContext] = useContext(Context);
   const [state, setState] = useState<THomeState>(HomeState);
+
+  useEffect(() => {
+    if (redirect && redirect.enabled && state.step === HomeStepType.loaded) {
+      const { category, page } = redirect;
+      if (page && page !== PAGE.home) {
+        setContext({ type: ActionType.Page, state: page });
+      }
+
+      if (category) {
+        if (Object.values(HomePageType).includes(category as unknown as HomePageType)) {
+          setState((S) => ({ ...S, page: category as HomePageType }));
+        }
+      }
+    }
+  }, [redirect, state.step]);
 
   useEffect(() => {
     if (state.page === HomePageType.landing) {
