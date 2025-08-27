@@ -25,6 +25,8 @@ const Home = memo(() => {
           setState((S) => ({ ...S, page: category as HomePageType }));
         }
       }
+
+      setContext({ type: ActionType.Redirect, state: { enabled: false } });
     }
   }, [redirect, state.step]);
 

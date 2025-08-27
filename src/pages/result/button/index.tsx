@@ -7,6 +7,7 @@ import { ResultContext, ResultStepType } from '../config';
 import './index.less';
 import { Context } from '@/settings/constant';
 import { PAGE } from '@/settings/config';
+import { HomePageType } from '@/pages/home/config';
 
 let index = 0;
 
@@ -30,10 +31,12 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
     if (active) {
       Click.add(`#${id}`, () => {
         if (className === 'share') {
-          // Handle again button click
           console.log('share button clicked');
         } else if (className === 'again') {
-          // window.location.reload();
+          setContext({
+            type: ActionType.Redirect,
+            state: { enabled: true, category: HomePageType.choose },
+          });
           setContext({ type: ActionType.Page, state: PAGE.home });
         }
       });
