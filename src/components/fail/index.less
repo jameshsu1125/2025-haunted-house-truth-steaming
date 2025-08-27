@@ -123,13 +123,13 @@
     }
 
     .buttons {
-      @apply flex w-full flex-row items-start justify-center space-x-16;
+      @apply pointer-events-none flex w-full flex-row items-start justify-center space-x-16;
 
       .restart {
         width: (unit(image-width(@img))) / 1280 * 100%;
 
         @img: './img/btn-restart.png';
-        @apply pointer-events-auto relative flex flex-col space-y-4;
+        @apply relative flex flex-col space-y-4;
 
         & > div:nth-child(1) {
           padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -162,7 +162,7 @@
         width: (unit(image-width(@img))) / 1280 * 100%;
 
         @img: './img/btn-home.png';
-        @apply pointer-events-auto relative flex flex-col space-y-4;
+        @apply relative flex flex-col space-y-4;
 
         & > div:nth-child(1) {
           padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);

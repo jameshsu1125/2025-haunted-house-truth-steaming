@@ -89,11 +89,10 @@ const Btn = memo(
   }) => {
     const id = useId();
     const ref = useRef<HTMLDivElement>(null);
-
     const [, setContext] = useContext(Context);
-
     const [style, setStyle] = useTween({ opacity: 0, scale: 0 });
     const [textStyle, setTextStyle] = useTween({ opacity: 0, y: 50 });
+
     useEffect(() => {
       if (active) {
         setStyle(
@@ -105,7 +104,6 @@ const Btn = memo(
             onEnd: () => {
               requestAnimationFrame(() => {
                 ref.current?.removeAttribute('style');
-                ref.current?.classList.add('cursor-pointer');
                 Click.add(`#${id}`, () => {
                   if (className === 'home') {
                     setContext({
@@ -128,7 +126,12 @@ const Btn = memo(
     }, [active]);
     return (
       <div className={className}>
-        <div id={id} ref={ref} style={style} />
+        <div
+          id={id}
+          ref={ref}
+          style={style}
+          className={twMerge(active && 'pointer-events-auto cursor-pointer')}
+        />
         <div style={textStyle} />
         <div>
           <div />
