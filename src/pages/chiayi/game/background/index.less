@@ -1,0 +1,27 @@
+@import url('@/settings/global.css');
+
+.Chiayi .Game .Background {
+  @apply absolute top-0 left-0 h-full w-full;
+
+  .image {
+    background-image: url('./img/bg.jpg');
+    @apply absolute top-0 h-full w-full bg-cover bg-center;
+  }
+
+  .light {
+    top: 3.6%;
+    left: 35.3%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/light.png';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply animate-twinkle inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

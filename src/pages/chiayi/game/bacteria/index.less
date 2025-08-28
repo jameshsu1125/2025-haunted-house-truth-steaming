@@ -1,0 +1,94 @@
+@import url('@/settings/global.css');
+
+.Chiayi .Game .Bacteria {
+  @apply absolute top-0 h-full w-full;
+
+  .floor {
+    background-image: url('./img/floor.jpg');
+    @apply absolute top-0 h-full w-full;
+  }
+
+  .virus {
+    @apply absolute top-0 h-full w-full;
+  }
+
+  .v-1 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/v0.png';
+    @apply absolute;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @apply pointer-events-auto inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .v-2 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/v1.png';
+    @apply absolute;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @apply pointer-events-auto inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .v-3 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/v2.png';
+    @apply absolute;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @apply pointer-events-auto inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .germs {
+    @apply pointer-events-none absolute top-0 w-full;
+
+    .germ {
+      @apply absolute;
+
+      & > div {
+        @apply pointer-events-auto;
+      }
+
+      & > canvas {
+        @apply pointer-events-none;
+      }
+    }
+  }
+
+  .vacuum {
+    @apply pointer-events-none absolute top-0 h-full w-full;
+
+    & > div {
+      bottom: -52%;
+      left: 50%;
+      margin-left: 0 - ((unit(image-width(@img))) / 1280 * 100%) * 0.5;
+      width: (unit(image-width(@img))) / 1280 * 100%;
+
+      @img: './img/f25.png';
+      @apply absolute;
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@import url('@/settings/global.css');
+
+.Chiayi .Game .F25 {
+  @apply absolute top-0 h-full w-full;
+
+  & > div {
+    right: 0%;
+    bottom: 0%;
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/f25.png';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

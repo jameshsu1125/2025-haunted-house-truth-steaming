@@ -1,0 +1,217 @@
+import { IReactProps } from '@/settings/type';
+import useTween, { Bezier } from 'lesca-use-tween';
+import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
+import { memo, useEffect, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import displacement from './img/displacement_map_repeat.jpg';
+
+import v0 from './img/v0.png';
+import v1 from './img/v1.png';
+import v2 from './img/v2.png';
+
+const scale = 2;
+
+const TweenerProvider = memo(
+  ({
+    children,
+    clicked,
+    setClicked,
+    setHide,
+    hide,
+  }: IReactProps & {
+    clicked: boolean;
+    setClicked: () => void;
+    setHide: React.Dispatch<React.SetStateAction<boolean>>;
+    hide: boolean;
+  }) => {
+    const [style, setStyle] = useTween({ opacity: 1, scale: 0, rotate: 0 });
+
+    useEffect(() => {
+      setStyle(
+        { opacity: 1, scale: 1, rotate: Math.random() * 45 },
+        {
+          duration: 10000,
+          easing: Bezier.linear,
+          onEnd: () => {
+            setStyle(
+              { opacity: 0, scale: 1.2 },
+              {
+                duration: 300,
+                onEnd: () => setHide(true),
+              },
+            );
+          },
+        },
+      );
+    }, []);
+
+    useEffect(() => {
+      if (clicked) {
+        setStyle(
+          { opacity: 0 },
+          {
+            delay: 0,
+            duration: 2000,
+            easing: Bezier.inQuart,
+            onEnd: () => setHide(true),
+          },
+        );
+      }
+    }, [clicked]);
+
+    return (
+      <div
+        className={twMerge(hide && 'invisible', clicked && 'pointer-events-none')}
+        style={style}
+        onPointerDown={setClicked}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
+const Germ = memo(
+  ({
+    onAssetsLoaded,
+    noise = { x: 1, y: 1 },
+    index,
+    containerWidth,
+    style,
+    onSuck,
+  }: {
+    onAssetsLoaded?: () => void;
+    scale?: number;
+    noise?: { x: number; y: number };
+    index: number;
+    containerWidth: number;
+    style: React.CSSProperties;
+    onSuck: () => void;
+  }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const nodeRef = useRef<HTMLDivElement>(null);
+    const [domReady, setRomReady] = useState(false);
+    const src = [v0, v1, v2][index - 1];
+    const pixiRef = useRef<{ [key: string]: any }>({});
+
+    const [clicked, setClicked] = useState(false);
+    const [hide, setHide] = useState(false);
+    const noiseRef = useRef(noise);
+
+    useEffect(() => {
+      const image = new Image();
+      image.onload = () => {
+        const { width, height } = image;
+        const percent = width / 1280;
+        const currentWidth = containerWidth * percent;
+        const currentHeight = height * (currentWidth / width);
+        ref.current!.style.width = `${currentWidth * scale}px`;
+        ref.current!.style.height = `${currentHeight * scale}px`;
+        ref.current!.setAttribute('data-percent', `${percent}`);
+        setRomReady(true);
+      };
+      image.src = src;
+    }, []);
+
+    useEffect(() => {
+      if (domReady) {
+        const app = new Application();
+
+        const createHuntedText = async () => {
+          if (
+            nodeRef.current &&
+            ref.current &&
+            ref.current.clientWidth > 0 &&
+            ref.current.clientHeight > 0
+          ) {
+            const percent = Number(ref.current.getAttribute('data-percent'));
+
+            await Assets.load([src, displacement]);
+
+            await app.init({
+              width: ref.current.clientWidth,
+              height: ref.current.clientHeight,
+              backgroundAlpha: 0,
+            });
+
+            app.stage.eventMode = 'static';
+            app.stage.width = ref.current.clientWidth;
+            app.stage.height = ref.current.clientHeight;
+            nodeRef.current.prepend(app.canvas);
+
+            const container = new Container();
+            app.stage.addChild(container);
+
+            const virus = Sprite.from(src);
+            container.addChild(virus);
+
+            virus.scale.set(percent * 2 * scale);
+
+            const displacementSprite = Sprite.from(displacement);
+            displacementSprite.texture.source.addressMode = 'repeat';
+
+            const displacementFilter = new DisplacementFilter({
+              sprite: displacementSprite,
+              scale: noise,
+            });
+
+            displacementFilter.padding = 10;
+            displacementSprite.position = virus.position;
+            app.stage.addChild(displacementSprite);
+
+            pixiRef.current.displacementSprite = displacementSprite;
+            pixiRef.current.displacementFilter = displacementFilter;
+            pixiRef.current.virus = virus;
+            pixiRef.current.app = app;
+
+            onAssetsLoaded?.();
+          } else {
+            requestAnimationFrame(() => {
+              createHuntedText();
+            });
+          }
+        };
+
+        requestAnimationFrame(() => {
+          createHuntedText();
+        });
+      }
+    }, [domReady]);
+
+    const onClick = () => {
+      setClicked(true);
+      onSuck();
+      const { virus, displacementSprite, displacementFilter, app } = pixiRef.current;
+      virus.filters = [displacementFilter];
+
+      app.ticker.add(() => {
+        displacementSprite.x += 3;
+        displacementFilter.scale.x = noiseRef.current.x += 5;
+        displacementFilter.scale.y = noiseRef.current.y += 5;
+
+        if (displacementSprite.x > displacementSprite.width) {
+          displacementSprite.x = 0;
+        }
+      });
+    };
+
+    useEffect(() => {
+      if (hide) {
+        requestAnimationFrame(() => {
+          pixiRef.current.app.destroy(true);
+        });
+      }
+    }, [hide]);
+
+    return (
+      <div ref={ref} className='germ' style={style}>
+        {!hide && (
+          <TweenerProvider clicked={clicked} setClicked={onClick} setHide={setHide} hide={hide}>
+            <div ref={nodeRef} className={twMerge('h-full w-full')} />
+          </TweenerProvider>
+        )}
+      </div>
+    );
+  },
+);
+export default Germ;

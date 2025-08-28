@@ -10,30 +10,33 @@ const Text = memo(
     status,
     onGameOver,
     totalTime,
+    needFail,
   }: {
     status: 'start' | 'stop';
     onGameOver?: () => void;
     totalTime: number;
+    needFail: boolean;
   }) => {
     const [, setContext] = useContext(Context);
     const [time, setTime] = useState(totalTime / 1000);
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-      setContext({ type: ActionType.Fail, state: { index } });
+      if (needFail) setContext({ type: ActionType.Fail, state: { index } });
     }, [index]);
 
     useEffect(() => {
       if (time <= 0) {
         EnterFrame.stop();
         onGameOver?.();
-        setContext({ type: ActionType.Fail, state: { active: true } });
+        if (needFail) setContext({ type: ActionType.Fail, state: { active: true } });
       }
     }, [time]);
 
     useEffect(() => {
       if (status === 'start') {
-        setContext({ type: ActionType.Fail, state: { enabled: true } });
+        if (needFail) setContext({ type: ActionType.Fail, state: { enabled: true } });
+
         EnterFrame.reset();
         EnterFrame.add(({ delta }) => {
           const time = totalTime - delta;
@@ -43,7 +46,7 @@ const Text = memo(
         });
         EnterFrame.play();
       }
-    }, [status]);
+    }, [status, needFail]);
 
     return <div className='text'>{Math.max(time, 0)}</div>;
   },
@@ -55,7 +58,9 @@ const Countdown = memo(
     onGameOver,
     onFadeOut,
     totalTime = 60,
+    needFail = true,
   }: {
+    needFail?: boolean;
     status: 'start' | 'stop';
     onFadeOut?: () => void;
     onGameOver?: () => void;
@@ -77,7 +82,7 @@ const Countdown = memo(
         <div className='ico'>
           <div />
         </div>
-        <Text status={status} onGameOver={onGameOver} totalTime={totalTime} />
+        <Text status={status} onGameOver={onGameOver} totalTime={totalTime} needFail={needFail} />
       </div>
     );
   },

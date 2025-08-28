@@ -1,0 +1,20 @@
+import { createContext, Dispatch, SetStateAction } from 'react';
+
+export enum ChiayiGameStepType {
+  unset,
+  dialog,
+  bacteria,
+  bacteriaFadeOut,
+  result,
+  fadeOut,
+}
+export type TChiayiGameState = { step: ChiayiGameStepType };
+export type TChiayiGameContext = [TChiayiGameState, Dispatch<SetStateAction<TChiayiGameState>>];
+
+export const ChiayiGameState = { step: ChiayiGameStepType.result };
+export const ChiayiGameContext = createContext<TChiayiGameContext>([ChiayiGameState, () => {}]);
+
+export const VIRUS_SHOW_TIME = {
+  min: 500,
+  max: 2000,
+};

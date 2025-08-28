@@ -1,8 +1,8 @@
-import { memo, useEffect, useRef } from 'react';
-import './index.less';
 import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
+import { memo, useEffect, useRef } from 'react';
 import displacement from './img/displacement_map_repeat.jpg';
 import Image from './img/headline-animate.png';
+import './index.less';
 
 const SteamText = memo(
   ({
