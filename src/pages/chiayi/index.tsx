@@ -4,6 +4,7 @@ import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
 import { ChiayiContext, ChiayiPageType, ChiayiState, ChiayiStepType } from './config';
+import Game from './game';
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
@@ -28,7 +29,7 @@ const Chiayi = memo(() => {
           <Cistern>
             {state.page <= ChiayiPageType.landing && <Landing />}
             {state.page <= ChiayiPageType.intro && <Intro />}
-            {/* {state.page <= ChiayiPageType.game && <Game />} */}
+            {state.page <= ChiayiPageType.game && <Game />}
           </Cistern>
         </div>
       </OnloadProvider>
