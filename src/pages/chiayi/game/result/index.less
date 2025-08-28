@@ -1,0 +1,69 @@
+@import url('@/settings/global.css');
+.Chiayi .Game .Result {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+  @apply absolute top-0 flex h-full w-full flex-col items-center justify-center space-y-4;
+
+  .t0 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/t0.png';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .t1 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/t1.png';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .t2 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/t2.png';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .t3 {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/t3.png';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply mb-3 inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .count {
+    @apply flex w-full flex-row items-end justify-center space-x-3;
+
+    .num {
+      @apply font-roboto text-9xl font-black;
+    }
+  }
+}

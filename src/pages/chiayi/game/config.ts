@@ -6,6 +6,8 @@ export enum ChiayiGameStepType {
   bacteria,
   bacteriaFadeOut,
   result,
+  resultFadeOut,
+  clear,
   fadeOut,
 }
 export type TChiayiGameState = { step: ChiayiGameStepType };
@@ -18,3 +20,5 @@ export const VIRUS_SHOW_TIME = {
   min: 500,
   max: 2000,
 };
+
+export const RESULT_WAIT_DURATION = 8000;

@@ -17,6 +17,6 @@ export type TChiayiContext = [TChiayiState, Dispatch<SetStateAction<TChiayiState
 export const ChiayiState: TChiayiState = {
   step: ChiayiStepType.unset,
   page: ChiayiPageType.game,
-  bacteriaCount: 0,
+  bacteriaCount: 20,
 };
 export const ChiayiContext = createContext<TChiayiContext>([ChiayiState, () => {}]);

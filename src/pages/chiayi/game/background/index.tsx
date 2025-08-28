@@ -5,6 +5,20 @@ import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
 import './index.less';
 
+const Clear = memo(() => {
+  const [{ page }] = useContext(ChiayiContext);
+  const [{ step }] = useContext(ChiayiGameContext);
+  const [style, setStyle] = useTween({ opacity: 0 });
+
+  useEffect(() => {
+    if (page === ChiayiPageType.game && step >= ChiayiGameStepType.bacteriaFadeOut) {
+      setStyle({ opacity: 1 }, 500);
+    }
+  }, [page, step]);
+
+  return <div className='clear' style={style} />;
+});
+
 const TweenerProvider = memo(({ children, className }: IReactProps & { className: string }) => {
   const [{ page }] = useContext(ChiayiContext);
   const [{ step }] = useContext(ChiayiGameContext);
@@ -28,6 +42,7 @@ const Background = memo(() => {
   return (
     <TweenerProvider className='Background'>
       <div className='image' />
+      <Clear />
       <div className='light' />
     </TweenerProvider>
   );
