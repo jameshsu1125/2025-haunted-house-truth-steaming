@@ -2,4 +2,47 @@
 
 .Result {
   @apply relative min-h-screen w-full overflow-hidden;
+
+  .forms {
+    // background-color: rgba(0, 0, 0, 0.5);
+    @apply absolute top-0 flex h-full w-full items-center justify-center;
+
+    .modal {
+      @apply flex w-full flex-col items-center justify-center space-y-4;
+
+      .input {
+        background-color: rgba(0, 0, 0, 0.8);
+        @apply w-1/2 border-2 border-white;
+
+        input {
+          @apply pointer-events-auto w-full p-2 text-center text-2xl text-white;
+
+          &::placeholder {
+            @apply text-white;
+          }
+        }
+      }
+
+      .button {
+        width: (unit(image-width(@img))) / 1280 * 100%;
+
+        @img: './forms/img/btn.png';
+        @apply relative cursor-pointer;
+
+        &:active {
+          &::before {
+            transform: scale(0.95);
+          }
+        }
+
+        &::before {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+          content: '';
+
+          @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
+        }
+      }
+    }
+  }
 }

@@ -7,6 +7,7 @@ import Button from './button';
 import { ResultContext, ResultState } from './config';
 import Folder from './folder';
 import './index.less';
+import Forms from './forms';
 
 const Result = memo(() => {
   const [, setContext] = useContext(Context);
@@ -27,6 +28,7 @@ const Result = memo(() => {
         <div className='Result'>
           <Folder />
           <Logo />
+          <Forms />
           <Button />
         </div>
       </OnloadProvider>

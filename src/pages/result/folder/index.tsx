@@ -5,6 +5,7 @@ import './index.less';
 import { Context } from '@/settings/constant';
 import { ResultContext, ResultStepType } from '../config';
 import useTween from 'lesca-use-tween';
+import { IReactProps } from '@/settings/type';
 
 const Stamp = memo(() => {
   const [{ step }] = useContext(ResultContext);
@@ -12,7 +13,7 @@ const Stamp = memo(() => {
   const [shake, setShake] = useState(false);
 
   useEffect(() => {
-    if (step === ResultStepType.loaded) {
+    if (step === ResultStepType.entry) {
       setStyle(
         { opacity: 1, scale: 1 },
         {
@@ -28,9 +29,28 @@ const Stamp = memo(() => {
   return <div style={style} className={twMerge(shake && 'animate-shock')} />;
 });
 
-const Folder = memo(() => {
+const Photo = memo(({ children }: IReactProps) => {
   const [{ location }] = useContext(Context);
   const [{ step }] = useContext(ResultContext);
+  const [style, setStyle] = useTween({ opacity: 0, y: -50, x: 20 });
+
+  useEffect(() => {
+    if (step === ResultStepType.entry) {
+      setStyle({ opacity: 1, y: 0, x: 0 }, { duration: 500 });
+    }
+  }, [step]);
+
+  return (
+    <div className={twMerge('file', `file-${location || 'taipei'}`)} style={style}>
+      <div>
+        <div>{children}</div>
+      </div>
+    </div>
+  );
+});
+
+const Folder = memo(() => {
+  const [{ step, name }] = useContext(ResultContext);
 
   const [style, setStyle] = useTween({ opacity: 0 });
 
@@ -44,13 +64,10 @@ const Folder = memo(() => {
     <div className='Folder' style={style}>
       <CoverNode>
         <div className='bg-cover'>
-          <div className={twMerge('file', `file-${location || 'taipei'}`)}>
-            <div>
-              <div>
-                <Stamp />
-              </div>
-            </div>
-          </div>
+          <div className='name'>{name}</div>
+          <Photo>
+            <Stamp />
+          </Photo>
         </div>
       </CoverNode>
     </div>

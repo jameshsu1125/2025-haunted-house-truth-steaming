@@ -1,13 +1,13 @@
 @import url('@/settings/global.css');
 .Result .Button {
   padding-bottom: 12%;
-  @apply absolute top-0 flex h-full w-full flex-row items-end justify-center space-x-4;
+  @apply pointer-events-none absolute top-0 flex h-full w-full flex-row items-end justify-center space-x-4;
 
   .share {
     width: (unit(image-width(@img))) / 1280 * 100%;
 
     @img: './img/share.png';
-    @apply relative;
+    @apply pointer-events-auto relative;
 
     &:active {
       &::before {
@@ -30,7 +30,7 @@
     width: (unit(image-width(@img))) / 1280 * 100%;
 
     @img: './img/again.png';
-    @apply relative;
+    @apply pointer-events-auto relative;
 
     &:active {
       &::before {

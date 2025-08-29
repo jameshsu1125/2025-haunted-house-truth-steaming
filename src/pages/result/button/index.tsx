@@ -19,7 +19,7 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (step === ResultStepType.loaded) {
+    if (step === ResultStepType.entry) {
       setStyle(
         { opacity: 1, y: 0 },
         { duration: 500, delay: 1500 + 100 * index++, onEnd: () => setActive(true) },
