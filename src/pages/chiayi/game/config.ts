@@ -8,6 +8,7 @@ export enum ChiayiGameStepType {
   result,
   resultFadeOut,
   clear,
+  end,
   fadeOut,
 }
 export type TChiayiGameState = { step: ChiayiGameStepType };

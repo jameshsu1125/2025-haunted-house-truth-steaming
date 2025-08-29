@@ -14,6 +14,8 @@ import Dialog from './dialog';
 import F25 from './f25';
 import './index.less';
 import Result from './result';
+import Clear from '@/components/clear';
+import End from '@/components/end';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -59,6 +61,18 @@ const Game = memo(() => {
           {step <= ChiayiGameStepType.dialog && <Dialog />}
           {step <= ChiayiGameStepType.bacteria && <Bacteria />}
           {step <= ChiayiGameStepType.resultFadeOut && <Result />}
+          {step <= ChiayiGameStepType.clear && (
+            <Clear
+              visible={step === ChiayiGameStepType.clear}
+              active={step === ChiayiGameStepType.clear}
+              onEnd={() => setState((S) => ({ ...S, step: ChiayiGameStepType.end }))}
+            />
+          )}
+          <End
+            onPointerDown={() => setState((S) => ({ ...S, step: ChiayiGameStepType.fadeOut }))}
+            onFadeOut={() => setState((S) => ({ ...S, step: ChiayiGameStepType.fadeOut }))}
+            visible={step === ChiayiGameStepType.end}
+          />
         </CoverNode>
         {page === ChiayiPageType.game && step <= ChiayiGameStepType.bacteria && (
           <Countdown

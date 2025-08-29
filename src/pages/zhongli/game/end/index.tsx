@@ -121,7 +121,7 @@ const Touch = memo(() => {
           setState((S) => ({ ...S, step: ZhongliGameStepType.fadeOut }));
         },
         GAME_END_WAIT_DURATION + 2500 + 800,
-      ); // Wait for 5 seconds before fading out
+      );
     }
   }, [step]);
 
