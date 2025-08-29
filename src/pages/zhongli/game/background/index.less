@@ -76,7 +76,7 @@
             width: (unit(image-width(@img))) / 1280 * 100%;
 
             @img: './img/vacuum.png';
-            @apply pointer-events-auto absolute;
+            @apply pointer-events-none absolute;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
