@@ -1,6 +1,6 @@
 export const setMaxLength = (text: string, maxLength = 18) => {
   const split = text.split('');
-  const map = split.map((s, i) => {
+  const map = split.map((_, i) => {
     return (text.charCodeAt(i) >= 0 && text.charCodeAt(i) <= 128 ? 1 : 2) as number;
   });
   let n = 0;

@@ -69,6 +69,24 @@
         & > div {
           @apply absolute top-0 right-0 bottom-0 left-0;
 
+          .fake {
+            bottom: -158%;
+            left: 30%;
+            margin-left: -(unit(image-width(@img))) / 1280 * 100% / 2;
+            width: (unit(image-width(@img))) / 1280 * 100%;
+
+            @img: './img/vacuum.png';
+            @apply pointer-events-auto absolute;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
           .item {
             top: 0%;
             left: 0%;

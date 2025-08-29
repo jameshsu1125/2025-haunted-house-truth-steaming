@@ -32,11 +32,10 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
     if (active) {
       Click.add(`#${id}`, () => {
         if (className === 'share') {
-          console.log('share button clicked');
           Facebook.share({
             method: 'share',
-            href: window.location.href,
-            redirect_uri: window.location.href,
+            href: import.meta.env.VITE_URL,
+            redirect_uri: import.meta.env.VITE_URL,
           });
         } else if (className === 'again') {
           setContext({

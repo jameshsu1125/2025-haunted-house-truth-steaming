@@ -9,6 +9,17 @@ import Cover from './img/card-cover.jpg';
 import './index.less';
 import Picture from './picture';
 
+const Fake = memo(({ active }: { active: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 0 });
+  useEffect(() => {
+    if (active) {
+      setStyle({ opacity: 1, y: -120 });
+    }
+  }, [active]);
+
+  return <div className='fake' style={style} />;
+});
+
 const Vacuum = memo(
   ({
     position,
@@ -28,8 +39,10 @@ const Vacuum = memo(
     const [{ page }] = useContext(ZhongliContext);
     const [{ step }] = useContext(ZhongliGameContext);
     const [style, setStyle] = useTween({ opacity: 1 });
-
     const itemRef = useRef<HTMLDivElement>(null);
+
+    const [firstInteraction, setFirstInteraction] = useState(false);
+
     const { x, y } = useMemo(() => {
       const x = position.x - (itemRef.current?.offsetWidth || 0) / 2;
       const y = position.y - (itemRef.current?.offsetWidth || 0) / 2;
@@ -54,7 +67,7 @@ const Vacuum = memo(
         const minSpace = dotBLeft - left - itemRef.current.clientWidth / 2;
         const gy = Math.abs(dotBTop - top);
         const currentX = y > gy ? x : x < minSpace ? leftSpace : rightSpace;
-
+        setFirstInteraction(true);
         return { x: currentX, y: minY };
       }
       return { x, y };
@@ -77,6 +90,11 @@ const Vacuum = memo(
                   className='item'
                   style={{ transform: `translate(${x}px, ${y}px)`, ...style }}
                 />
+                {!firstInteraction && (
+                  <Fake
+                    active={page === ZhongliPageType.game && step === ZhongliGameStepType.unset}
+                  />
+                )}
               </div>
             </div>
           </div>
