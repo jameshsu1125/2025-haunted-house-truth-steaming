@@ -8,7 +8,6 @@ import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType, TaipeiState } from '../config';
 import Background from './background';
-import Clear from './clear';
 import { TaipeiGameContext, TaipeiGameState, TaipeiGameStepType } from './config';
 import Dialog from './dialog';
 import Dirt from './dirt';
@@ -17,6 +16,7 @@ import Error from './error';
 import './index.less';
 import Picture from './picture';
 import Vacuum from './vacuum';
+import Clear from '@/components/clear';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -53,7 +53,7 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
 const Game = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
   const value = useState(TaipeiGameState);
-  const [{ step }] = value;
+  const [{ step }, setState] = value;
   return (
     <TaipeiGameContext.Provider value={value}>
       <TweenerProvider>
@@ -64,7 +64,13 @@ const Game = memo(() => {
           {step < TaipeiGameStepType.dirt && <Error />}
           {step <= TaipeiGameStepType.dialog && <Dialog />}
           {step <= TaipeiGameStepType.dirt2Clear && <Vacuum />}
-          {step < TaipeiGameStepType.end && <Clear />}
+          {step < TaipeiGameStepType.end && (
+            <Clear
+              active={step === TaipeiGameStepType.clear}
+              visible={step === TaipeiGameStepType.clear}
+              onEnd={() => setState((S) => ({ ...S, step: TaipeiGameStepType.end }))}
+            />
+          )}
           <End />
         </CoverNode>
         {step <= TaipeiGameStepType.unset && (

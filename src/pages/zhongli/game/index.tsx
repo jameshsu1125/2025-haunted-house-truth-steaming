@@ -1,3 +1,4 @@
+import Clear from '@/components/clear';
 import Countdown from '@/components/countdown';
 import CoverNode from '@/components/coverNode';
 import { PAGE } from '@/settings/config';
@@ -8,7 +9,6 @@ import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType, ZhongliState } from '../config';
 import Background from './background';
-import Clear from './clear';
 import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './config';
 import Dialog from './dialog';
 import End from './end';
@@ -49,7 +49,7 @@ const TweenerProvider = memo(({ children }: IReactProps) => {
 const Game = memo(() => {
   const value = useState(ZhongliGameState);
   const [{ page }] = useContext(ZhongliContext);
-  const [{ step }] = value;
+  const [{ step }, setState] = value;
   return (
     <ZhongliGameContext.Provider value={value}>
       <TweenerProvider>
@@ -57,7 +57,13 @@ const Game = memo(() => {
           <Background />
           {step <= ZhongliGameStepType.dirt2Clear && <UnderBed />}
           {step <= ZhongliGameStepType.dialog && <Dialog />}
-          {step <= ZhongliGameStepType.clear && <Clear />}
+          {step < ZhongliGameStepType.end && (
+            <Clear
+              active={step === ZhongliGameStepType.clear}
+              visible={step === ZhongliGameStepType.clear}
+              onEnd={() => setState((S) => ({ ...S, step: ZhongliGameStepType.end }))}
+            />
+          )}
           <End />
         </CoverNode>
         {page === ZhongliPageType.game && step <= ZhongliGameStepType.unset && (

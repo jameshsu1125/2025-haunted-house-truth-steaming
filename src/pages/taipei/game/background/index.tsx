@@ -1,9 +1,18 @@
 import useTween from 'lesca-use-tween';
-import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  forwardRef,
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { twMerge } from 'tailwind-merge';
+import { TaipeiContext, TaipeiPageType } from '../../config';
 import { GHOST_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
-import { TaipeiContext, TaipeiPageType } from '../../config';
 
 const Clear = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -14,7 +23,11 @@ const Clear = memo(() => {
   return <div className='clear' style={style} />;
 });
 
-const Ghost = memo(() => {
+type GhostHandle = {
+  active: () => void;
+};
+
+const Ghost = forwardRef((_, ref) => {
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ step }] = useContext(TaipeiGameContext);
 
@@ -34,6 +47,12 @@ const Ghost = memo(() => {
       );
     }
   }, [step]);
+
+  useImperativeHandle(ref, () => ({
+    active() {
+      onPointerDown();
+    },
+  }));
 
   return (
     <div className='ghost' style={style} onPointerDown={onPointerDown}>
@@ -116,7 +135,12 @@ const Light = memo(() => {
   );
 });
 
+const Dish = memo(({ ghostActive }: { ghostActive: () => void }) => {
+  return <div className='dish' onPointerDown={ghostActive} />;
+});
+
 const Background = memo(() => {
+  const ghostRef = useRef<GhostHandle>(null);
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ page }] = useContext(TaipeiContext);
 
@@ -126,13 +150,18 @@ const Background = memo(() => {
     }
   }, [page]);
 
+  const ghostActive = useCallback(() => {
+    ghostRef.current?.active();
+  }, [ghostRef]);
+
   return (
     <div className='Background' style={style}>
       <Touch />
-      <Ghost />
+      <Ghost ref={ghostRef} />
       <div className='image' />
       <Light />
       <Clear />
+      <Dish ghostActive={ghostActive} />
     </div>
   );
 });

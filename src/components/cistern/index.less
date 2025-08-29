@@ -2,4 +2,10 @@
 .Cistern {
   min-height: 1008px;
   @apply h-full w-full;
+
+  @media only screen and (max-width: 672px) {
+    & {
+      min-height: 100%;
+    }
+  }
 }
