@@ -1,3 +1,4 @@
+import Clear from '@/components/clear';
 import Countdown from '@/components/countdown';
 import CoverNode from '@/components/coverNode';
 import { PAGE } from '@/settings/config';
@@ -11,12 +12,11 @@ import Background from './background';
 import { TaipeiGameContext, TaipeiGameState, TaipeiGameStepType } from './config';
 import Dialog from './dialog';
 import Dirt from './dirt';
-import End from './end';
 import Error from './error';
 import './index.less';
 import Picture from './picture';
 import Vacuum from './vacuum';
-import Clear from '@/components/clear';
+import End from '@/components/end';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -71,7 +71,11 @@ const Game = memo(() => {
               onEnd={() => setState((S) => ({ ...S, step: TaipeiGameStepType.end }))}
             />
           )}
-          <End />
+          <End
+            onPointerDown={() => setState((S) => ({ ...S, step: TaipeiGameStepType.fadeOut }))}
+            onFadeOut={() => setState((S) => ({ ...S, step: TaipeiGameStepType.fadeOut }))}
+            visible={step === TaipeiGameStepType.end}
+          />
         </CoverNode>
         {step <= TaipeiGameStepType.unset && (
           <Countdown status={page === TaipeiPageType.game ? 'start' : 'stop'} totalTime={60000} />

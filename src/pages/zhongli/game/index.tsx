@@ -1,6 +1,7 @@
 import Clear from '@/components/clear';
 import Countdown from '@/components/countdown';
 import CoverNode from '@/components/coverNode';
+import End from '@/components/end';
 import { PAGE } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
@@ -11,7 +12,6 @@ import { ZhongliContext, ZhongliPageType, ZhongliState } from '../config';
 import Background from './background';
 import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './config';
 import Dialog from './dialog';
-import End from './end';
 import './index.less';
 import UnderBed from './underBed';
 
@@ -64,7 +64,11 @@ const Game = memo(() => {
               onEnd={() => setState((S) => ({ ...S, step: ZhongliGameStepType.end }))}
             />
           )}
-          <End />
+          <End
+            onPointerDown={() => setState((S) => ({ ...S, step: ZhongliGameStepType.fadeOut }))}
+            onFadeOut={() => setState((S) => ({ ...S, step: ZhongliGameStepType.fadeOut }))}
+            visible={step === ZhongliGameStepType.end}
+          />
         </CoverNode>
         {page === ZhongliPageType.game && step <= ZhongliGameStepType.unset && (
           <Countdown
