@@ -2,6 +2,7 @@ import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId } from 'react';
 import { ResultContext, ResultStepType } from '../config';
+import { setMaxLength } from './misc';
 
 const Input = memo(({ active }: { active: boolean }) => {
   const [, setState] = useContext(ResultContext);
@@ -22,8 +23,9 @@ const Input = memo(({ active }: { active: boolean }) => {
         onChange={(e) => {
           setState((S) => ({
             ...S,
-            name: e.target.value === '' ? '輸入你的暱稱' : e.target.value,
+            name: e.target.value === '' ? '輸入你的暱稱' : setMaxLength(e.target.value, 18),
           }));
+          e.target.value = setMaxLength(e.target.value, 18);
         }}
       />
     </div>
