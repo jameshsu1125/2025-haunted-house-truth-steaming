@@ -12,12 +12,11 @@ export enum ZhongliGameStepType {
   fail,
 }
 
-export type TZhongliGameState = { step: ZhongliGameStepType; isError: boolean; clearTimes: number };
+export type TZhongliGameState = { step: ZhongliGameStepType; clearTimes: number };
 export type TZhongliGameContext = [TZhongliGameState, Dispatch<SetStateAction<TZhongliGameState>>];
 
 export const ZhongliGameState: TZhongliGameState = {
   step: ZhongliGameStepType.unset,
-  isError: false,
   clearTimes: 0,
 };
 export const ZhongliGameContext = createContext<TZhongliGameContext>([ZhongliGameState, () => {}]);
