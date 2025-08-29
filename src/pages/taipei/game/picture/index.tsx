@@ -1,9 +1,10 @@
-import { memo, useContext, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 
 const Picture = memo(() => {
+  const ref = useRef<ReturnType<typeof setTimeout>>(null);
   const [shake, setShake] = useState(false);
 
   const [{ step }] = useContext(TaipeiGameContext);
@@ -11,11 +12,18 @@ const Picture = memo(() => {
     if (step === TaipeiGameStepType.unset) {
       console.log('sound');
       setShake(true);
-      setTimeout(() => {
+      ref.current = setTimeout(() => {
         setShake(false);
       }, 1000);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (ref.current) clearTimeout(ref.current);
+    };
+  }, []);
+
   return (
     <div className='Picture'>
       <div onPointerDown={onPointerDown} className={twMerge(shake && 'animate-shake')}>

@@ -13,7 +13,7 @@ import Smoke from './smoke';
 const Floor = memo(() => {
   const [, setContext] = useContext(Context);
   const [{ page }] = useContext(ChiayiContext);
-  const [{ step }, setState] = useContext(ChiayiGameContext);
+  const [{ step }] = useContext(ChiayiGameContext);
   const [style, setStyle] = useTween({ opacity: 0 });
 
   useEffect(() => {
@@ -21,7 +21,19 @@ const Floor = memo(() => {
       setStyle({ opacity: 1 });
       setContext({ type: ActionType.SmokeEffect, state: { enabled: true } });
     }
-    if (page === ChiayiPageType.game && step === ChiayiGameStepType.fadeOut) {
+  }, [page, step]);
+
+  return <div style={style} className='floor' />;
+});
+
+const Bacteria = memo(() => {
+  const [, setContext] = useContext(Context);
+  const [{ page }] = useContext(ChiayiContext);
+  const [{ step }, setState] = useContext(ChiayiGameContext);
+  const [style, setStyle] = useTween({ opacity: 1 });
+
+  useEffect(() => {
+    if (page === ChiayiPageType.game && step === ChiayiGameStepType.bacteriaFadeOut) {
       setContext({ type: ActionType.SmokeEffect, state: { enabled: false } });
       setStyle(
         { opacity: 0 },
@@ -35,13 +47,6 @@ const Floor = memo(() => {
     }
   }, [page, step]);
 
-  return <div style={style} className='floor' />;
-});
-
-const Bacteria = memo(() => {
-  const [{ page }] = useContext(ChiayiContext);
-  const [{ step }] = useContext(ChiayiGameContext);
-
   return (
     <div
       className={twMerge(
@@ -51,6 +56,7 @@ const Bacteria = memo(() => {
           ? 'visible'
           : 'invisible',
       )}
+      style={style}
     >
       <Floor />
       <Smoke />

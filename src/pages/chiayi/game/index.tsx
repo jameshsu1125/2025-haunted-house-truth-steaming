@@ -52,6 +52,7 @@ const Game = memo(() => {
   const value = useState(ChiayiGameState);
   const [{ step }, setState] = value;
   const [{ page }] = useContext(ChiayiContext);
+
   return (
     <ChiayiGameContext.Provider value={value}>
       <TweenerProvider>
@@ -59,7 +60,7 @@ const Game = memo(() => {
           <Background />
           {step <= ChiayiGameStepType.bacteria && <F25 />}
           {step <= ChiayiGameStepType.dialog && <Dialog />}
-          {step <= ChiayiGameStepType.bacteria && <Bacteria />}
+          {step <= ChiayiGameStepType.bacteriaFadeOut && <Bacteria />}
           {step <= ChiayiGameStepType.resultFadeOut && <Result />}
           {step <= ChiayiGameStepType.clear && (
             <Clear

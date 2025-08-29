@@ -59,6 +59,7 @@ const Light = memo(() => {
   const [style, setStyle, destroy] = useTween({ opacity: 1 });
   const isTween = useRef(false);
   const [appendClass, setAppendClass] = useState(false);
+  const ref = useRef<ReturnType<typeof setTimeout>>(null);
 
   useEffect(() => {
     if (step === TaipeiGameStepType.unset) {
@@ -75,7 +76,7 @@ const Light = memo(() => {
                 },
                 onEnd: () => {
                   setAppendClass(true);
-                  setTimeout(
+                  ref.current = setTimeout(
                     () => {
                       setStyle(
                         { opacity: 1 },
@@ -103,6 +104,9 @@ const Light = memo(() => {
       isTween.current = true;
       destroy();
     }
+    return () => {
+      if (ref.current) clearTimeout(ref.current);
+    };
   }, [step]);
 
   return (

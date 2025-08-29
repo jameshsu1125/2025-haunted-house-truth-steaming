@@ -1,10 +1,10 @@
 import SteamText from '@/components/steamText';
+import { GAME_END_WAIT_DURATION } from '@/settings/config';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
-import { GAME_END_WAIT_DURATION } from '@/settings/config';
 
 const F25 = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, x: 100 });
@@ -95,17 +95,21 @@ const 的 = memo(() => {
 });
 
 const Touch = memo(() => {
+  const ref = useRef<ReturnType<typeof setTimeout>>(null);
   const [{ step }, setState] = useContext(TaipeiGameContext);
 
   useEffect(() => {
     if (step === TaipeiGameStepType.end) {
-      setTimeout(
+      ref.current = setTimeout(
         () => {
           setState((S) => ({ ...S, step: TaipeiGameStepType.fadeOut }));
         },
         GAME_END_WAIT_DURATION + 2500 + 800,
       ); // Wait for 5 seconds before fading out
     }
+    return () => {
+      if (ref.current) clearTimeout(ref.current);
+    };
   }, [step]);
 
   const onPointerDown = () => {

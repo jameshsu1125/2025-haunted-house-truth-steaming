@@ -1,7 +1,7 @@
 import SteamText from '@/components/steamText';
 import { GAME_END_WAIT_DURATION } from '@/settings/config';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import './index.less';
@@ -112,17 +112,21 @@ const 的 = memo(() => {
 const Touch = memo(() => {
   const [{ page }] = useContext(ZhongliContext);
   const [{ step }, setState] = useContext(ZhongliGameContext);
+  const ref = useRef<ReturnType<typeof setTimeout>>(null);
 
   useEffect(() => {
     if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.end) {
-      setTimeout(
+      ref.current = setTimeout(
         () => {
           setState((S) => ({ ...S, step: ZhongliGameStepType.fadeOut }));
         },
         GAME_END_WAIT_DURATION + 2500 + 800,
       );
     }
+    return () => {
+      if (ref.current) clearTimeout(ref.current);
+    };
   }, [step]);
 
   const onPointerDown = () => {

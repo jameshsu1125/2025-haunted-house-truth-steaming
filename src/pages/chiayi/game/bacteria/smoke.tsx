@@ -27,6 +27,7 @@ const Smoke = memo(() => {
 
       const onPointerDown = (e: PointerEvent) => {
         const { clientX: x, clientY: y } = e;
+        if (!ref.current) return;
         const { left } = ref.current!.getBoundingClientRect();
 
         const n = 0.5;

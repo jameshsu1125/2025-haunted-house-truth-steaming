@@ -1,7 +1,7 @@
 import SteamText from '@/components/steamText';
 import { GAME_END_WAIT_DURATION } from '@/settings/config';
 import useTween from 'lesca-use-tween';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './index.less';
 
@@ -93,8 +93,14 @@ const End = memo(
     onPointerDown: () => void;
     onFadeOut?: () => void;
   }) => {
+    const ref = useRef<ReturnType<typeof setTimeout>>(null);
     useEffect(() => {
-      if (visible) setTimeout(() => onFadeOut?.(), GAME_END_WAIT_DURATION + 2500 + 800);
+      if (visible) {
+        ref.current = setTimeout(() => onFadeOut?.(), GAME_END_WAIT_DURATION + 2500 + 800);
+      }
+      return () => {
+        if (ref.current) clearTimeout(ref.current);
+      };
     }, [visible]);
 
     return (

@@ -87,7 +87,7 @@ const Result = memo(() => {
   const [style, setStyle] = useTween({ opacity: 1 });
 
   useEffect(() => {
-    if (step === ChiayiGameStepType.resultFadeOut) {
+    if (page === ChiayiPageType.game && step === ChiayiGameStepType.resultFadeOut) {
       setStyle(
         { opacity: 0 },
         {
@@ -98,7 +98,7 @@ const Result = memo(() => {
         },
       );
     }
-  }, [step]);
+  }, [page, step]);
 
   return (
     <div
