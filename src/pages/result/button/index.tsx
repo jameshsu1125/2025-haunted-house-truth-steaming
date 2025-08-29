@@ -8,6 +8,7 @@ import './index.less';
 import { Context } from '@/settings/constant';
 import { PAGE } from '@/settings/config';
 import { HomePageType } from '@/pages/home/config';
+import Facebook from 'lesca-facebook-share';
 
 let index = 0;
 
@@ -32,6 +33,11 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
       Click.add(`#${id}`, () => {
         if (className === 'share') {
           console.log('share button clicked');
+          Facebook.share({
+            method: 'share',
+            href: window.location.href,
+            redirect_uri: window.location.href,
+          });
         } else if (className === 'again') {
           setContext({
             type: ActionType.Redirect,

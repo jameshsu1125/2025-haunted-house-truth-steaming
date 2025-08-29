@@ -7,9 +7,12 @@ import { Context, InitialState, Reducer } from '@/settings/constant';
 import '@/settings/global.css';
 import { ActionType, TContext } from '@/settings/type';
 import Click from 'lesca-click';
+import Facebook from 'lesca-facebook-share';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
 import { Suspense, lazy, memo, useContext, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+
+Facebook.install(import.meta.env.VITE_FACEBOOK_ID);
 
 Click.install();
 
