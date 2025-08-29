@@ -68,7 +68,7 @@ const Cat = memo(({ active }: { active: boolean }) => {
 const Background = memo(() => {
   const [{ page }, setState] = useContext(ChiayiContext);
   const [{ step }] = useContext(ChiayiIntroContext);
-  const [style, setStyle] = useTween({ opacity: 0, scale: 1, x: 0 });
+  const [style, setStyle] = useTween({ opacity: 0, scale: 1, y: 0, x: 0 });
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Background = memo(() => {
         );
       } else if (step === ChiayiIntroStepType.entry) {
         setStyle(
-          { scale: 2.9, opacity: 0, x: 10 },
+          { scale: 1.5, opacity: 0, y: 100 },
           {
             duration: 800,
             easing: Bezier.inOutQuart,

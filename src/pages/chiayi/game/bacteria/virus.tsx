@@ -1,11 +1,16 @@
 import EnterFrame from 'lesca-enterframe';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { ChiayiContext, ChiayiPageType } from '../../config';
-import { ChiayiGameContext, ChiayiGameStepType, VIRUS_SHOW_TIME } from '../config';
+import {
+  ChiayiGameContext,
+  ChiayiGameStepType,
+  VIRUS_BEEN_SUCKED_SPEED,
+  VIRUS_SHOW_TIME,
+} from '../config';
 import Germ from './germ';
 import { getTimeline } from './misc';
-import { twMerge } from 'tailwind-merge';
 
 const Germs = memo(({ container }: { container: HTMLDivElement }) => {
   const { clientWidth, clientHeight } = container;
@@ -20,8 +25,8 @@ const Germs = memo(({ container }: { container: HTMLDivElement }) => {
 
   const onSuck = () => {
     setStyle(
-      { left: 100, top: container.clientHeight },
-      { duration: 3000, easing: Bezier.inQuart },
+      { left: 120, top: container.clientHeight },
+      { duration: VIRUS_BEEN_SUCKED_SPEED, easing: Bezier.inQuart },
     );
   };
 

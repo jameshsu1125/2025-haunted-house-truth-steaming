@@ -1,45 +1,48 @@
 import { IReactProps } from '@/settings/type';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { VIRUS_DESTROYING_SPEED, VIRUS_GROWING_SPEED, VIRUS_SIZE_RATIO } from '../config';
 import displacement from './img/displacement_map_repeat.jpg';
 
+import { ChiayiContext } from '../../config';
 import v0 from './img/v0.png';
 import v1 from './img/v1.png';
 import v2 from './img/v2.png';
 
-const scale = 2;
+const scale = VIRUS_SIZE_RATIO;
+
+type TTweenerProviderProps = IReactProps & {
+  clicked: boolean;
+  setClicked: () => void;
+  setHide: React.Dispatch<React.SetStateAction<boolean>>;
+  hide: boolean;
+};
+
+type TGerm = {
+  onAssetsLoaded?: () => void;
+  scale?: number;
+  noise?: { x: number; y: number };
+  index: number;
+  containerWidth: number;
+  style: React.CSSProperties;
+  onSuck: () => void;
+};
 
 const TweenerProvider = memo(
-  ({
-    children,
-    clicked,
-    setClicked,
-    setHide,
-    hide,
-  }: IReactProps & {
-    clicked: boolean;
-    setClicked: () => void;
-    setHide: React.Dispatch<React.SetStateAction<boolean>>;
-    hide: boolean;
-  }) => {
+  ({ children, clicked, setClicked, setHide, hide }: TTweenerProviderProps) => {
     const [style, setStyle] = useTween({ opacity: 1, scale: 0, rotate: 0 });
+    const [, setState] = useContext(ChiayiContext);
 
     useEffect(() => {
       setStyle(
         { opacity: 1, scale: 1, rotate: Math.random() * 45 },
         {
-          duration: 10000,
+          duration: VIRUS_GROWING_SPEED,
           easing: Bezier.linear,
           onEnd: () => {
-            setStyle(
-              { opacity: 0, scale: 1.2 },
-              {
-                duration: 300,
-                onEnd: () => setHide(true),
-              },
-            );
+            setStyle({ opacity: 0, scale: 1.2 }, { duration: 300, onEnd: () => setHide(true) });
           },
         },
       );
@@ -51,11 +54,12 @@ const TweenerProvider = memo(
           { opacity: 0 },
           {
             delay: 0,
-            duration: 2000,
+            duration: VIRUS_DESTROYING_SPEED,
             easing: Bezier.inQuart,
             onEnd: () => setHide(true),
           },
         );
+        setState((S) => ({ ...S, bacteriaCount: S.bacteriaCount + 1 }));
       }
     }, [clicked]);
 
@@ -72,22 +76,7 @@ const TweenerProvider = memo(
 );
 
 const Germ = memo(
-  ({
-    onAssetsLoaded,
-    noise = { x: 1, y: 1 },
-    index,
-    containerWidth,
-    style,
-    onSuck,
-  }: {
-    onAssetsLoaded?: () => void;
-    scale?: number;
-    noise?: { x: number; y: number };
-    index: number;
-    containerWidth: number;
-    style: React.CSSProperties;
-    onSuck: () => void;
-  }) => {
+  ({ onAssetsLoaded, noise = { x: 1, y: 1 }, index, containerWidth, style, onSuck }: TGerm) => {
     const ref = useRef<HTMLDivElement>(null);
     const nodeRef = useRef<HTMLDivElement>(null);
     const [domReady, setRomReady] = useState(false);
