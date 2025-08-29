@@ -5,6 +5,7 @@ import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType, VIRUS_SHOW_TIME } from '../config';
 import Germ from './germ';
 import { getTimeline } from './misc';
+import { twMerge } from 'tailwind-merge';
 
 const Germs = memo(({ container }: { container: HTMLDivElement }) => {
   const { clientWidth, clientHeight } = container;
@@ -52,7 +53,7 @@ const Virus = memo(() => {
   }, [page, step]);
 
   return (
-    <div ref={ref} className='virus'>
+    <div ref={ref} className={twMerge('virus')}>
       {ref.current &&
         ref.current.clientWidth &&
         [...new Array(index).keys()].map((i) => <Germs key={i} container={ref.current!} />)}

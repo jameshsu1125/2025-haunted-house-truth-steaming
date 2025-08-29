@@ -14,7 +14,7 @@ export enum ChiayiGameStepType {
 export type TChiayiGameState = { step: ChiayiGameStepType };
 export type TChiayiGameContext = [TChiayiGameState, Dispatch<SetStateAction<TChiayiGameState>>];
 
-export const ChiayiGameState = { step: ChiayiGameStepType.result };
+export const ChiayiGameState = { step: ChiayiGameStepType.bacteria };
 export const ChiayiGameContext = createContext<TChiayiGameContext>([ChiayiGameState, () => {}]);
 
 export const VIRUS_SHOW_TIME = {

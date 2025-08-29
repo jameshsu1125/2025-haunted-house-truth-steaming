@@ -8,6 +8,7 @@ import Virus from './virus';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Vacuum from './vacuum';
+import Smoke from './smoke';
 
 const Floor = memo(() => {
   const [, setContext] = useContext(Context);
@@ -45,12 +46,14 @@ const Bacteria = memo(() => {
     <div
       className={twMerge(
         'Bacteria',
-        page === ChiayiPageType.game && step <= ChiayiGameStepType.bacteriaFadeOut
+        page === ChiayiPageType.game &&
+          (step === ChiayiGameStepType.bacteriaFadeOut || step === ChiayiGameStepType.bacteria)
           ? 'visible'
           : 'invisible',
       )}
     >
       <Floor />
+      <Smoke />
       <Virus />
       <Vacuum />
     </div>

@@ -3,6 +3,14 @@
 .Chiayi .Game .Bacteria {
   @apply absolute top-0 h-full w-full;
 
+  .smoke {
+    @apply pointer-events-none absolute top-0 h-full w-full;
+
+    & > canvas {
+      @apply absolute h-full w-full;
+    }
+  }
+
   .floor {
     background-image: url('./img/floor.jpg');
     @apply absolute top-0 h-full w-full;
