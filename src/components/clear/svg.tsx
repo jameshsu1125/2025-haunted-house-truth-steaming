@@ -24,7 +24,7 @@ const SVG = memo(
           setStyle(
             { opacity: 1 },
             {
-              duration: 7000,
+              duration: 3500,
               easing: Bezier.inSine,
               onEnd: () => {
                 onEnd?.();

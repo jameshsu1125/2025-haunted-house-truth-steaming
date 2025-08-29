@@ -56,6 +56,7 @@ const Clear = memo(({ visible, active, onEnd }: TClearProps) => {
           width={1280}
           height={720}
           playsInline
+          playbackRate={2.0}
         />
       </div>
       <div>
