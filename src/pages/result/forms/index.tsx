@@ -5,7 +5,6 @@ import { ResultContext, ResultStepType } from '../config';
 
 const Input = memo(({ active }: { active: boolean }) => {
   const [, setState] = useContext(ResultContext);
-
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -60,9 +59,7 @@ const DarkScreen = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0 });
 
   useEffect(() => {
-    if (active) {
-      setStyle({ opacity: 0.4 }, { duration: 500 });
-    }
+    if (active) setStyle({ opacity: 0.4 }, { duration: 500 });
   }, [active]);
 
   return <div className='absolute top-0 h-full w-full bg-black' style={style} />;
@@ -78,9 +75,7 @@ const Forms = memo(() => {
         { opacity: 0 },
         {
           duration: 500,
-          onEnd: () => {
-            setState((S) => ({ ...S, step: ResultStepType.entry }));
-          },
+          onEnd: () => setState((S) => ({ ...S, step: ResultStepType.entry })),
         },
       );
     }

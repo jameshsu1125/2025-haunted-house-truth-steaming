@@ -6,8 +6,8 @@ import Logo from '../home/landing/logo';
 import Button from './button';
 import { ResultContext, ResultState } from './config';
 import Folder from './folder';
-import './index.less';
 import Forms from './forms';
+import './index.less';
 
 const Result = memo(() => {
   const [, setContext] = useContext(Context);
