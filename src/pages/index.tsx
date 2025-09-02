@@ -2,6 +2,7 @@ import Container from '@/components/container';
 import Effect from '@/components/effect';
 import Fail from '@/components/fail';
 import LoadingProcess from '@/components/loadingProcess';
+import Sounds from '@/components/sounds';
 import { PAGE } from '@/settings/config';
 import { Context, InitialState, Reducer } from '@/settings/constant';
 import '@/settings/global.css';
@@ -11,7 +12,6 @@ import Facebook from 'lesca-facebook-share';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
 import { Suspense, lazy, memo, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import Sounds from '@/components/sounds';
 
 Facebook.install(import.meta.env.VITE_FACEBOOK_ID);
 
@@ -51,20 +51,22 @@ const Pages = memo(() => {
 
 const App = () => {
   const [state, setState] = useReducer(Reducer, InitialState);
-  const value: TContext = useMemo(() => [state, setState], [state]);
+  const [context, setContext]: TContext = useMemo(() => [state, setState], [state]);
   const [key, setKey] = useState(0);
 
   useEffect(() => {
-    new Sounds({});
+    Sounds.install(() => {
+      setContext({ type: ActionType.Sounds, state: { enabled: true } });
+    });
   }, []);
 
   return (
     <div className='App m-0'>
-      <Context.Provider {...{ value }}>
+      <Context.Provider value={[context, setContext]}>
         <Container>
-          <Pages key={key} />
-          <Effect display={state[ActionType.SmokeEffect]} />
-          {state[ActionType.Fail]?.enabled && <Fail setKey={setKey} />}
+          {context[ActionType.Sounds]?.enabled && <Pages key={key} />}
+          <Effect display={context[ActionType.SmokeEffect]} />
+          {context[ActionType.Fail]?.enabled && <Fail setKey={setKey} />}
         </Container>
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>

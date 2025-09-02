@@ -13,6 +13,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { GHOST_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const Clear = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -46,6 +47,9 @@ const Ghost = forwardRef((_, ref) => {
         },
       );
     }
+    return () => {
+      fadeOutSound('ghost');
+    };
   }, [step]);
 
   useImperativeHandle(ref, () => ({
@@ -55,7 +59,14 @@ const Ghost = forwardRef((_, ref) => {
   }));
 
   return (
-    <div className='ghost' style={style} onPointerDown={onPointerDown}>
+    <div
+      className='ghost'
+      style={style}
+      onPointerDown={() => {
+        onPointerDown();
+        playSound('ghost');
+      }}
+    >
       <div />
     </div>
   );
@@ -74,11 +85,19 @@ const Touch = memo(() => {
 });
 
 const Light = memo(() => {
+  const [{ page }] = useContext(TaipeiContext);
   const [{ step }] = useContext(TaipeiGameContext);
   const [style, setStyle, destroy] = useTween({ opacity: 1 });
   const isTween = useRef(false);
   const [appendClass, setAppendClass] = useState(false);
   const ref = useRef<ReturnType<typeof setTimeout>>(null);
+
+  useEffect(() => {
+    if (page === TaipeiPageType.game && step === TaipeiGameStepType.unset) {
+      fadeOutSound('door');
+      playSound('light');
+    }
+  }, [page, step]);
 
   useEffect(() => {
     if (step === TaipeiGameStepType.unset) {
@@ -136,7 +155,20 @@ const Light = memo(() => {
 });
 
 const Dish = memo(({ ghostActive }: { ghostActive: () => void }) => {
-  return <div className='dish' onPointerDown={ghostActive} />;
+  useEffect(() => {
+    return () => {
+      fadeOutSound('dish');
+    };
+  }, []);
+  return (
+    <div
+      className='dish'
+      onPointerDown={() => {
+        playSound('dish');
+        ghostActive();
+      }}
+    />
+  );
 });
 
 const Background = memo(() => {

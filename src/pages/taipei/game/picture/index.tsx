@@ -2,6 +2,7 @@ import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const Picture = memo(() => {
   const ref = useRef<ReturnType<typeof setTimeout>>(null);
@@ -10,7 +11,7 @@ const Picture = memo(() => {
   const [{ step }] = useContext(TaipeiGameContext);
   const onPointerDown = () => {
     if (step === TaipeiGameStepType.unset) {
-      console.log('sound');
+      playSound('laugh');
       setShake(true);
       ref.current = setTimeout(() => {
         setShake(false);
@@ -21,6 +22,7 @@ const Picture = memo(() => {
   useEffect(() => {
     return () => {
       if (ref.current) clearTimeout(ref.current);
+      fadeOutSound('laugh');
     };
   }, []);
 

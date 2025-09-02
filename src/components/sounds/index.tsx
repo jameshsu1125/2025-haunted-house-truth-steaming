@@ -1,44 +1,64 @@
 import { Howl } from 'howler';
 import { SoundKeyType, SOUNDS_CONFIG } from './config';
 
-type SoundsProps = {
-  onload?: () => void;
+const tracker: Record<SoundKeyType, { track: Howl; loaded: boolean; playing: boolean }> =
+  {} as Record<SoundKeyType, { track: Howl; loaded: boolean; playing: boolean }>;
+
+const props = {
+  onload: () => {},
 };
 
-export default class Sounds {
-  private onload?: () => void;
-  public tracks: Record<SoundKeyType, { track: Howl; loaded: boolean }> = {} as Record<
-    SoundKeyType,
-    { track: Howl; loaded: boolean }
-  >;
-
-  constructor({ onload }: SoundsProps) {
-    this.onload = onload;
-    this.load();
+const checkAllSoundsLoaded = () => {
+  const howManySoundsLoaded = Object.values(tracker).filter((data) => data.loaded);
+  const howManySoundsShouldLoaded = Object.keys(SOUNDS_CONFIG).length;
+  if (howManySoundsLoaded.length === howManySoundsShouldLoaded) {
+    props.onload();
   }
+};
 
-  onSoundLoaded(key: SoundKeyType) {
-    this.tracks[key].loaded = true;
-    this.checkAllSoundsLoaded();
-  }
-
-  checkAllSoundsLoaded() {
-    const howManySoundsLoaded = Object.values(this.tracks).filter((data) => data.loaded);
-    const howManySoundsShouldLoaded = Object.keys(SOUNDS_CONFIG).length;
-    if (howManySoundsLoaded.length === howManySoundsShouldLoaded) {
-      this.onload?.();
-    }
-  }
-
-  load() {
-    Object.entries(SOUNDS_CONFIG).forEach(([key, config]) => {
-      const sound = new Howl({
-        src: [config.src],
-        loop: config.loop,
-        volume: config.volume,
-        onload: () => this.onSoundLoaded(key as SoundKeyType),
-      });
-      this.tracks[key as SoundKeyType] = { track: sound, loaded: false };
+const install = (onLoaded: () => void) => {
+  props.onload = onLoaded;
+  Object.entries(SOUNDS_CONFIG).forEach(([key, config]) => {
+    tracker[key as SoundKeyType] = { track: {} as Howl, loaded: false, playing: false };
+    tracker[key as SoundKeyType].track = new Howl({
+      src: [config.src],
+      loop: config.loop,
+      volume: config.volume,
+      onend: () => {
+        if (config.loop) return;
+        tracker[key as SoundKeyType].playing = false;
+      },
+      onload: () => {
+        tracker[key as SoundKeyType].loaded = true;
+        checkAllSoundsLoaded();
+      },
     });
+  });
+};
+
+const stopAll = () => {
+  Object.values(tracker).forEach((data) => {
+    if (data.playing) {
+      data.track.stop();
+      data.playing = false;
+    }
+  });
+};
+
+const playSound = (key: SoundKeyType) => {
+  if (!tracker[key]?.playing) {
+    tracker[key].playing = true;
+    tracker[key]?.track.seek(0);
+    tracker[key]?.track.play();
   }
-}
+};
+
+const fadeOutSound = (key: SoundKeyType) => {
+  tracker[key]?.track.fade(tracker[key]?.track.volume(), 0, 1000);
+  tracker[key].playing = false;
+};
+
+const Sounds = { install, stopAll };
+
+export default Sounds;
+export { fadeOutSound, playSound };

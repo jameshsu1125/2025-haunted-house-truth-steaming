@@ -6,6 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import videoURL from './img/smoke.mp4';
 import './index.less';
 import SVG from './svg';
+import { playSound } from '../sounds';
 
 type TClearProps = {
   visible: boolean;
@@ -41,6 +42,7 @@ const Clear = memo(({ visible, active, onEnd }: TClearProps) => {
     if (active && ref.current) {
       ref.current!.currentTime = 0;
       ref.current!.play();
+      playSound('pass');
     }
   }, [active]);
 

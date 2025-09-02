@@ -10,6 +10,7 @@ export enum ActionType {
   SmokeEffect = 'smokeEffect',
   Fail = 'fail',
   Redirect = 'redirect',
+  Sounds = 'sounds',
 }
 
 export enum LoadingProcessType {
@@ -57,6 +58,10 @@ export type TRedirectState = {
   category?: HomePageType | TaipeiPageType | ZhongliPageType;
 };
 
+export type TSoundState = {
+  enabled?: boolean;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
@@ -64,6 +69,7 @@ export interface IState {
   smokeEffect?: boolean;
   fail?: TFailState;
   redirect?: TRedirectState;
+  sounds?: TSoundState;
 }
 
 export interface IAction {
@@ -74,7 +80,8 @@ export interface IAction {
     | string
     | boolean
     | TFailState
-    | TRedirectState;
+    | TRedirectState
+    | TSoundState;
   type: ActionType;
 }
 

@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { TaipeiIntroContext, TaipeiIntroStepType } from '../config';
 import './index.less';
+import { playSound } from '@/components/sounds';
 
 const Button = memo(() => {
   const id = useId();
@@ -29,6 +30,7 @@ const Button = memo(() => {
               Click.add(`#${id}`, () => {
                 Click.remove(`#${id}`);
                 setState((S) => ({ ...S, step: TaipeiIntroStepType.entry }));
+                playSound('door');
               });
             },
           },

@@ -1,8 +1,9 @@
+import Click from 'lesca-click';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId } from 'react';
-import { HomeContext, HomeStepType } from '../../config';
-import Click from 'lesca-click';
 import { twMerge } from 'tailwind-merge';
+import { HomeContext, HomeStepType } from '../../config';
+import { playSound } from '@/components/sounds';
 
 const Button = memo(() => {
   const id = useId();
@@ -33,6 +34,7 @@ const Button = memo(() => {
       if (step === HomeStepType.loop) {
         setState((S) => ({ ...S, step: HomeStepType.fadeOut }));
         Click.remove(`#${id}`);
+        playSound('click');
       }
     });
   }, [step]);

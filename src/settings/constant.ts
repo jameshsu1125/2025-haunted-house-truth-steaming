@@ -10,10 +10,11 @@ import {
   TLoadingProcessState,
   TLocationType,
   TRedirectState,
+  TSoundState,
 } from './type';
 
 export const LoadingProcessState: TLoadingProcessState = {
-  enabled: false,
+  enabled: true,
   type: LoadingProcessType.SpinningBubbles,
   body: '',
 };
@@ -28,13 +29,18 @@ export const RedirectState: TRedirectState = {
   enabled: true,
 };
 
+export const SoundsState: TSoundState = {
+  enabled: false,
+};
+
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.home,
+  [ActionType.Page]: PAGE.taipei,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,
   [ActionType.Fail]: FailState,
   [ActionType.Redirect]: RedirectState,
+  [ActionType.Sounds]: SoundsState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

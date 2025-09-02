@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import { PAGE } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const Button = memo(() => {
   const [, setContext] = useContext(Context);
@@ -41,6 +42,9 @@ const Button = memo(() => {
 
       setChooseState(ChooseState);
       setHomeState({ ...HomeState, page: HomePageType.choose });
+
+      playSound('click');
+      fadeOutSound('chooseBGM');
     });
   }, [index]);
 

@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiStepType } from '../../config';
 import { TaipeiLandingContext, TaipeiLandingStepType } from '../config';
 import './index.less';
+import { playSound } from '@/components/sounds';
 
 const Button = memo(() => {
   const id = useId();
@@ -26,6 +27,7 @@ const Button = memo(() => {
               setActive(true);
               Click.add(`#${id}`, () => {
                 setState((S) => ({ ...S, step: TaipeiLandingStepType.fadeOut }));
+                playSound('footstep');
               });
             },
           },
