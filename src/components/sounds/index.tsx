@@ -51,6 +51,7 @@ const playSound = (key: SoundKeyType) => {
   if (!tracker[key]?.playing) {
     tracker[key].playing = true;
     tracker[key]?.track.seek(0);
+    tracker[key]?.track.volume(SOUNDS_CONFIG[key].volume);
     tracker[key]?.track.play();
   }
 };

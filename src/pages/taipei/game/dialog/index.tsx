@@ -41,9 +41,6 @@ const Image = memo(() => {
         {
           duration: 500,
           delay: 1800,
-          onStart: () => {
-            stopAllEffects();
-          },
         },
       );
     }
@@ -114,7 +111,15 @@ const Dialog = memo(() => {
 
   useEffect(() => {
     if (page === TaipeiPageType.game && step === TaipeiGameStepType.dialog) {
-      setStyle({ opacity: 1, scale: 1 }, { duration: 500 });
+      setStyle(
+        { opacity: 1, scale: 1 },
+        {
+          duration: 500,
+          onStart: () => {
+            stopAllEffects();
+          },
+        },
+      );
       setContext({ type: ActionType.Fail, state: { enabled: false } });
     }
   }, [step, page]);

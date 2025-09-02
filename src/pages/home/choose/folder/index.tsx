@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType, HomeStepType } from '../../config';
 import './index.less';
 import { ChooseContext, ChooseStepType } from '../config';
+import { playSound, stopAllSounds } from '@/components/sounds';
 
 const Seal = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
@@ -87,6 +88,8 @@ const Folder = memo(() => {
   useEffect(() => {
     if (step >= HomeStepType.fadeIn && page === HomePageType.choose) {
       setStyle({ opacity: 1, scale: 1 });
+      stopAllSounds();
+      playSound('chooseBGM');
     }
   }, [page, step]);
 

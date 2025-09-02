@@ -7,6 +7,7 @@ import { Dispatch, memo, SetStateAction, useContext, useEffect, useId, useRef } 
 import { twMerge } from 'tailwind-merge';
 import './index.less';
 import { HomePageType } from '@/pages/home/config';
+import { playSound, stopAllSounds } from '../sounds';
 
 const Ink = memo(
   ({ style, index, active }: { style: React.CSSProperties; index: number; active: boolean }) => {
@@ -156,6 +157,12 @@ const Buttons = memo(({ setKey }: { setKey: Dispatch<SetStateAction<number>> }) 
 const Fail = memo(({ setKey }: { setKey: Dispatch<SetStateAction<number>> }) => {
   const [{ fail }] = useContext(Context);
   const { active } = fail || { active: false };
+  useEffect(() => {
+    if (active) {
+      stopAllSounds();
+      playSound('fail');
+    }
+  }, [active]);
   return (
     <div className={twMerge('Fail', active ? 'pointer-events-auto' : 'pointer-events-none')}>
       <div>
