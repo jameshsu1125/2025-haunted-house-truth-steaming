@@ -13,7 +13,7 @@ const Icon = memo(() => {
     if (step === TaipeiStepType.loaded) {
       if (landingStep === TaipeiLandingStepType.entry) {
         setStyle({ opacity: 1 }, { duration: 2000, delay: 1000 });
-      } else if (landingStep === TaipeiLandingStepType.fadeOut) setStyle({ opacity: 0 }, 700);
+      } else if (landingStep === TaipeiLandingStepType.fadeOut) setStyle({ opacity: 0 }, 1);
     }
   }, [landingStep, step]);
 
@@ -33,7 +33,7 @@ const Text = memo(() => {
     if (step === TaipeiStepType.loaded) {
       if (landingStep === TaipeiLandingStepType.entry) {
         setStyle({ opacity: 1, x: 0 }, { duration: 1000, delay: 1200, easing: Bezier.inOutQuart });
-      } else if (landingStep === TaipeiLandingStepType.fadeOut) setStyle({ opacity: 0 }, 700);
+      } else if (landingStep === TaipeiLandingStepType.fadeOut) setStyle({ opacity: 0 }, 1);
     }
   }, [landingStep, step]);
 

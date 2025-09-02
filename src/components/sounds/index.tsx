@@ -36,7 +36,7 @@ const install = (onLoaded: () => void) => {
   });
 };
 
-const stopAll = () => {
+const stopAllSounds = () => {
   Object.values(tracker).forEach((data) => {
     if (data.playing) {
       data.track.stop();
@@ -58,7 +58,7 @@ const fadeOutSound = (key: SoundKeyType) => {
   tracker[key].playing = false;
 };
 
-const Sounds = { install, stopAll };
+const Sounds = { install };
 
 export default Sounds;
-export { fadeOutSound, playSound };
+export { fadeOutSound, playSound, stopAllSounds };
