@@ -27,7 +27,7 @@ const Landing = memo(() => {
   return (
     <div className={twMerge('Landing', page === TaipeiPageType.landing ? 'visible' : 'invisible')}>
       <TaipeiLandingContext.Provider value={state}>
-        <CoverNode align='top'>
+        <CoverNode align='center'>
           <Background />
           <Description />
           <Marker />

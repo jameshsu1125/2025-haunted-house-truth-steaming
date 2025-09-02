@@ -34,7 +34,7 @@ export const SoundsState: TSoundState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.zhongli,
+  [ActionType.Page]: PAGE.chiayi,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,
