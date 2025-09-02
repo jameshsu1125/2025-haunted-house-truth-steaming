@@ -12,6 +12,7 @@ import {
 } from '../config';
 import './index.less';
 import Smoke from './smoke';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const Cleaner = memo(({ children }: IReactProps) => {
   const [{ page }] = useContext(ZhongliContext);
@@ -21,6 +22,7 @@ const Cleaner = memo(({ children }: IReactProps) => {
   useEffect(() => {
     if (page !== ZhongliPageType.game) return;
     if (step === ZhongliGameStepType.dirt) {
+      playSound('cleaner');
       setStyle(
         { x: -VACUUM_OFFSET },
         {
@@ -77,6 +79,7 @@ const Cleaner = memo(({ children }: IReactProps) => {
                                                         ...S,
                                                         step: ZhongliGameStepType.dirt2Clear,
                                                       }));
+                                                      fadeOutSound('cleaner');
                                                     },
                                                     onEnd: () => {
                                                       setState((S) => ({

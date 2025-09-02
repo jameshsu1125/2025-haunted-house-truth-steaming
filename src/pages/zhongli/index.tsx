@@ -1,13 +1,14 @@
 import Cistern from '@/components/cistern';
+import { playSound, stopAllSounds } from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
 import { ZhongliContext, ZhongliPageType, ZhongliState, ZhongliStepType } from './config';
+import Game from './game';
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
-import Game from './game';
 
 const Zhongli = memo(() => {
   const [, setContext] = useContext(Context);
@@ -16,6 +17,13 @@ const Zhongli = memo(() => {
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
   }, []);
+
+  useEffect(() => {
+    if (state.page === ZhongliPageType.landing && state.step === ZhongliStepType.loaded) {
+      stopAllSounds();
+      playSound('taipeiBGM');
+    }
+  }, [state]);
 
   useEffect(() => {
     if (state.step === ZhongliStepType.loaded && state.videoLoaded) {

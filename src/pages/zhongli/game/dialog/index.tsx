@@ -7,6 +7,7 @@ import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import './index.less';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import { playSound } from '@/components/sounds';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(ZhongliContext);
@@ -54,6 +55,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
             Click.remove(`#${id}`);
             setActive(false);
             setFadeOut(true);
+            playSound('click');
           });
         },
       },

@@ -3,6 +3,7 @@ import './index.less';
 import { ZhongliContext, ZhongliPageType } from '../../config';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { ZhongliIntroContext, ZhongliIntroStepType } from '../config';
+import { playSound, stopAllEffects } from '@/components/sounds';
 
 const Dialog = memo(() => {
   const [{ page }] = useContext(ZhongliContext);
@@ -12,7 +13,18 @@ const Dialog = memo(() => {
   useEffect(() => {
     if (page === ZhongliPageType.intro) {
       if (step === ZhongliIntroStepType.door) {
-        setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 500, easing: Bezier.outQuart });
+        stopAllEffects();
+        setStyle(
+          { opacity: 1, y: 0 },
+          {
+            duration: 1000,
+            delay: 500,
+            easing: Bezier.outQuart,
+            onEnd: () => {
+              playSound('hint');
+            },
+          },
+        );
       } else if (step === ZhongliIntroStepType.entry) {
         setStyle({ opacity: 0 }, { duration: 1, easing: Bezier.inOutQuart });
       }

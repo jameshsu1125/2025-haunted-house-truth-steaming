@@ -5,6 +5,7 @@ import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliIntroContext, ZhongliIntroStepType } from '../config';
 import VideoURL from './img/zhongli-intro.mp4';
 import './index.less';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const DarkScreen = memo(() => {
   const [{ page }] = useContext(ZhongliContext);
@@ -21,7 +22,10 @@ const DarkScreen = memo(() => {
           {
             duration: 1200,
             easing: Bezier.inQuart,
-            onEnd: () => setState((S) => ({ ...S, step: ZhongliIntroStepType.door })),
+            onEnd: () => {
+              setState((S) => ({ ...S, step: ZhongliIntroStepType.door }));
+              fadeOutSound('footstep');
+            },
           },
         );
       } else if (step === ZhongliIntroStepType.door) {
@@ -43,6 +47,8 @@ const Video = memo(() => {
     if (page === ZhongliPageType.intro) {
       checkStatusRef.current = true;
       videoRef.current?.play();
+      playSound('footstep');
+
       const checkVideoStatus = () => {
         if (videoRef.current?.paused) {
           videoRef.current?.play();

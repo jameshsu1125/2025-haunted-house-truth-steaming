@@ -8,6 +8,7 @@ import Footprint from './footprint';
 import Cover from './img/card-cover.jpg';
 import './index.less';
 import Picture from './picture';
+import { fadeOutSound, playSound, stopAllEffects } from '@/components/sounds';
 
 const Fake = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 0 });
@@ -135,6 +136,7 @@ const Background = memo(() => {
           if (canvas) {
             canvas.addEventListener('pointerdown', () => {
               eventRef.current.enabled = true;
+              playSound('cleaner');
             });
 
             canvas.addEventListener('pointermove', (e) => {
@@ -152,6 +154,7 @@ const Background = memo(() => {
 
             canvas.addEventListener('pointerup', () => {
               eventRef.current.enabled = false;
+              fadeOutSound('cleaner');
             });
           } else requestAnimationFrame(getCanvas);
         };
@@ -178,6 +181,7 @@ const Background = memo(() => {
                   percent={60}
                   onComplete={() => {
                     setState((S) => ({ ...S, step: ZhongliGameStepType.dialog }));
+                    stopAllEffects();
                   }}
                   brushSize={{ width: 150, height: 150 }}
                 >

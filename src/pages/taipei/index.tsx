@@ -21,6 +21,7 @@ const Taipei = memo(() => {
 
   useEffect(() => {
     if (state.page === TaipeiPageType.landing && state.step === TaipeiStepType.loaded) {
+      stopAllSounds();
       playSound('taipeiBGM');
     }
   }, [state]);
