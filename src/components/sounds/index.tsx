@@ -60,7 +60,16 @@ const fadeOutSound = (key: SoundKeyType) => {
   tracker[key].playing = false;
 };
 
+const stopAllEffects = () => {
+  Object.entries(tracker).forEach(([key, data]) => {
+    if (data.playing && !key.toLowerCase().includes('bgm')) {
+      data.track.stop();
+      data.playing = false;
+    }
+  });
+};
+
 const Sounds = { install };
 
 export default Sounds;
-export { fadeOutSound, playSound, stopAllSounds };
+export { fadeOutSound, playSound, stopAllSounds, stopAllEffects };

@@ -11,6 +11,7 @@ import './index.less';
 import Smoke from './smoke';
 import { IReactProps } from '@/settings/type';
 import useTween, { Bezier } from 'lesca-use-tween';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const Cleaner = memo(({ children }: IReactProps) => {
   const [{ step }, setState] = useContext(TaipeiGameContext);
@@ -18,6 +19,7 @@ const Cleaner = memo(({ children }: IReactProps) => {
 
   useEffect(() => {
     if (step === TaipeiGameStepType.dirt) {
+      playSound('cleaner');
       setStyle(
         { x: -VACUUM_OFFSET },
         {
@@ -70,6 +72,7 @@ const Cleaner = memo(({ children }: IReactProps) => {
                                                     delay: VACUUM_WAIT,
                                                     easing: Bezier.inOutSine,
                                                     onStart: () => {
+                                                      fadeOutSound('cleaner');
                                                       setState((S) => ({
                                                         ...S,
                                                         step: TaipeiGameStepType.dirt2Clear,

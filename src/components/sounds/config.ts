@@ -45,6 +45,6 @@ export const SOUNDS_CONFIG: Record<SoundKeyType, { src: string; loop: boolean; v
   laugh: { src: laughURL, loop: false, volume: 1 },
   light: { src: lightURL, loop: true, volume: 1 },
   fail: { src: FailURL, loop: true, volume: 1 },
-  pass: { src: passURL, loop: true, volume: 1 },
+  pass: { src: passURL, loop: true, volume: 0.3 },
   win: { src: winURL, loop: false, volume: 1 },
 };

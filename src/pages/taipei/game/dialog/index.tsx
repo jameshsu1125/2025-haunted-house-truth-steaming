@@ -1,3 +1,6 @@
+import { playSound, stopAllEffects } from '@/components/sounds';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useState } from 'react';
@@ -5,8 +8,6 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
-import { Context } from '@/settings/constant';
-import { ActionType } from '@/settings/type';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(TaipeiContext);
@@ -35,7 +36,16 @@ const Image = memo(() => {
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
     if (step === TaipeiGameStepType.dialog) {
-      setStyle({ opacity: 1, scale: 1, rotate: 0 }, { duration: 500, delay: 1800 });
+      setStyle(
+        { opacity: 1, scale: 1, rotate: 0 },
+        {
+          duration: 500,
+          delay: 1800,
+          onStart: () => {
+            stopAllEffects();
+          },
+        },
+      );
     }
   }, [page, step]);
   return <div className='image' style={style} />;
@@ -62,6 +72,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
               Click.remove(`#${id}`);
               setActive(false);
               setFadeOut(true);
+              playSound('click');
             });
           },
         },
