@@ -9,8 +9,9 @@ import { ActionType, TContext } from '@/settings/type';
 import Click from 'lesca-click';
 import Facebook from 'lesca-facebook-share';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
-import { Suspense, lazy, memo, useContext, useMemo, useReducer, useState } from 'react';
+import { Suspense, lazy, memo, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import Sounds from '@/components/sounds';
 
 Facebook.install(import.meta.env.VITE_FACEBOOK_ID);
 
@@ -52,6 +53,10 @@ const App = () => {
   const [state, setState] = useReducer(Reducer, InitialState);
   const value: TContext = useMemo(() => [state, setState], [state]);
   const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    new Sounds({});
+  }, []);
 
   return (
     <div className='App m-0'>
