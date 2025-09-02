@@ -21,7 +21,7 @@ const Button = memo(() => {
         setStyle(
           { opacity: 1, scale: 1 },
           {
-            delay: 3000,
+            delay: 6500,
             duration: 500,
             easing: Bezier.outBack,
             onEnd: () => {

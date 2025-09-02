@@ -12,7 +12,7 @@ const Dialog = memo(() => {
   useEffect(() => {
     if (page === TaipeiPageType.intro) {
       if (step === TaipeiIntroStepType.unset) {
-        setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 2200, easing: Bezier.outQuart });
+        setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 5500, easing: Bezier.outQuart });
       } else if (step === TaipeiIntroStepType.entry) {
         setStyle({ opacity: 0 }, { duration: 1, easing: Bezier.inOutQuart });
       }

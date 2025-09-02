@@ -42,12 +42,12 @@ const Kitchen = memo(() => {
 const Background = memo(() => {
   const [{ page }, setState] = useContext(TaipeiContext);
   const [{ step }] = useContext(TaipeiIntroContext);
-  const [style, setStyle] = useTween({ opacity: 0, scale: 1, x: 0 });
+  const [style, setStyle] = useTween({ opacity: 1, scale: 1, x: 0 });
 
   useEffect(() => {
     if (page === TaipeiPageType.intro) {
       if (step === TaipeiIntroStepType.unset) {
-        setStyle({ scale: 1.7, opacity: 1 }, { duration: 3000, easing: Bezier.inOutQuart });
+        setStyle({ scale: 1.7, opacity: 1 }, { duration: 8000, easing: Bezier.inOutQuart });
       } else if (step === TaipeiIntroStepType.entry) {
         setStyle(
           { scale: 2.9, opacity: 0, x: 10 },

@@ -21,7 +21,7 @@ const Text = memo(({ index }: { index: number }) => {
     if (step === ChiayiGameStepType.dialog) {
       setStyle(
         { opacity: 1, y: 0, scale: 1 },
-        { duration: index === 0 ? 300 : 500, delay: 800 + (index === 0 ? 0 : 300) + index * 100 },
+        { duration: index === 0 ? 300 : 500, delay: 300 + (index === 0 ? 0 : 300) + index * 100 },
       );
     }
   }, [page, step]);
@@ -35,7 +35,7 @@ const Image = memo(() => {
   useEffect(() => {
     if (page !== ChiayiPageType.game) return;
     if (step === ChiayiGameStepType.dialog) {
-      setStyle({ opacity: 1, scale: 1, rotate: 0 }, { duration: 500, delay: 1800 });
+      setStyle({ opacity: 1, scale: 1, rotate: 0 }, { duration: 500, delay: 1300 });
     }
   }, [page, step]);
   return <div className='image' style={style} />;
@@ -55,7 +55,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
         { opacity: 1, scale: 1 },
         {
           duration: 500,
-          delay: 2200,
+          delay: 1700,
           onEnd: () => {
             setActive(true);
             Click.add(`#${id}`, () => {
@@ -93,7 +93,6 @@ const Dialog = memo(() => {
         { opacity: 1, scale: 1 },
         {
           duration: 500,
-          delay: 500,
           onStart: () => {
             setContext({ type: ActionType.Fail, state: { enabled: false } });
           },
@@ -107,7 +106,6 @@ const Dialog = memo(() => {
       setStyle(
         { opacity: 0 },
         {
-          duration: 500,
           onEnd: () => {
             setState((S) => ({ ...S, step: ChiayiGameStepType.bacteria }));
           },

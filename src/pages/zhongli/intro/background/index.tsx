@@ -37,11 +37,25 @@ const Video = memo(() => {
   const [{ page }, setZhongliState] = useContext(ZhongliContext);
   const [, setState] = useContext(ZhongliIntroContext);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const checkStatusRef = useRef(false);
 
   useEffect(() => {
     if (page === ZhongliPageType.intro) {
+      checkStatusRef.current = true;
       videoRef.current?.play();
+      const checkVideoStatus = () => {
+        if (videoRef.current?.paused) {
+          videoRef.current?.play();
+        }
+        if (checkStatusRef.current) {
+          requestAnimationFrame(checkVideoStatus);
+        }
+      };
+      checkVideoStatus();
     }
+    return () => {
+      checkStatusRef.current = false;
+    };
   }, [page]);
 
   useEffect(() => {
@@ -64,6 +78,7 @@ const Video = memo(() => {
     const onVideoEnd = () => {
       if (videoRef.current) {
         videoRef.current.pause();
+        checkStatusRef.current = false;
         videoRef.current.currentTime = videoRef.current.duration;
         setState((S) => ({ ...S, step: ZhongliIntroStepType.entry }));
         videoRef.current?.removeEventListener('ended', onVideoEnd);
