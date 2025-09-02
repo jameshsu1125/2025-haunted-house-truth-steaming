@@ -24,6 +24,8 @@ const install = (onLoaded: () => void) => {
       src: [config.src],
       loop: config.loop,
       volume: config.volume,
+      preload: true,
+      autoplay: false,
       onend: () => {
         if (config.loop) return;
         tracker[key as SoundKeyType].playing = false;
