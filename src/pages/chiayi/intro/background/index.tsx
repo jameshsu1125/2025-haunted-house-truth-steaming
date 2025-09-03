@@ -3,6 +3,7 @@ import './index.less';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiIntroContext, ChiayiIntroStepType } from '../config';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const DarkScreen = memo(() => {
   const [{ page }] = useContext(ChiayiContext);
@@ -40,6 +41,8 @@ const Cat = memo(({ active }: { active: boolean }) => {
               {
                 onStart: () => {
                   ref.current!.style.zIndex = '1';
+                  fadeOutSound('footprintGravel');
+                  playSound('cat');
                 },
                 duration: 300,
                 easing: Bezier.easeOut,

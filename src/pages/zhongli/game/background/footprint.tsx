@@ -1,4 +1,4 @@
-import { playSound } from '@/components/sounds';
+import { fadeOutSound, playSound } from '@/components/sounds';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useEffect, useMemo } from 'react';
 
@@ -7,8 +7,19 @@ const Footprint = memo(({ active }: { active: boolean }) => {
 
   useEffect(() => {
     if (active) {
-      setStyle({ left: 6 }, { easing: Bezier.linear, duration: 5000 });
-      playSound('footstep');
+      setStyle(
+        { left: 6 },
+        {
+          easing: Bezier.linear,
+          duration: 3000,
+          onStart: () => {
+            playSound('footprintWood');
+          },
+          onEnd: () => {
+            fadeOutSound('footprintWood');
+          },
+        },
+      );
     }
   }, [active]);
 

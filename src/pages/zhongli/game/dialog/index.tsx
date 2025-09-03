@@ -1,13 +1,13 @@
+import { playSound } from '@/components/sounds';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
-import useTween, { Bezier } from 'lesca-use-tween';
+import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import './index.less';
-import { Context } from '@/settings/constant';
-import { ActionType } from '@/settings/type';
-import { playSound } from '@/components/sounds';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(ZhongliContext);
@@ -73,17 +73,6 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
   );
 });
 
-export const F25 = memo(() => {
-  const [{ page }] = useContext(ZhongliContext);
-  const [style, setStyle] = useTween({ opacity: 0, x: 50 });
-  useEffect(() => {
-    if (page !== ZhongliPageType.game) return;
-    setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 2800, easing: Bezier.outBack });
-  }, [page]);
-
-  return <div className='f25' style={style} />;
-});
-
 const Dialog = memo(() => {
   const [, setContext] = useContext(Context);
   const [style, setStyle] = useTween({ opacity: 0, scale: 0.2 });
@@ -100,6 +89,7 @@ const Dialog = memo(() => {
           delay: 500,
           onStart: () => {
             setContext({ type: ActionType.Fail, state: { enabled: false } });
+            playSound('hint');
           },
         },
       );

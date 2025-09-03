@@ -1,10 +1,14 @@
-import { memo, useContext, useEffect } from 'react';
+import useTween from 'lesca-use-tween';
+import { forwardRef, useContext, useEffect, useImperativeHandle } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
-import useTween from 'lesca-use-tween';
-import { twMerge } from 'tailwind-merge';
 
-const Vacuum = memo(() => {
+export type VacuumHandle = {
+  suck: () => void;
+};
+
+const Vacuum = forwardRef((_, ref) => {
   const [{ page }] = useContext(ChiayiContext);
   const [{ step }] = useContext(ChiayiGameContext);
   const [style, setStyle] = useTween({ y: 155 });
@@ -14,6 +18,12 @@ const Vacuum = memo(() => {
       setStyle({ y: 0 }, { duration: 500 });
     }
   }, [page, step]);
+
+  useImperativeHandle(ref, () => ({
+    suck() {
+      console.log('a');
+    },
+  }));
 
   return (
     <div className='vacuum'>

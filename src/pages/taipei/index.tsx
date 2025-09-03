@@ -1,4 +1,5 @@
 import Cistern from '@/components/cistern';
+import { playSound } from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
@@ -8,21 +9,18 @@ import Game from './game';
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
-import { playSound, stopAllSounds } from '@/components/sounds';
 
 const Taipei = memo(() => {
   const [, setContext] = useContext(Context);
   const [state, setState] = useState(TaipeiState);
 
   useEffect(() => {
-    stopAllSounds();
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
   }, []);
 
   useEffect(() => {
     if (state.page === TaipeiPageType.landing && state.step === TaipeiStepType.loaded) {
-      stopAllSounds();
-      playSound('gamingBGM');
+      playSound('introBGM');
     }
   }, [state]);
 

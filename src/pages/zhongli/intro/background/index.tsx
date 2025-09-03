@@ -1,3 +1,4 @@
+import { fadeOutSound } from '@/components/sounds';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
@@ -5,7 +6,6 @@ import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliIntroContext, ZhongliIntroStepType } from '../config';
 import VideoURL from './img/zhongli-intro.mp4';
 import './index.less';
-import { fadeOutSound, playSound } from '@/components/sounds';
 
 const DarkScreen = memo(() => {
   const [{ page }] = useContext(ZhongliContext);
@@ -47,7 +47,6 @@ const Video = memo(() => {
     if (page === ZhongliPageType.intro) {
       checkStatusRef.current = true;
       videoRef.current?.play();
-      playSound('footstep');
 
       const checkVideoStatus = () => {
         if (videoRef.current?.paused) {

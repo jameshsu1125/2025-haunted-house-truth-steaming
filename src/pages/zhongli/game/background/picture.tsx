@@ -1,3 +1,4 @@
+import { playSound } from '@/components/sounds';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -37,6 +38,7 @@ const Picture = memo(() => {
                 { opacity: 1, left: -5, scale: 1 },
                 { duration: 300, easing: Bezier.inOutQuart },
               );
+              playSound('drop');
             },
           },
         );

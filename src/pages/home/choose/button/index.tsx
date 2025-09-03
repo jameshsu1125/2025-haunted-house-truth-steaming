@@ -1,14 +1,14 @@
-import { memo, useContext, useEffect, useId, useState } from 'react';
-import './index.less';
-import { HomeContext, HomePageType, HomeState, HomeStepType } from '../../config';
-import useTween from 'lesca-use-tween';
-import Click from 'lesca-click';
-import { ChooseContext, ChooseState } from '../config';
-import { twMerge } from 'tailwind-merge';
+import { playSound } from '@/components/sounds';
 import { PAGE } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
-import { fadeOutSound, playSound } from '@/components/sounds';
+import Click from 'lesca-click';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useId, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { HomeContext, HomePageType, HomeState, HomeStepType } from '../../config';
+import { ChooseContext, ChooseState } from '../config';
+import './index.less';
 
 const Button = memo(() => {
   const [, setContext] = useContext(Context);
@@ -44,7 +44,6 @@ const Button = memo(() => {
       setHomeState({ ...HomeState, page: HomePageType.choose });
 
       playSound('click');
-      fadeOutSound('introBGM');
     });
   }, [index]);
 

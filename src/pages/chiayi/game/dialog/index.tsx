@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
 import './index.less';
+import { playSound } from '@/components/sounds';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(ChiayiContext);
@@ -62,6 +63,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
               Click.remove(`#${id}`);
               setActive(false);
               setFadeOut(true);
+              playSound('click');
             });
           },
         },
@@ -95,6 +97,7 @@ const Dialog = memo(() => {
           duration: 500,
           onStart: () => {
             setContext({ type: ActionType.Fail, state: { enabled: false } });
+            playSound('hint');
           },
         },
       );

@@ -30,7 +30,7 @@ const Button = memo(() => {
               Click.add(`#${id}`, () => {
                 Click.remove(`#${id}`);
                 setState((S) => ({ ...S, step: ZhongliIntroStepType.entry }));
-                playSound('door');
+                playSound('doorWood');
               });
             },
           },

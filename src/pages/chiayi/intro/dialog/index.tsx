@@ -3,6 +3,7 @@ import './index.less';
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { ChiayiIntroContext, ChiayiIntroStepType } from '../config';
+import { playSound } from '@/components/sounds';
 
 const Dialog = memo(() => {
   const [{ page }] = useContext(ChiayiContext);
@@ -12,7 +13,17 @@ const Dialog = memo(() => {
   useEffect(() => {
     if (page === ChiayiPageType.intro) {
       if (step === ChiayiIntroStepType.unset) {
-        setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 3800, easing: Bezier.outQuart });
+        setStyle(
+          { opacity: 1, y: 0 },
+          {
+            duration: 1000,
+            delay: 3800,
+            easing: Bezier.outQuart,
+            onStart: () => {
+              playSound('hint');
+            },
+          },
+        );
       } else if (step === ChiayiIntroStepType.entry) {
         setStyle({ opacity: 0 }, { duration: 1, easing: Bezier.inOutQuart });
       }

@@ -1,12 +1,19 @@
-import { memo, useContext } from 'react';
+import { memo, useContext, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { HomeContext, HomePageType } from '../config';
+import { HomeContext, HomePageType, HomeStepType } from '../config';
 import Background from './background';
 import Header from './header';
 import Logo from './logo';
+import { playSound } from '@/components/sounds';
 
 const Landing = memo(() => {
-  const [{ page }] = useContext(HomeContext);
+  const [{ page, step }] = useContext(HomeContext);
+
+  useEffect(() => {
+    if (page === HomePageType.landing && step === HomeStepType.loaded) {
+      playSound('homeBGM');
+    }
+  }, [page, step]);
 
   return (
     <div

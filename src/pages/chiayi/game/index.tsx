@@ -16,6 +16,7 @@ import './index.less';
 import Result from './result';
 import Clear from '@/components/clear';
 import End from '@/components/end';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -52,6 +53,18 @@ const Game = memo(() => {
   const value = useState(ChiayiGameState);
   const [{ step }, setState] = value;
   const [{ page }] = useContext(ChiayiContext);
+
+  useEffect(() => {
+    if (page === ChiayiPageType.game) {
+      if (step === ChiayiGameStepType.clear) {
+        fadeOutSound('gamingBGM');
+      }
+      if (step === ChiayiGameStepType.unset) {
+        fadeOutSound('introBGM');
+        playSound('gamingBGM');
+      }
+    }
+  }, [step, page]);
 
   return (
     <ChiayiGameContext.Provider value={value}>

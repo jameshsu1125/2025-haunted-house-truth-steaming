@@ -17,7 +17,7 @@ import './index.less';
 import Picture from './picture';
 import Vacuum from './vacuum';
 import End from '@/components/end';
-import { fadeOutSound } from '@/components/sounds';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -57,10 +57,16 @@ const Game = memo(() => {
   const [{ step }, setState] = value;
 
   useEffect(() => {
-    if (step === TaipeiGameStepType.clear) {
-      fadeOutSound('gamingBGM');
+    if (page === TaipeiPageType.game) {
+      if (step === TaipeiGameStepType.clear) {
+        fadeOutSound('gamingBGM');
+      }
+      if (step === TaipeiGameStepType.unset) {
+        fadeOutSound('introBGM');
+        playSound('gamingBGM');
+      }
     }
-  }, [step]);
+  }, [step, page]);
 
   return (
     <TaipeiGameContext.Provider value={value}>

@@ -12,7 +12,7 @@ import {
 import Germ from './germ';
 import { getTimeline } from './misc';
 
-const Germs = memo(({ container }: { container: HTMLDivElement }) => {
+const Germs = memo(({ container, onSuck }: { container: HTMLDivElement; onSuck: () => void }) => {
   const { clientWidth, clientHeight } = container;
 
   const [style, setStyle] = useTween({
@@ -23,21 +23,25 @@ const Germs = memo(({ container }: { container: HTMLDivElement }) => {
   });
   const index = Math.floor(Math.random() * 3) + 1;
 
-  const onSuck = () => {
-    setStyle(
-      { left: 120, top: container.clientHeight },
-      { duration: VIRUS_BEEN_SUCKED_SPEED, easing: Bezier.inQuart },
-    );
-  };
-
   return (
     <div className='germs'>
-      <Germ index={index} containerWidth={container.clientWidth} style={style} onSuck={onSuck} />
+      <Germ
+        index={index}
+        containerWidth={container.clientWidth}
+        style={style}
+        onSuck={() => {
+          setStyle(
+            { left: 120, top: container.clientHeight },
+            { duration: VIRUS_BEEN_SUCKED_SPEED, easing: Bezier.inQuart },
+          );
+          onSuck();
+        }}
+      />
     </div>
   );
 });
 
-const Virus = memo(() => {
+const Virus = memo(({ onSuck }: { onSuck: () => void }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [{ page }] = useContext(ChiayiContext);
@@ -61,7 +65,9 @@ const Virus = memo(() => {
     <div ref={ref} className={twMerge('virus')}>
       {ref.current &&
         ref.current.clientWidth &&
-        [...new Array(index).keys()].map((i) => <Germs key={i} container={ref.current!} />)}
+        [...new Array(index).keys()].map((i) => (
+          <Germs key={i} container={ref.current!} onSuck={onSuck} />
+        ))}
     </div>
   );
 });

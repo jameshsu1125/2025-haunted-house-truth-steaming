@@ -38,20 +38,21 @@ const install = (onLoaded: () => void) => {
   });
 };
 
-const stopAllSounds = () => {
-  Object.values(tracker).forEach((data) => {
-    if (data.playing) {
+const stopAllSounds = (except?: SoundKeyType[]) => {
+  Object.entries(tracker).forEach(([key, data]) => {
+    if (data.playing && !except?.includes(key as SoundKeyType)) {
       data.track.stop();
       data.playing = false;
     }
   });
 };
 
-const playSound = (key: SoundKeyType) => {
+const playSound = (key: SoundKeyType, speed: number = 1) => {
   if (!tracker[key]?.playing) {
     tracker[key].playing = true;
     tracker[key]?.track.seek(0);
     tracker[key]?.track.volume(SOUNDS_CONFIG[key].volume);
+    if (speed !== 1) tracker[key]?.track.rate(speed);
     tracker[key]?.track.play();
   }
 };

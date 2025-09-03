@@ -1,14 +1,14 @@
-import { memo, useContext, useEffect } from 'react';
-import './index.less';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
-import useTween from 'lesca-use-tween';
-import Virus from './virus';
-import { Context } from '@/settings/constant';
-import { ActionType } from '@/settings/type';
-import Vacuum from './vacuum';
+import './index.less';
 import Smoke from './smoke';
+import Vacuum, { VacuumHandle } from './vacuum';
+import Virus from './virus';
 
 const Floor = memo(() => {
   const [, setContext] = useContext(Context);
@@ -27,6 +27,7 @@ const Floor = memo(() => {
 });
 
 const Bacteria = memo(() => {
+  const vacuumRef = useRef<VacuumHandle | null>(null);
   const [, setContext] = useContext(Context);
   const [{ page }] = useContext(ChiayiContext);
   const [{ step }, setState] = useContext(ChiayiGameContext);
@@ -47,6 +48,10 @@ const Bacteria = memo(() => {
     }
   }, [page, step]);
 
+  const onSuck = () => {
+    if (vacuumRef.current) vacuumRef.current.suck();
+  };
+
   return (
     <div
       className={twMerge(
@@ -60,8 +65,8 @@ const Bacteria = memo(() => {
     >
       <Floor />
       <Smoke />
-      <Virus />
-      <Vacuum />
+      <Virus onSuck={onSuck} />
+      <Vacuum ref={vacuumRef} />
     </div>
   );
 });

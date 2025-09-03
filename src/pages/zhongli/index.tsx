@@ -1,5 +1,5 @@
 import Cistern from '@/components/cistern';
-import { playSound, stopAllSounds } from '@/components/sounds';
+import { playSound } from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
@@ -20,8 +20,7 @@ const Zhongli = memo(() => {
 
   useEffect(() => {
     if (state.page === ZhongliPageType.landing && state.step === ZhongliStepType.loaded) {
-      stopAllSounds();
-      playSound('gamingBGM');
+      playSound('introBGM');
     }
   }, [state]);
 

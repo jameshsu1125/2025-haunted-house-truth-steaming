@@ -8,6 +8,7 @@ import Game from './game';
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
+import { playSound } from '@/components/sounds';
 
 const Chiayi = memo(() => {
   const [, setContext] = useContext(Context);
@@ -16,6 +17,12 @@ const Chiayi = memo(() => {
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
   }, []);
+
+  useEffect(() => {
+    if (state.page === ChiayiPageType.landing && state.step === ChiayiStepType.loaded) {
+      playSound('introBGM');
+    }
+  }, [state]);
 
   return (
     <ChiayiContext.Provider value={[state, setState]}>

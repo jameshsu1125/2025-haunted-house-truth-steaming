@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiIntroContext, ChiayiIntroStepType } from '../config';
 import './index.less';
+import { playSound } from '@/components/sounds';
 
 const Button = memo(() => {
   const id = useId();
@@ -29,6 +30,7 @@ const Button = memo(() => {
               Click.add(`#${id}`, () => {
                 Click.remove(`#${id}`);
                 setState((S) => ({ ...S, step: ChiayiIntroStepType.entry }));
+                playSound('doorWood');
               });
             },
           },

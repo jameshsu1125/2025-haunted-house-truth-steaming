@@ -88,7 +88,7 @@ const Folder = memo(() => {
   useEffect(() => {
     if (step >= HomeStepType.fadeIn && page === HomePageType.choose) {
       setStyle({ opacity: 1, scale: 1 });
-      stopAllSounds();
+      stopAllSounds(['introBGM']);
       playSound('introBGM');
     }
   }, [page, step]);

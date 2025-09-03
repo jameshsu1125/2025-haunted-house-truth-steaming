@@ -6,6 +6,7 @@ import { Context } from '@/settings/constant';
 import { ResultContext, ResultStepType } from '../config';
 import useTween from 'lesca-use-tween';
 import { IReactProps } from '@/settings/type';
+import { playSound } from '@/components/sounds';
 
 const Stamp = memo(() => {
   const [{ step }] = useContext(ResultContext);
@@ -19,6 +20,9 @@ const Stamp = memo(() => {
         {
           duration: 200,
           delay: 500,
+          onStart: () => {
+            playSound('win');
+          },
           onEnd: () => {
             setShake(true);
           },
