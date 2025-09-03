@@ -58,7 +58,7 @@ const Game = memo(() => {
 
   useEffect(() => {
     if (step === TaipeiGameStepType.clear) {
-      fadeOutSound('taipeiBGM');
+      fadeOutSound('gamingBGM');
     }
   }, [step]);
 

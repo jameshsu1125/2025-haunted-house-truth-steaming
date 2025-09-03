@@ -89,7 +89,7 @@ const Folder = memo(() => {
     if (step >= HomeStepType.fadeIn && page === HomePageType.choose) {
       setStyle({ opacity: 1, scale: 1 });
       stopAllSounds();
-      playSound('chooseBGM');
+      playSound('introBGM');
     }
   }, [page, step]);
 

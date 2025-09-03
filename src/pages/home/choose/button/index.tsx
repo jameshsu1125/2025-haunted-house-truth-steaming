@@ -44,7 +44,7 @@ const Button = memo(() => {
       setHomeState({ ...HomeState, page: HomePageType.choose });
 
       playSound('click');
-      fadeOutSound('chooseBGM');
+      fadeOutSound('introBGM');
     });
   }, [index]);
 

@@ -21,7 +21,7 @@ const Zhongli = memo(() => {
   useEffect(() => {
     if (state.page === ZhongliPageType.landing && state.step === ZhongliStepType.loaded) {
       stopAllSounds();
-      playSound('taipeiBGM');
+      playSound('gamingBGM');
     }
   }, [state]);
 
