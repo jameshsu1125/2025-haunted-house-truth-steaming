@@ -4,6 +4,7 @@ import { ChiayiGameContext, ChiayiGameStepType, RESULT_WAIT_DURATION } from '../
 import { ChiayiContext, ChiayiPageType } from '../../config';
 import { twMerge } from 'tailwind-merge';
 import useTween, { Bezier } from 'lesca-use-tween';
+import { playSound } from '@/components/sounds';
 
 const T0 = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -63,6 +64,9 @@ const Counter = memo(({ increase }: { increase: boolean }) => {
         {
           duration: 2000,
           easing: Bezier.easeOut,
+          onStart: () => {
+            playSound('win');
+          },
           onEnd: () => {
             ref.current = setTimeout(() => {
               setState((S) => ({ ...S, step: ChiayiGameStepType.resultFadeOut }));

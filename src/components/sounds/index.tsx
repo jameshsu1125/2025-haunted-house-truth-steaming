@@ -54,11 +54,24 @@ const playSound = (key: SoundKeyType, speed: number = 1) => {
     tracker[key]?.track.volume(SOUNDS_CONFIG[key].volume);
     if (speed !== 1) tracker[key]?.track.rate(speed);
     tracker[key]?.track.play();
+  } else {
+    if (key.toLocaleLowerCase().includes('bgm')) return;
+    if (SOUNDS_CONFIG[key].loop) return;
+    tracker[key].playing = true;
+    tracker[key]?.track.seek(0);
+    tracker[key]?.track.volume(SOUNDS_CONFIG[key].volume);
+    if (speed !== 1) tracker[key]?.track.rate(speed);
+    tracker[key]?.track.play();
   }
 };
 
-const fadeOutSound = (key: SoundKeyType) => {
-  tracker[key]?.track.fade(tracker[key]?.track.volume(), 0, 1000);
+const fadeOutSound = (key: SoundKeyType, time: number = 1000) => {
+  tracker[key]?.track.fade(tracker[key]?.track.volume(), 0, time);
+  tracker[key].playing = false;
+};
+
+const stopSound = (key: SoundKeyType) => {
+  tracker[key]?.track.stop();
   tracker[key].playing = false;
 };
 
@@ -74,4 +87,4 @@ const stopAllEffects = () => {
 const Sounds = { install };
 
 export default Sounds;
-export { fadeOutSound, playSound, stopAllSounds, stopAllEffects };
+export { fadeOutSound, playSound, stopAllSounds, stopAllEffects, stopSound };

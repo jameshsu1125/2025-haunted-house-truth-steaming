@@ -1,3 +1,4 @@
+import { fadeOutSound, playSound } from '@/components/sounds';
 import { smokeMachine } from 'pixijs-shader-smoke';
 import { memo, useContext, useEffect, useRef } from 'react';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
@@ -41,9 +42,16 @@ const Smoke = memo(() => {
           smokeRef.current.addsmoke(currentX + randomOffset, y + randomOffset, n, t);
           time -= 1;
         }
+
+        playSound('cleaner');
+      };
+
+      const onPointerUp = () => {
+        fadeOutSound('cleaner', 100);
       };
 
       window.addEventListener('pointerdown', onPointerDown);
+      window.addEventListener('pointerup', onPointerUp);
     }
   }, [step]);
 

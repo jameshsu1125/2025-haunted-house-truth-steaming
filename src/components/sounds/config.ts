@@ -19,6 +19,7 @@ import lightURL from './mp3/light.mp3';
 import passURL from './mp3/pass.mp3';
 import winURL from './mp3/win.mp3';
 import doorWoodURL from './mp3/wood-door.mp3';
+import virusDeadURL from './mp3/virus-dead.mp3';
 
 export type SoundKeyType =
   | 'homeBGM'
@@ -41,7 +42,8 @@ export type SoundKeyType =
   | 'pass'
   | 'win'
   | 'cat'
-  | 'drop';
+  | 'drop'
+  | 'virusDead';
 
 export const SOUNDS_CONFIG: Record<SoundKeyType, { src: string; loop: boolean; volume: number }> = {
   homeBGM: { src: homeBGM_URL, loop: true, volume: 0.1 },
@@ -65,4 +67,5 @@ export const SOUNDS_CONFIG: Record<SoundKeyType, { src: string; loop: boolean; v
   win: { src: winURL, loop: false, volume: 1 },
   cat: { src: catURL, loop: false, volume: 1 },
   drop: { src: dropURL, loop: false, volume: 1 },
+  virusDead: { src: virusDeadURL, loop: false, volume: 0.2 },
 };
