@@ -1,6 +1,7 @@
 import { memo, useContext, useRef } from 'react';
 import { ChooseContext, ChooseStepType } from '../config';
 import './index.less';
+import { playSound } from '@/components/sounds';
 
 const Touch = memo(() => {
   const [{ step }, setState] = useContext(ChooseContext);
@@ -27,6 +28,7 @@ const Touch = memo(() => {
           ref.current.y = 0;
           if (direction === 'left') {
             if (step === ChooseStepType.unset) {
+              playSound('flap');
               setState((S) => ({
                 ...S,
                 step: ChooseStepType.fadeOut,
@@ -36,6 +38,7 @@ const Touch = memo(() => {
             }
           } else {
             if (step === ChooseStepType.unset) {
+              playSound('flap');
               setState((S) => ({
                 ...S,
                 step: ChooseStepType.fadeOut,
