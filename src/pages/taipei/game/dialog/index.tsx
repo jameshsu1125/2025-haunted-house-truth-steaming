@@ -117,6 +117,7 @@ const Dialog = memo(() => {
           duration: 500,
           onStart: () => {
             stopAllEffects();
+            playSound('hint');
           },
         },
       );

@@ -92,7 +92,7 @@ const Game = memo(() => {
           />
         </CoverNode>
         {step <= TaipeiGameStepType.unset && (
-          <Countdown status={page === TaipeiPageType.game ? 'start' : 'stop'} totalTime={60000} />
+          <Countdown status={page === TaipeiPageType.game ? 'start' : 'stop'} totalTime={30000} />
         )}
       </TweenerProvider>
     </TaipeiGameContext.Provider>
