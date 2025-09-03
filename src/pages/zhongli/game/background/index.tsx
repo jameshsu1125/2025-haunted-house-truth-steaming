@@ -123,6 +123,10 @@ const Background = memo(() => {
     const append = () => {
       if (cardNode.current && cardNode.current.offsetWidth && cardNode.current.offsetHeight) {
         setShouldAppend(true);
+        const isZoom = window.devicePixelRatio % 1 !== 0;
+        if (isZoom) {
+          alert('請將瀏覽器縮放比例調整為100%以獲得最佳體驗，感謝您的配合！');
+        }
       } else requestAnimationFrame(append);
     };
     append();
