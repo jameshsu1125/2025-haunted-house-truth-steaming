@@ -204,7 +204,7 @@ const Background = memo(() => {
         />
       )}
       {step <= ZhongliGameStepType.dialog && <div className='mask' />}
-      {step <= ZhongliGameStepType.dialog && <Picture />}
+      {step <= ZhongliGameStepType.dialog && <Picture dotA={dotNode_A} />}
       {step <= ZhongliGameStepType.dialog && <div className='light' />}
       <div ref={dotNode_A} className='dot-a' />
       <div ref={dotNode_B} className='dot-b' />
