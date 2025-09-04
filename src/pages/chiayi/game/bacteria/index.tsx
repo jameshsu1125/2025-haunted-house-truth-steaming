@@ -9,6 +9,7 @@ import './index.less';
 import Smoke from './smoke';
 import Vacuum, { VacuumHandle } from './vacuum';
 import Virus from './virus';
+import Counter, { CounterHandle } from './counter';
 
 const Floor = memo(() => {
   const [, setContext] = useContext(Context);
@@ -28,6 +29,7 @@ const Floor = memo(() => {
 
 const Bacteria = memo(() => {
   const vacuumRef = useRef<VacuumHandle | null>(null);
+  const counterRef = useRef<CounterHandle | null>(null);
   const [, setContext] = useContext(Context);
   const [{ page }] = useContext(ChiayiContext);
   const [{ step }, setState] = useContext(ChiayiGameContext);
@@ -48,8 +50,9 @@ const Bacteria = memo(() => {
     }
   }, [page, step]);
 
-  const onSuck = () => {
+  const onSuck = (event: React.PointerEvent<HTMLDivElement>) => {
     if (vacuumRef.current) vacuumRef.current.suck();
+    if (counterRef.current) counterRef.current.increase(event);
   };
 
   return (
@@ -67,6 +70,7 @@ const Bacteria = memo(() => {
       <Smoke />
       <Virus onSuck={onSuck} />
       <Vacuum ref={vacuumRef} />
+      <Counter ref={counterRef} />
     </div>
   );
 });

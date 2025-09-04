@@ -15,7 +15,7 @@ const scale = VIRUS_SIZE_RATIO;
 
 type TTweenerProviderProps = IReactProps & {
   clicked: boolean;
-  setClicked: () => void;
+  setClicked: (event: React.PointerEvent<HTMLDivElement>) => void;
   setHide: React.Dispatch<React.SetStateAction<boolean>>;
   hide: boolean;
 };
@@ -27,7 +27,7 @@ type TGerm = {
   index: number;
   containerWidth: number;
   style: React.CSSProperties;
-  onSuck: () => void;
+  onSuck: (event: React.PointerEvent<HTMLDivElement>) => void;
 };
 
 const TweenerProvider = memo(
@@ -167,9 +167,9 @@ const Germ = memo(
       }
     }, [domReady]);
 
-    const onClick = () => {
+    const onClick = (event: React.PointerEvent<HTMLDivElement>) => {
       setClicked(true);
-      onSuck();
+      onSuck(event);
       const { virus, displacementSprite, displacementFilter, app } = pixiRef.current;
       virus.filters = [displacementFilter];
 

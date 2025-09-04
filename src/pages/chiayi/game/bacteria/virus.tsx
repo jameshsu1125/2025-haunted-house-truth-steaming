@@ -12,63 +12,73 @@ import {
 import Germ from './germ';
 import { getTimeline } from './misc';
 
-const Germs = memo(({ container, onSuck }: { container: HTMLDivElement; onSuck: () => void }) => {
-  const { clientWidth, clientHeight } = container;
+const Germs = memo(
+  ({
+    container,
+    onSuck,
+  }: {
+    container: HTMLDivElement;
+    onSuck: (event: React.PointerEvent<HTMLDivElement>) => void;
+  }) => {
+    const { clientWidth, clientHeight } = container;
 
-  const [style, setStyle] = useTween({
-    left: `${Math.random() * (clientWidth - 128 * 2)}px`,
-    top: `${64 + Math.random() * (clientHeight - 128 * 4)}px`,
-    scale: Math.random() * 0.5 + 0.5,
-    rotate: Math.random() * 360,
-  });
-  const index = Math.floor(Math.random() * 3) + 1;
+    const [style, setStyle] = useTween({
+      left: `${Math.random() * (clientWidth - 128 * 2)}px`,
+      top: `${64 + Math.random() * (clientHeight - 128 * 4)}px`,
+      scale: Math.random() * 0.5 + 0.5,
+      rotate: Math.random() * 360,
+    });
+    const index = Math.floor(Math.random() * 3) + 1;
 
-  return (
-    <div className='germs'>
-      <Germ
-        index={index}
-        containerWidth={container.clientWidth}
-        style={style}
-        onSuck={() => {
-          setStyle(
-            { left: 120, top: container.clientHeight },
-            { duration: VIRUS_BEEN_SUCKED_SPEED, easing: Bezier.inQuart },
-          );
-          onSuck();
-        }}
-      />
-    </div>
-  );
-});
+    return (
+      <div className='germs'>
+        <Germ
+          index={index}
+          containerWidth={container.clientWidth}
+          style={style}
+          onSuck={(event) => {
+            setStyle(
+              { left: 120, top: container.clientHeight },
+              { duration: VIRUS_BEEN_SUCKED_SPEED, easing: Bezier.inQuart },
+            );
+            onSuck(event);
+          }}
+        />
+      </div>
+    );
+  },
+);
 
-const Virus = memo(({ onSuck }: { onSuck: () => void }) => {
-  const ref = useRef<HTMLDivElement>(null);
+const Virus = memo(
+  ({ onSuck }: { onSuck: (event: React.PointerEvent<HTMLDivElement>) => void }) => {
+    const ref = useRef<HTMLDivElement>(null);
 
-  const [{ page }] = useContext(ChiayiContext);
-  const [{ step }] = useContext(ChiayiGameContext);
-  const [index, setIndex] = useState(0);
+    const [{ page }] = useContext(ChiayiContext);
+    const [{ step }] = useContext(ChiayiGameContext);
+    const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    if (page === ChiayiPageType.game && step === ChiayiGameStepType.bacteria) {
-      const timeline = getTimeline(30000, VIRUS_SHOW_TIME.min, VIRUS_SHOW_TIME.max);
-      EnterFrame.reset();
-      EnterFrame.add(({ delta }) => {
-        setIndex(() => {
-          const indexFromArray = timeline.findIndex((t) => t > delta);
-          return indexFromArray === -1 ? timeline.length - 1 : indexFromArray;
+    useEffect(() => {
+      if (page === ChiayiPageType.game && step === ChiayiGameStepType.bacteria) {
+        const timeline = getTimeline(30000, VIRUS_SHOW_TIME.min, VIRUS_SHOW_TIME.max);
+        EnterFrame.reset();
+        EnterFrame.add(({ delta }) => {
+          setIndex(() => {
+            const indexFromArray = timeline.findIndex((t) => t > delta);
+            return indexFromArray === -1 ? timeline.length - 1 : indexFromArray;
+          });
         });
-      });
-    }
-  }, [page, step]);
+      }
+    }, [page, step]);
 
-  return (
-    <div ref={ref} className={twMerge('virus')}>
-      {ref.current &&
-        ref.current.clientWidth &&
-        [...new Array(index).keys()].map((i) => (
-          <Germs key={i} container={ref.current!} onSuck={onSuck} />
-        ))}
-    </div>
-  );
-});
+    return (
+      <div ref={ref} className={twMerge('virus')}>
+        {ref.current &&
+          ref.current.clientWidth &&
+          [...new Array(index).keys()].map((i) => (
+            <Germs key={i} container={ref.current!} onSuck={onSuck} />
+          ))}
+      </div>
+    );
+  },
+);
 export default Virus;
