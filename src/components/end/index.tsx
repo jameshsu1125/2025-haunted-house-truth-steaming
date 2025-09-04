@@ -26,7 +26,7 @@ const OutlineText = memo(({ visible }: { visible: boolean }) => {
 const 去污 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 800 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1500 });
   }, [visible]);
 
   return <div className='t2' style={style} />;
@@ -35,7 +35,7 @@ const 去污 = memo(({ visible }: { visible: boolean }) => {
 const 點 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 1200 });
+    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 2000 });
   }, [visible]);
 
   return <div className='t3' style={style} />;
@@ -45,7 +45,7 @@ const 我們來 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1200 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 2500 });
   }, [visible]);
 
   return <div className='t4' style={style} />;
@@ -54,12 +54,12 @@ const 我們來 = memo(({ visible }: { visible: boolean }) => {
 const 蒸 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 2500 });
+    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 3500 });
   }, [visible]);
 
   return (
     <div className='steam-text' style={style}>
-      <SteamText scale={0.76} noise={{ x: 50, y: 50 }} />
+      <SteamText scale={0.65} noise={{ x: 50, y: 50 }} />
     </div>
   );
 });
@@ -68,7 +68,7 @@ const 的 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0 });
 
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 2500 });
+    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 3500 });
   }, [visible]);
 
   return <div className='t5' style={style} />;
@@ -82,6 +82,24 @@ const Touch = memo(
     />
   ),
 );
+
+const 蒸氣熱水雙效洗地機 = memo(({ visible }: { visible: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 800 });
+  }, [visible]);
+  return <div className='t6' style={style} />;
+});
+
+const Line = memo(({ visible }: { visible: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1000 });
+  }, [visible]);
+  return <div className='line' style={style} />;
+});
 
 const End = memo(
   ({
@@ -112,6 +130,12 @@ const End = memo(
                 <div className='row'>
                   <F25 visible={visible} />
                   <OutlineText visible={visible} />
+                </div>
+                <div className='row'>
+                  <蒸氣熱水雙效洗地機 visible={visible} />
+                </div>
+                <div className='row'>
+                  <Line visible={visible} />
                 </div>
                 <div className='row justify-between'>
                   <div className='c1'>

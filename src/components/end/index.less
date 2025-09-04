@@ -2,7 +2,7 @@
 
 .Game .End {
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-  @apply pointer-events-none absolute flex h-full w-full items-center justify-center;
+  @apply absolute flex h-full w-full items-center justify-center;
 
   .row {
     @apply flex w-full flex-row items-center;
@@ -109,11 +109,33 @@
         @apply inline-block w-full bg-contain bg-center bg-no-repeat;
       }
     }
+
+    .t6 {
+      width: (unit(image-width(@img))) / 956 * 100%;
+
+      @img: './img/t-0.png';
+      @apply relative;
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+
+    .line {
+      width: (unit(image-width(@img))) / 956 * 100%;
+
+      @img: './img/t-0.png';
+      @apply border-t border-white;
+    }
   }
 
   .steam-text {
-    top: -10%;
-    left: 54.8%;
+    top: -41%;
+    left: 52.7%;
     @apply absolute;
   }
 
@@ -130,8 +152,8 @@
       @apply w-full bg-contain bg-center bg-no-repeat;
 
       & > div {
-        padding: 2.425%;
-        @apply absolute top-0 right-0 bottom-0 left-0 flex h-full w-full flex-col items-center justify-center;
+        // padding: 2.425%;
+        @apply absolute top-0 right-0 bottom-0 left-0 flex h-full w-full flex-col items-center justify-center space-y-1;
       }
     }
   }

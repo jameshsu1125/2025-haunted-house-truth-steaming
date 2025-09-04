@@ -47,7 +47,7 @@ const Background = memo(() => {
   useEffect(() => {
     if (page === TaipeiPageType.intro) {
       if (step === TaipeiIntroStepType.unset) {
-        setStyle({ scale: 1.7, opacity: 1 }, { duration: 8000, easing: Bezier.inOutQuart });
+        setStyle({ scale: 1.7, opacity: 1 }, { duration: 8000, easing: Bezier.inOutSine });
       } else if (step === TaipeiIntroStepType.entry) {
         setStyle(
           { scale: 2.9, opacity: 0, x: 10 },
