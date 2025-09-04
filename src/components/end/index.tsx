@@ -6,9 +6,9 @@ import { twMerge } from 'tailwind-merge';
 import './index.less';
 
 const F25 = memo(({ visible }: { visible: boolean }) => {
-  const [style, setStyle] = useTween({ opacity: 0, x: 100 });
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, x: 0 }, 800);
+    if (visible) setStyle({ opacity: 1, y: 0 }, 800);
   }, [visible]);
 
   return <div className='t0' style={style} />;
@@ -17,7 +17,7 @@ const F25 = memo(({ visible }: { visible: boolean }) => {
 const OutlineText = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 1.2 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, scale: 1 }, { duration: 800, delay: 300 });
+    if (visible) setStyle({ opacity: 1, scale: 1 }, { duration: 800, delay: 500 });
   }, [visible]);
 
   return <div className='t1' style={style} />;
@@ -26,16 +26,16 @@ const OutlineText = memo(({ visible }: { visible: boolean }) => {
 const 去污 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1500 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1100 });
   }, [visible]);
 
   return <div className='t2' style={style} />;
 });
 
 const 點 = memo(({ visible }: { visible: boolean }) => {
-  const [style, setStyle] = useTween({ opacity: 0 });
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 2000 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1100 });
   }, [visible]);
 
   return <div className='t3' style={style} />;
@@ -45,7 +45,7 @@ const 我們來 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 2500 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1300 });
   }, [visible]);
 
   return <div className='t4' style={style} />;
@@ -54,7 +54,7 @@ const 我們來 = memo(({ visible }: { visible: boolean }) => {
 const 蒸 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0 });
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 3500 });
+    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 2000 });
   }, [visible]);
 
   return (
@@ -68,7 +68,7 @@ const 的 = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0 });
 
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 3500 });
+    if (visible) setStyle({ opacity: 1 }, { duration: 800, delay: 2000 });
   }, [visible]);
 
   return <div className='t5' style={style} />;
@@ -87,7 +87,7 @@ const 蒸氣熱水雙效洗地機 = memo(({ visible }: { visible: boolean }) => 
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 800 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 100 });
   }, [visible]);
   return <div className='t6' style={style} />;
 });
@@ -96,7 +96,7 @@ const Line = memo(({ visible }: { visible: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 1000 });
+    if (visible) setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 200 });
   }, [visible]);
   return <div className='line' style={style} />;
 });

@@ -9,7 +9,7 @@ import Footprint from './footprint';
 import Handprint from './handprint';
 import Cover from './img/card-cover.jpg';
 import './index.less';
-import Picture from './picture';
+import Picture, { PictureHandler } from './picture';
 
 const Fake = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 0 });
@@ -112,6 +112,7 @@ const Background = memo(() => {
   const lineNode_A = useRef<HTMLDivElement>(null);
   const lineNode_B = useRef<HTMLDivElement>(null);
   const cardNode = useRef<HTMLDivElement>(null);
+  const pictureRef = useRef<PictureHandler>(null);
 
   const [{ page }] = useContext(ZhongliContext);
 
@@ -185,6 +186,10 @@ const Background = memo(() => {
     }
   }, [shouldAppend]);
 
+  const onHandprintShowed = () => {
+    pictureRef.current?.drop();
+  };
+
   return (
     <div className='Background'>
       <div className='image' />
@@ -228,9 +233,12 @@ const Background = memo(() => {
       )}
       {step <= ZhongliGameStepType.dialog && <div className='mask' />}
       {step <= ZhongliGameStepType.dialog && (
-        <Handprint active={step === ZhongliGameStepType.unset && page === ZhongliPageType.game} />
+        <Handprint
+          active={step === ZhongliGameStepType.unset && page === ZhongliPageType.game}
+          onEnd={onHandprintShowed}
+        />
       )}
-      {step <= ZhongliGameStepType.dialog && <Picture dotA={dotNode_A} />}
+      {step <= ZhongliGameStepType.dialog && <Picture ref={pictureRef} dotA={dotNode_A} />}
       {step <= ZhongliGameStepType.dialog && <div className='light' />}
       <div ref={dotNode_A} className='dot-a' />
       <div ref={dotNode_B} className='dot-b' />
