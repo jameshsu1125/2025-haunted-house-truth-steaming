@@ -13,7 +13,7 @@ const Print = memo(({ active, index }: { active: boolean; index: number }) => {
           duration: 100,
           delay: 3000 + index * 1000,
           onStart: () => {
-            if (index === 0) playSound('ghost');
+            if (index === 0) playSound('ghost2');
           },
           onEnd: () => {
             setTimeout(() => {
@@ -22,7 +22,7 @@ const Print = memo(({ active, index }: { active: boolean; index: number }) => {
                 {
                   duration: 5000,
                   onEnd: () => {
-                    fadeOutSound('ghost');
+                    fadeOutSound('ghost2');
                   },
                 },
               );

@@ -1,3 +1,4 @@
+import { fadeOutSound, playSound } from '@/components/sounds';
 import useTween from 'lesca-use-tween';
 import {
   forwardRef,
@@ -13,7 +14,6 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { GHOST_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
-import { fadeOutSound, playSound } from '@/components/sounds';
 
 const Clear = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -23,10 +23,6 @@ const Clear = memo(() => {
   }, [step]);
   return <div className='clear' style={style} />;
 });
-
-type GhostHandle = {
-  active: () => void;
-};
 
 const Ghost = forwardRef((_, ref) => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -154,7 +150,7 @@ const Light = memo(() => {
   );
 });
 
-const Dish = memo(({ ghostActive }: { ghostActive: () => void }) => {
+const Dish = memo(() => {
   useEffect(() => {
     return () => {
       fadeOutSound('dish');
@@ -165,14 +161,12 @@ const Dish = memo(({ ghostActive }: { ghostActive: () => void }) => {
       className='dish'
       onPointerDown={() => {
         playSound('dish');
-        ghostActive();
       }}
     />
   );
 });
 
 const Background = memo(() => {
-  const ghostRef = useRef<GhostHandle>(null);
   const [style, setStyle] = useTween({ opacity: 0 });
   const [{ page }] = useContext(TaipeiContext);
 
@@ -182,18 +176,14 @@ const Background = memo(() => {
     }
   }, [page]);
 
-  const ghostActive = useCallback(() => {
-    ghostRef.current?.active();
-  }, [ghostRef]);
-
   return (
     <div className='Background' style={style}>
       <Touch />
-      <Ghost ref={ghostRef} />
+      <Ghost />
       <div className='image' />
       <Light />
       <Clear />
-      <Dish ghostActive={ghostActive} />
+      <Dish />
     </div>
   );
 });

@@ -19,4 +19,4 @@ export const ZhongliLandingContext = createContext<TZhongliLandingContext>([
   () => {},
 ]);
 
-export const ZhongliLandingEntryTime = 5000;
+export const ZhongliLandingEntryTime = 6000;

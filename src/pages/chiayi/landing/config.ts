@@ -19,4 +19,4 @@ export const TaipeiLandingContext = createContext<TTaipeiLandingContext>([
   () => {},
 ]);
 
-export const TaipeiLandingEntryTime = 5000;
+export const TaipeiLandingEntryTime = 6000;

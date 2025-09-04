@@ -20,6 +20,7 @@ import passURL from './mp3/pass.mp3';
 import winURL from './mp3/win.mp3';
 import doorWoodURL from './mp3/wood-door.mp3';
 import virusDeadURL from './mp3/virus-dead.mp3';
+import Ghost2URL from './mp3/ghost2.mp3';
 
 export type SoundKeyType =
   | 'homeBGM'
@@ -34,6 +35,7 @@ export type SoundKeyType =
   | 'door'
   | 'doorWood'
   | 'ghost'
+  | 'ghost2'
   | 'dish'
   | 'cleaner'
   | 'laugh'
@@ -46,7 +48,7 @@ export type SoundKeyType =
   | 'virusDead';
 
 export const SOUNDS_CONFIG: Record<SoundKeyType, { src: string; loop: boolean; volume: number }> = {
-  homeBGM: { src: homeBGM_URL, loop: true, volume: 0.1 },
+  homeBGM: { src: homeBGM_URL, loop: true, volume: 0.3 },
   introBGM: { src: introBGM_URL, loop: true, volume: 0.1 },
   gamingBGM: { src: gamingBGM_URL, loop: true, volume: 0.3 },
   flap: { src: flapURL, loop: false, volume: 1 },
@@ -58,6 +60,7 @@ export const SOUNDS_CONFIG: Record<SoundKeyType, { src: string; loop: boolean; v
   door: { src: doorURL, loop: false, volume: 1 },
   doorWood: { src: doorWoodURL, loop: false, volume: 1 },
   ghost: { src: ghostURL, loop: false, volume: 1 },
+  ghost2: { src: Ghost2URL, loop: false, volume: 1 },
   dish: { src: dishURL, loop: false, volume: 1 },
   cleaner: { src: cleanerURL, loop: true, volume: 0.5 },
   laugh: { src: laughURL, loop: false, volume: 1 },
