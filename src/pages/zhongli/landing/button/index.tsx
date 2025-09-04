@@ -5,7 +5,6 @@ import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliStepType } from '../../config';
 import { ZhongliLandingContext, ZhongliLandingStepType } from '../config';
 import './index.less';
-import { playSound } from '@/components/sounds';
 
 const Button = memo(() => {
   const id = useId();
@@ -27,7 +26,6 @@ const Button = memo(() => {
               setActive(true);
               Click.add(`#${id}`, () => {
                 setState((S) => ({ ...S, step: ZhongliLandingStepType.fadeOut }));
-                playSound('footstep', 2);
               });
             },
           },

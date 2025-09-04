@@ -14,6 +14,7 @@ import { ZhongliGameContext, ZhongliGameState, ZhongliGameStepType } from './con
 import Dialog from './dialog';
 import './index.less';
 import UnderBed from './underBed';
+import { fadeOutSound, playSound } from '@/components/sounds';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -50,6 +51,18 @@ const Game = memo(() => {
   const value = useState(ZhongliGameState);
   const [{ page }] = useContext(ZhongliContext);
   const [{ step }, setState] = value;
+
+  useEffect(() => {
+    if (page === ZhongliPageType.game) {
+      if (step === ZhongliGameStepType.clear) {
+        fadeOutSound('gamingBGM');
+      }
+      if (step === ZhongliGameStepType.unset) {
+        fadeOutSound('introBGM');
+        playSound('gamingBGM');
+      }
+    }
+  }, [step, page]);
   return (
     <ZhongliGameContext.Provider value={value}>
       <TweenerProvider>

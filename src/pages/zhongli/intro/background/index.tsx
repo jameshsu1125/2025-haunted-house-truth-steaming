@@ -109,11 +109,10 @@ const Video = memo(() => {
       src={VideoURL}
       width='100%'
       height='100%'
-      autoPlay
+      autoPlay={false}
       preload='auto'
       playbackRate={1}
       playsInline
-      muted
       loop={false}
     />
   );
