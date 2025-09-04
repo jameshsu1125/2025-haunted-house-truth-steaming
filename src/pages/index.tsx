@@ -24,7 +24,7 @@ Fetcher.install({
   formatType: formatType.JSON,
 });
 
-Gtag.install(import.meta.env.VITE_GTAG_ID || 'G-5GKEKPJ8M4', true);
+Gtag.install(import.meta.env.VITE_GTAG_ID || 'G-5GKEKPJ8M4');
 
 if (import.meta.env.VITE_MOCKING === 'true') {
   import('@/mocks/browser').then((e) => {
