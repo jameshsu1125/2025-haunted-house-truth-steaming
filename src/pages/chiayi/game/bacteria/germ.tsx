@@ -4,7 +4,7 @@ import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ChiayiContext } from '../../config';
-import { VIRUS_DESTROYING_SPEED, VIRUS_GROWING_SPEED, VIRUS_SIZE_RATIO } from '../config';
+import { VIRUS_GROWING_SPEED, VIRUS_SIZE_RATIO } from '../config';
 import displacement from './img/displacement_map_repeat.jpg';
 
 import v0 from './img/v0.png';
@@ -54,7 +54,7 @@ const TweenerProvider = memo(
           { opacity: 0 },
           {
             delay: 0,
-            duration: VIRUS_DESTROYING_SPEED,
+            duration: 1,
             easing: Bezier.inQuart,
             onEnd: () => setHide(true),
           },
@@ -134,7 +134,7 @@ const Germ = memo(
             const virus = Sprite.from(src);
             container.addChild(virus);
 
-            virus.scale.set(percent * 2 * scale);
+            virus.scale.set(percent * 1.7 * scale);
 
             const displacementSprite = Sprite.from(displacement);
             displacementSprite.texture.source.addressMode = 'repeat';
