@@ -6,7 +6,7 @@ body {
   text-size-adjust: none;
   overscroll-behavior: none;
 
-  @apply text-textColor;
+  @apply text-textColor bg-backgroundColor;
 }
 
 .App {

@@ -10,6 +10,10 @@
       width: 75 / 1280 * 100%;
       @apply pointer-events-auto cursor-pointer;
 
+      &:active {
+        transform: scale(0.9);
+      }
+
       & > div {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
         background-image: url(@img);

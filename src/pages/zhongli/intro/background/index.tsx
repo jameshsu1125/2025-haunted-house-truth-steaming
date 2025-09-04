@@ -47,6 +47,9 @@ const Video = memo(() => {
     if (page === ZhongliPageType.intro) {
       checkStatusRef.current = true;
       videoRef.current?.play();
+      setTimeout(() => {
+        fadeOutSound('footstep');
+      }, 1000);
 
       const checkVideoStatus = () => {
         if (videoRef.current?.paused) {

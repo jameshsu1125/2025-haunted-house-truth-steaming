@@ -61,6 +61,10 @@ const App = () => {
     Sounds.install(() => {
       setContext({ type: ActionType.Sounds, state: { enabled: true } });
     });
+
+    window.addEventListener('focus', () => {
+      window.location.reload();
+    });
   }, []);
 
   return (
