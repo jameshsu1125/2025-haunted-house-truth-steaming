@@ -8,6 +8,8 @@ import { ResultContext, ResultState } from './config';
 import Folder from './folder';
 import Forms from './forms';
 import './index.less';
+import Info from './info';
+import Cistern from '@/components/cistern';
 
 const Result = memo(() => {
   const [, setContext] = useContext(Context);
@@ -19,19 +21,22 @@ const Result = memo(() => {
 
   return (
     <ResultContext.Provider value={[state, setState]}>
-      <OnloadProvider
-        onload={() => {
-          setState((S) => ({ ...S, step: 1 }));
-          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-        }}
-      >
-        <div className='Result'>
-          <Folder />
-          <Logo />
-          <Forms />
-          <Button />
-        </div>
-      </OnloadProvider>
+      <Cistern>
+        <OnloadProvider
+          onload={() => {
+            setState((S) => ({ ...S, step: 1 }));
+            setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+          }}
+        >
+          <div className='Result'>
+            <Folder />
+            <Logo />
+            <Info />
+            <Forms />
+            <Button />
+          </div>
+        </OnloadProvider>
+      </Cistern>
     </ResultContext.Provider>
   );
 });

@@ -1,0 +1,35 @@
+@import url('@/settings/global.css');
+.Result .Info {
+  padding-top: 14%;
+  @apply pointer-events-none absolute top-0 flex h-full w-full flex-col items-center justify-start;
+
+  & > div:nth-child(1) {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/text-0.png';
+    @apply relative;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  & > div:nth-child(2) {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/text-1.png';
+    @apply relative;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

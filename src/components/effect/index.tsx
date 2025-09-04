@@ -3,6 +3,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import shaderImage from './img/smoke-effect.jpg';
 import './index.less';
+import Cistern from '../cistern';
 
 const Effect = memo(({ display = true }: { display?: boolean }) => {
   const [visible, setVisible] = useState(false);
@@ -48,11 +49,13 @@ const Effect = memo(({ display = true }: { display?: boolean }) => {
   }, []);
 
   return (
-    <div
-      className={twMerge('Effect', visible && (display ? 'animate-fade-in-2s' : 'opacity-0'))}
-      ref={ref}
-      style={{ width: '100%', height: '100%' }}
-    />
+    <Cistern className='pointer-events-none absolute top-0 h-full w-full'>
+      <div
+        className={twMerge('Effect', visible && (display ? 'animate-fade-in-2s' : 'opacity-0'))}
+        ref={ref}
+        style={{ width: '100%', height: '100%' }}
+      />
+    </Cistern>
   );
 });
 export default Effect;
