@@ -3,10 +3,10 @@ import useTween, { Bezier } from 'lesca-use-tween';
 import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { ChiayiContext } from '../../config';
 import { VIRUS_DESTROYING_SPEED, VIRUS_GROWING_SPEED, VIRUS_SIZE_RATIO } from '../config';
 import displacement from './img/displacement_map_repeat.jpg';
 
-import { ChiayiContext } from '../../config';
 import v0 from './img/v0.png';
 import v1 from './img/v1.png';
 import v2 from './img/v2.png';
