@@ -169,6 +169,64 @@
     }
   }
 
+  .handprint {
+    @apply pointer-events-none absolute top-0 h-full w-full;
+
+    & > div {
+      top: 13%;
+      left: 33%;
+      width: (unit(image-width(@img))) / 1280 * 100%;
+
+      @img: './img/bloody-handprint.png';
+      @apply absolute;
+
+      & > div {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        //background-image: url(@img);
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+
+        & > div {
+          @apply absolute top-0 right-0 bottom-0 left-0;
+
+          & > div:nth-child(1) {
+            top: 49%;
+            left: 0%;
+            width: (unit(image-width(@img))) / 165 * 100%;
+
+            @img: './img/handprint-0.png';
+            @apply absolute;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
+          & > div:nth-child(2) {
+            top: 0%;
+            left: 47%;
+            width: (unit(image-width(@img))) / 165 * 100%;
+
+            @img: './img/handprint-1.png';
+            @apply absolute;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .dot-a {
     top: 61%;
     left: 14.9%;

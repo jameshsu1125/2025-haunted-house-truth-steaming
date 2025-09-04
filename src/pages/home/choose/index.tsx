@@ -17,7 +17,7 @@ const Choose = memo(() => {
       <div
         className={twMerge(
           'Choose absolute top-0 h-full w-full overflow-hidden',
-          page === HomePageType.choose ? 'visible' : 'invisible',
+          page === HomePageType.Choose ? 'visible' : 'invisible',
         )}
       >
         <Folder />

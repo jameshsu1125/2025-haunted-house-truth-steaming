@@ -1,30 +1,25 @@
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType, HomeStepType } from '../config';
 import Background from './background';
 import Header from './header';
 import Logo from './logo';
-import { playSound } from '@/components/sounds';
+import Reminder from './reminder';
 
 const Landing = memo(() => {
   const [{ page, step }] = useContext(HomeContext);
-
-  useEffect(() => {
-    if (page === HomePageType.landing && step === HomeStepType.loaded) {
-      playSound('homeBGM');
-    }
-  }, [page, step]);
 
   return (
     <div
       className={twMerge(
         'Landing absolute h-full w-full overflow-hidden',
-        page === HomePageType.landing ? 'visible' : 'invisible',
+        page === HomePageType.Landing ? 'visible' : 'invisible',
       )}
     >
       <Background />
       <Logo />
       <Header />
+      {step === HomeStepType.Reminder && <Reminder />}
     </div>
   );
 });

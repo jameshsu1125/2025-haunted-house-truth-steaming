@@ -1,3 +1,4 @@
+import { fadeOutSound, playSound, stopAllEffects } from '@/components/sounds';
 import ScratchCard from 'lesca-react-scratch-card';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -5,10 +6,10 @@ import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import Footprint from './footprint';
+import Handprint from './handprint';
 import Cover from './img/card-cover.jpg';
 import './index.less';
 import Picture from './picture';
-import { fadeOutSound, playSound, stopAllEffects } from '@/components/sounds';
 
 const Fake = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 0 });
@@ -111,6 +112,8 @@ const Background = memo(() => {
   const lineNode_A = useRef<HTMLDivElement>(null);
   const lineNode_B = useRef<HTMLDivElement>(null);
   const cardNode = useRef<HTMLDivElement>(null);
+
+  const [{ page }] = useContext(ZhongliContext);
 
   const [{ step }, setState] = useContext(ZhongliGameContext);
   const [shouldAppend, setShouldAppend] = useState(false);
@@ -224,6 +227,9 @@ const Background = memo(() => {
         />
       )}
       {step <= ZhongliGameStepType.dialog && <div className='mask' />}
+      {step <= ZhongliGameStepType.dialog && (
+        <Handprint active={step === ZhongliGameStepType.unset && page === ZhongliPageType.game} />
+      )}
       {step <= ZhongliGameStepType.dialog && <Picture dotA={dotNode_A} />}
       {step <= ZhongliGameStepType.dialog && <div className='light' />}
       <div ref={dotNode_A} className='dot-a' />

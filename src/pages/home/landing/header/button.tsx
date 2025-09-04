@@ -12,7 +12,7 @@ const Button = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
 
   useEffect(() => {
-    if (step === HomeStepType.fadeIn) {
+    if (step === HomeStepType.FadeIn) {
       setStyle(
         { opacity: 1, scale: 1 },
         {
@@ -20,19 +20,19 @@ const Button = memo(() => {
           delay: 3500,
           easing: Bezier.outBack,
           onEnd: () => {
-            setState((S) => ({ ...S, step: HomeStepType.loop }));
+            setState((S) => ({ ...S, step: HomeStepType.Loop }));
           },
         },
       );
-    } else if (step === HomeStepType.fadeOut) {
+    } else if (step === HomeStepType.FadeOut) {
       setStyle({ opacity: 0, scale: 1 }, 1);
     }
   }, [step]);
 
   useEffect(() => {
     Click.add(`#${id}`, () => {
-      if (step === HomeStepType.loop) {
-        setState((S) => ({ ...S, step: HomeStepType.fadeOut }));
+      if (step === HomeStepType.Loop) {
+        setState((S) => ({ ...S, step: HomeStepType.FadeOut }));
         Click.remove(`#${id}`);
         playSound('click');
       }
@@ -40,7 +40,7 @@ const Button = memo(() => {
   }, [step]);
 
   return (
-    <div className={twMerge('button', step === HomeStepType.loop && 'cursor-pointer')}>
+    <div className={twMerge('button', step === HomeStepType.Loop && 'cursor-pointer')}>
       <div id={id} style={style} className='[&_*]:pointer-events-none'>
         <div>
           <div className='start' />

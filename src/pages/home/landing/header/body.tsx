@@ -9,12 +9,12 @@ const Line = memo(({ index }: { index: number }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (step === HomeStepType.fadeIn) {
+    if (step === HomeStepType.FadeIn) {
       setStyle(
         { opacity: 1, y: 0 },
         { duration: 2000, delay: 500 + 500 + index * 200, easing: Bezier.inOutCubic },
       );
-    } else if (step === HomeStepType.fadeOut) {
+    } else if (step === HomeStepType.FadeOut) {
       setStyle({ opacity: 0 }, 500);
     }
   }, [step]);

@@ -85,7 +85,7 @@ const Game = memo(() => {
         </CoverNode>
         {page === ZhongliPageType.game && step <= ZhongliGameStepType.unset && (
           <Countdown
-            totalTime={30000}
+            totalTime={3000000000}
             status={step === ZhongliGameStepType.unset ? 'start' : 'stop'}
           />
         )}

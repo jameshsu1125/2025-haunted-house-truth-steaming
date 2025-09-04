@@ -20,7 +20,7 @@ const Button = memo(() => {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    if (step >= HomeStepType.fadeIn && page === HomePageType.choose) {
+    if (step >= HomeStepType.FadeIn && page === HomePageType.Choose) {
       setStyle(
         { opacity: 1, scale: 1 },
         {
@@ -41,7 +41,7 @@ const Button = memo(() => {
       setContext({ type: ActionType.Location, state: page });
 
       setChooseState(ChooseState);
-      setHomeState({ ...HomeState, page: HomePageType.choose });
+      setHomeState({ ...HomeState, page: HomePageType.Choose });
 
       playSound('click');
     });

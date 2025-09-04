@@ -94,9 +94,9 @@ const CoverNode = ({ children, index }: IReactProps & { index: number }) => {
   }, [locationIndex]);
 
   useEffect(() => {
-    if (page === HomePageType.choose) {
+    if (page === HomePageType.Choose) {
       videoRef.current?.pause();
-    } else if (page === HomePageType.landing) {
+    } else if (page === HomePageType.Landing) {
       videoRef.current?.play().catch((error) => {
         if (error.name === 'NotAllowedError' && index === 0) {
           alert('請關閉手機低耗電模式，關閉後再重新試一次');
@@ -146,9 +146,9 @@ const Background = memo(() => {
   }, [index]);
 
   useEffect(() => {
-    if (step === HomeStepType.fadeIn) {
+    if (step === HomeStepType.Reminder) {
       setStyle({ opacity: 1 }, { duration: 2000 });
-    } else if (step === HomeStepType.fadeOut) {
+    } else if (step === HomeStepType.FadeOut) {
       EnterFrame.stop();
       EnterFrame.destroy();
       setStyle(
@@ -157,12 +157,12 @@ const Background = memo(() => {
           duration: 1200,
           easing: Bezier.inOutQuart,
           onEnd: () => {
-            setState((S) => ({ ...S, page: HomePageType.choose }));
+            setState((S) => ({ ...S, page: HomePageType.Choose }));
           },
         },
       );
     }
-    if (step === HomeStepType.loop) {
+    if (step === HomeStepType.Loop) {
       EnterFrame.add(({ delta }) => {
         setIndex(locationStartIndex.current + Math.floor(delta / HOME_BACKGROUND_LOOP_DURATION));
       });

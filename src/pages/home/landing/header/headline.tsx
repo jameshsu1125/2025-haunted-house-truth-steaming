@@ -89,12 +89,12 @@ const Headline = memo(() => {
   }, []);
 
   useEffect(() => {
-    if (step === HomeStepType.fadeIn) {
+    if (step === HomeStepType.FadeIn) {
       setStyle(
         { opacity: 1, y: 0, scale: 1 },
         { duration: 2000, delay: 500, easing: Bezier.inOutCubic },
       );
-    } else if (step === HomeStepType.fadeOut) {
+    } else if (step === HomeStepType.FadeOut) {
       setStyle({ opacity: 0, scale: 1.2 }, { duration: 500, easing: Bezier.outQuart });
     }
   }, [step]);

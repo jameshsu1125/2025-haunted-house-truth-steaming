@@ -86,7 +86,7 @@ const Folder = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 1.2 });
 
   useEffect(() => {
-    if (step >= HomeStepType.fadeIn && page === HomePageType.choose) {
+    if (step >= HomeStepType.FadeIn && page === HomePageType.Choose) {
       setStyle({ opacity: 1, scale: 1 });
       stopAllSounds(['introBGM']);
       playSound('introBGM');

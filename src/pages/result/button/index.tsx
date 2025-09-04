@@ -40,7 +40,7 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
         } else if (className === 'again') {
           setContext({
             type: ActionType.Redirect,
-            state: { enabled: true, category: HomePageType.choose },
+            state: { enabled: true, category: HomePageType.Choose },
           });
           setContext({ type: ActionType.Page, state: PAGE.home });
         }
