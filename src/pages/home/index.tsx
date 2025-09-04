@@ -14,7 +14,7 @@ const Home = memo(() => {
   const [state, setState] = useState<THomeState>(HomeState);
 
   useEffect(() => {
-    if (redirect && redirect.enabled && state.step === HomeStepType.Loaded) {
+    if (redirect && redirect.enabled && state.step === HomeStepType.Reminder) {
       const { category, page } = redirect;
       if (page && page !== PAGE.home) {
         setContext({ type: ActionType.Page, state: page });
@@ -22,7 +22,7 @@ const Home = memo(() => {
 
       if (category) {
         if (Object.values(HomePageType).includes(category as unknown as HomePageType)) {
-          setState((S) => ({ ...S, page: category as HomePageType }));
+          setState((S) => ({ ...S, page: category as HomePageType, step: HomeStepType.FadeIn }));
         }
       }
 
