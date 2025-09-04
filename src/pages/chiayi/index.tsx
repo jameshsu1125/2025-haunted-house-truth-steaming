@@ -9,6 +9,7 @@ import './index.less';
 import Intro from './intro';
 import Landing from './landing';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Chiayi = memo(() => {
   const [, setContext] = useContext(Context);
@@ -21,6 +22,7 @@ const Chiayi = memo(() => {
   useEffect(() => {
     if (state.page === ChiayiPageType.landing && state.step === ChiayiStepType.loaded) {
       playSound('introBGM');
+      Gtag.pv('Chiayi');
     }
   }, [state]);
 

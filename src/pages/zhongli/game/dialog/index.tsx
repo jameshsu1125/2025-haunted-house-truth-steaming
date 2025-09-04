@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import { ZhongliContext, ZhongliPageType } from '../../config';
 import { ZhongliGameContext, ZhongliGameStepType } from '../config';
 import './index.less';
+import Gtag from 'lesca-gtag';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(ZhongliContext);
@@ -56,6 +57,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
             setActive(false);
             setFadeOut(true);
             playSound('click');
+            Gtag.event('Zhongli', 'dialog_start');
           });
         },
       },

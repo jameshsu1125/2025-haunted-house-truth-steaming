@@ -8,6 +8,7 @@ import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
 import './index.less';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(ChiayiContext);
@@ -64,6 +65,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
               setActive(false);
               setFadeOut(true);
               playSound('click');
+              Gtag.event('Chiayi', 'dialog-start');
             });
           },
         },

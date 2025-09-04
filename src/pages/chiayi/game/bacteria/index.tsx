@@ -10,6 +10,7 @@ import Smoke from './smoke';
 import Vacuum, { VacuumHandle } from './vacuum';
 import Virus from './virus';
 import Counter, { CounterHandle } from './counter';
+import Gtag from 'lesca-gtag';
 
 const Floor = memo(() => {
   const [, setContext] = useContext(Context);
@@ -53,6 +54,7 @@ const Bacteria = memo(() => {
   const onSuck = (event: React.PointerEvent<HTMLDivElement>) => {
     if (vacuumRef.current) vacuumRef.current.suck();
     if (counterRef.current) counterRef.current.increase(event);
+    Gtag.event('Chiayi', 'eliminate');
   };
 
   return (

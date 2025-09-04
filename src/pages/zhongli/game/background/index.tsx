@@ -10,6 +10,7 @@ import Handprint from './handprint';
 import Cover from './img/card-cover.jpg';
 import './index.less';
 import Picture, { PictureHandler } from './picture';
+import Gtag from 'lesca-gtag';
 
 const Fake = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 0 });
@@ -160,6 +161,7 @@ const Background = memo(() => {
             canvas.addEventListener('pointerdown', () => {
               eventRef.current.enabled = true;
               playSound('cleaner');
+              Gtag.event('Zhongli', 'drag');
             });
 
             canvas.addEventListener('pointermove', (e) => {

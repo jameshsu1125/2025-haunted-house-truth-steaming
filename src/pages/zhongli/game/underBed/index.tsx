@@ -13,6 +13,7 @@ import {
 import './index.less';
 import Smoke from './smoke';
 import { fadeOutSound, playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Cleaner = memo(({ children }: IReactProps) => {
   const [{ page }] = useContext(ZhongliContext);
@@ -153,6 +154,7 @@ const Dirt = memo(() => {
       <div
         onPointerDown={() => {
           setState((S) => ({ ...S, step: ZhongliGameStepType.dirt }));
+          Gtag.event('Zhongli', 'dirt');
         }}
         className={twMerge(
           clearTimes === 0

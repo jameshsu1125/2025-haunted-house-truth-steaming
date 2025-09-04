@@ -15,6 +15,7 @@ import Dialog from './dialog';
 import './index.less';
 import UnderBed from './underBed';
 import { fadeOutSound, playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -56,6 +57,7 @@ const Game = memo(() => {
     if (page === ZhongliPageType.game) {
       if (step === ZhongliGameStepType.clear) {
         fadeOutSound('gamingBGM');
+        Gtag.event('Zhongli', 'clear');
       }
       if (step === ZhongliGameStepType.unset) {
         fadeOutSound('introBGM');

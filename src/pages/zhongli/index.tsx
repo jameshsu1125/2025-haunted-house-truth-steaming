@@ -9,6 +9,7 @@ import Game from './game';
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
+import Gtag from 'lesca-gtag';
 
 const Zhongli = memo(() => {
   const [, setContext] = useContext(Context);
@@ -21,6 +22,7 @@ const Zhongli = memo(() => {
   useEffect(() => {
     if (state.page === ZhongliPageType.landing && state.step === ZhongliStepType.loaded) {
       playSound('introBGM');
+      Gtag.pv('Zhongli');
     }
   }, [state]);
 

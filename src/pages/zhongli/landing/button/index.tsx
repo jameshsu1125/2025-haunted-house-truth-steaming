@@ -6,6 +6,7 @@ import { ZhongliContext, ZhongliStepType } from '../../config';
 import { ZhongliLandingContext, ZhongliLandingStepType } from '../config';
 import './index.less';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Button = memo(() => {
   const id = useId();
@@ -28,6 +29,7 @@ const Button = memo(() => {
               Click.add(`#${id}`, () => {
                 setState((S) => ({ ...S, step: ZhongliLandingStepType.fadeOut }));
                 playSound('footstep', 2);
+                Gtag.event('Zhongli', 'entry');
               });
             },
           },

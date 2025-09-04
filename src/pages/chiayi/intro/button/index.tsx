@@ -6,6 +6,7 @@ import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiIntroContext, ChiayiIntroStepType } from '../config';
 import './index.less';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Button = memo(() => {
   const id = useId();
@@ -31,6 +32,7 @@ const Button = memo(() => {
                 Click.remove(`#${id}`);
                 setState((S) => ({ ...S, step: ChiayiIntroStepType.entry }));
                 playSound('doorWood');
+                Gtag.event('Chiayi', 'start');
               });
             },
           },

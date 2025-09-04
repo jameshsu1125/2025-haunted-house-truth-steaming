@@ -4,6 +4,7 @@ import { ChiayiContext, ChiayiPageType } from '../../config';
 import { ChiayiGameContext, ChiayiGameStepType } from '../config';
 import './index.less';
 import { twMerge } from 'tailwind-merge';
+import Gtag from 'lesca-gtag';
 
 const F25 = memo(() => {
   const [{ page }] = useContext(ChiayiContext);
@@ -53,6 +54,7 @@ const F25 = memo(() => {
         onPointerDown={() => {
           setActive(false);
           setState((S) => ({ ...S, step: ChiayiGameStepType.dialog }));
+          Gtag.event('Chiayi', 'cleaner');
         }}
       />
     </div>
