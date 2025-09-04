@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import './index.less';
 import { HomePageType } from '@/pages/home/config';
 import { playSound, stopAllSounds } from '../sounds';
+import Cistern from '../cistern';
 
 const Ink = memo(
   ({ style, index, active }: { style: React.CSSProperties; index: number; active: boolean }) => {
@@ -107,6 +108,8 @@ const Btn = memo(
                 ref.current?.removeAttribute('style');
                 Click.add(`#${id}`, () => {
                   if (className === 'home') {
+                    stopAllSounds();
+                    playSound('click');
                     setContext({
                       type: ActionType.Redirect,
                       state: { enabled: true, category: HomePageType.choose },
@@ -114,6 +117,8 @@ const Btn = memo(
                     setContext({ type: ActionType.Page, state: PAGE.home });
                   }
                   if (className === 'restart') {
+                    stopAllSounds();
+                    playSound('click');
                     setKey((S) => S + 1);
                   }
                   setContext({ type: ActionType.Fail, state: FailState });
@@ -164,30 +169,32 @@ const Fail = memo(({ setKey }: { setKey: Dispatch<SetStateAction<number>> }) => 
     }
   }, [active]);
   return (
-    <div className={twMerge('Fail', active ? 'pointer-events-auto' : 'pointer-events-none')}>
-      <div>
-        {[...new Array(FAIL_INK_COUNT).keys()].map((index) => {
-          const rotate = Math.floor(Math.random() * 360);
-          const x = -100 + Math.floor(Math.random() * 200);
-          const y = -100 + Math.floor(Math.random() * 200);
-          const scale = 0.8 + Math.random() * 0.2;
-          return (
-            <Ink
-              key={`ink-${index}`}
-              index={index}
-              style={{
-                transform: `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate}deg)`,
-              }}
-              active={active || false}
-            />
-          );
-        })}
+    <Cistern className='pointer-events-none absolute top-0 left-0'>
+      <div className={twMerge('Fail', active ? 'pointer-events-auto' : 'pointer-events-none')}>
+        <div>
+          {[...new Array(FAIL_INK_COUNT).keys()].map((index) => {
+            const rotate = Math.floor(Math.random() * 360);
+            const x = -100 + Math.floor(Math.random() * 200);
+            const y = -100 + Math.floor(Math.random() * 200);
+            const scale = 0.8 + Math.random() * 0.2;
+            return (
+              <Ink
+                key={`ink-${index}`}
+                index={index}
+                style={{
+                  transform: `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate}deg)`,
+                }}
+                active={active || false}
+              />
+            );
+          })}
+        </div>
+        <div>
+          <Headline />
+          <Buttons setKey={setKey} />
+        </div>
       </div>
-      <div>
-        <Headline />
-        <Buttons setKey={setKey} />
-      </div>
-    </div>
+    </Cistern>
   );
 });
 export default Fail;

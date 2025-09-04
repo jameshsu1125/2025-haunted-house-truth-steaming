@@ -119,6 +119,8 @@ const Background = memo(() => {
   const [active, setActive] = useState(false);
   const eventRef = useRef({ enabled: false, active: false });
 
+  const [containerScrollTop, setContainerScrollTop] = useState(0);
+
   useEffect(() => {
     const append = () => {
       if (cardNode.current && cardNode.current.offsetWidth && cardNode.current.offsetHeight) {
@@ -130,6 +132,19 @@ const Background = memo(() => {
       } else requestAnimationFrame(append);
     };
     append();
+
+    const container = document.getElementById('container');
+    const onScroll = () => {
+      if (container) {
+        const scrollTop = container.scrollTop;
+        setContainerScrollTop(scrollTop);
+      }
+    };
+
+    container?.addEventListener('scroll', onScroll);
+    return () => {
+      container?.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -188,6 +203,7 @@ const Background = memo(() => {
                     stopAllEffects();
                   }}
                   brushSize={{ width: 150, height: 150 }}
+                  offset={{ x: 0, y: containerScrollTop }}
                 >
                   <div className='content' />
                 </ScratchCard>
