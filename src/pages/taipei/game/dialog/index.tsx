@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import Gtag from 'lesca-gtag';
 
 const Text = memo(({ index }: { index: number }) => {
   const [{ page }] = useContext(TaipeiContext);
@@ -70,6 +71,7 @@ const Button = memo(({ setFadeOut }: { setFadeOut: (fadeOut: boolean) => void })
               setActive(false);
               setFadeOut(true);
               playSound('click');
+              Gtag.event('Taipei', 'dialog-start');
             });
           },
         },

@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import Gtag from 'lesca-gtag';
 
 const Dirt = memo(() => {
   const [{ page }] = useContext(TaipeiContext);
@@ -13,6 +14,7 @@ const Dirt = memo(() => {
   const onPointerDown = () => {
     if (step === TaipeiGameStepType.unset) {
       setState((S) => ({ ...S, step: TaipeiGameStepType.dialog }));
+      Gtag.event('Taipei', 'dirt');
     }
   };
 

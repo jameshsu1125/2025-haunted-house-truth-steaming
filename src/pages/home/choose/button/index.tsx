@@ -9,6 +9,7 @@ import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType, HomeState, HomeStepType } from '../../config';
 import { ChooseContext, ChooseState } from '../config';
 import './index.less';
+import Gtag from 'lesca-gtag';
 
 const Button = memo(() => {
   const [, setContext] = useContext(Context);
@@ -44,6 +45,8 @@ const Button = memo(() => {
       setHomeState({ ...HomeState, page: HomePageType.Choose });
 
       playSound('click');
+
+      Gtag.event('Choose', page);
     });
   }, [index]);
 

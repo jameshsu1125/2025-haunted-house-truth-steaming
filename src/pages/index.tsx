@@ -10,6 +10,7 @@ import { ActionType, TContext } from '@/settings/type';
 import Click from 'lesca-click';
 import Facebook from 'lesca-facebook-share';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
+import Gtag from 'lesca-gtag';
 import { Suspense, lazy, memo, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -22,6 +23,8 @@ Fetcher.install({
   contentType: contentType.JSON,
   formatType: formatType.JSON,
 });
+
+Gtag.install(import.meta.env.VITE_GTAG_ID || 'G-5GKEKPJ8M4', true);
 
 if (import.meta.env.VITE_MOCKING === 'true') {
   import('@/mocks/browser').then((e) => {

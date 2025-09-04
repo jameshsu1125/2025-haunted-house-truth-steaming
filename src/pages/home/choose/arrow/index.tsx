@@ -3,6 +3,7 @@ import { ChooseContext, ChooseStepType } from '../config';
 import './index.less';
 import Click from 'lesca-click';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Arrow = memo(() => {
   const leftArrowId = useId();
@@ -20,6 +21,7 @@ const Arrow = memo(() => {
           index: (S.index + 2) % 3,
         }));
         playSound('flap');
+        Gtag.event('Choose', 'previous');
       }
     });
     Click.add(`#${rightArrowId}`, () => {
@@ -31,6 +33,7 @@ const Arrow = memo(() => {
           index: (S.index + 1) % 3,
         }));
         playSound('flap');
+        Gtag.event('Choose', 'next');
       }
     });
   }, [step]);

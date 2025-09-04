@@ -4,6 +4,7 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId } from 'react';
 import { HomeContext, HomeStepType } from '../../config';
 import './index.less';
+import Gtag from 'lesca-gtag';
 
 const DarkScreen = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -37,6 +38,7 @@ const Button = memo(() => {
             setState((S) => ({ ...S, step: HomeStepType.FadeIn }));
             playSound('click');
             playSound('homeBGM');
+            Gtag.event('Home', 'reminder');
           });
         },
       },

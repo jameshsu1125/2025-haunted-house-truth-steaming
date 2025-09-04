@@ -2,6 +2,7 @@ import { memo, useContext, useRef } from 'react';
 import { ChooseContext, ChooseStepType } from '../config';
 import './index.less';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Touch = memo(() => {
   const [{ step }, setState] = useContext(ChooseContext);
@@ -35,6 +36,7 @@ const Touch = memo(() => {
                 lastIndex: S.index,
                 index: (S.index + 2) % 3,
               }));
+              Gtag.event('Choose', 'previous');
             }
           } else {
             if (step === ChooseStepType.unset) {
@@ -45,6 +47,7 @@ const Touch = memo(() => {
                 lastIndex: S.index,
                 index: (S.index + 1) % 3,
               }));
+              Gtag.event('Choose', 'next');
             }
           }
         }

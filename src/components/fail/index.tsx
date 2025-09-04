@@ -9,6 +9,7 @@ import './index.less';
 import { HomePageType } from '@/pages/home/config';
 import { playSound, stopAllSounds } from '../sounds';
 import Cistern from '../cistern';
+import Gtag from 'lesca-gtag';
 
 const Ink = memo(
   ({ style, index, active }: { style: React.CSSProperties; index: number; active: boolean }) => {
@@ -115,11 +116,13 @@ const Btn = memo(
                       state: { enabled: true, category: HomePageType.Choose },
                     });
                     setContext({ type: ActionType.Page, state: PAGE.home });
+                    Gtag.event('Fail', 'home');
                   }
                   if (className === 'restart') {
                     stopAllSounds();
                     playSound('click');
                     setKey((S) => S + 1);
+                    Gtag.event('Fail', 'restart');
                   }
                   setContext({ type: ActionType.Fail, state: FailState });
                 });
@@ -166,6 +169,7 @@ const Fail = memo(({ setKey }: { setKey: Dispatch<SetStateAction<number>> }) => 
     if (active) {
       stopAllSounds();
       playSound('fail');
+      Gtag.pv('Fail');
     }
   }, [active]);
   return (

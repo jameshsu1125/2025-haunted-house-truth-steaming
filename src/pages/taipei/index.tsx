@@ -9,6 +9,7 @@ import Game from './game';
 import './index.less';
 import Intro from './intro';
 import Landing from './landing';
+import Gtag from 'lesca-gtag';
 
 const Taipei = memo(() => {
   const [, setContext] = useContext(Context);
@@ -21,6 +22,7 @@ const Taipei = memo(() => {
   useEffect(() => {
     if (state.page === TaipeiPageType.landing && state.step === TaipeiStepType.loaded) {
       playSound('introBGM');
+      Gtag.pv('Taipei');
     }
   }, [state]);
 

@@ -6,6 +6,7 @@ import { TaipeiContext, TaipeiStepType } from '../../config';
 import { TaipeiLandingContext, TaipeiLandingStepType } from '../config';
 import './index.less';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Button = memo(() => {
   const id = useId();
@@ -28,6 +29,7 @@ const Button = memo(() => {
               Click.add(`#${id}`, () => {
                 setState((S) => ({ ...S, step: TaipeiLandingStepType.fadeOut }));
                 playSound('footstep');
+                Gtag.event('Taipei', 'entry');
               });
             },
           },

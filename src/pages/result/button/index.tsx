@@ -9,6 +9,7 @@ import { Context } from '@/settings/constant';
 import { PAGE } from '@/settings/config';
 import { HomePageType } from '@/pages/home/config';
 import Facebook from 'lesca-facebook-share';
+import Gtag from 'lesca-gtag';
 
 let index = 0;
 
@@ -32,17 +33,21 @@ const TweenProvider = ({ children, className }: IReactProps & { className: strin
     if (active) {
       Click.add(`#${id}`, () => {
         if (className === 'share') {
-          Facebook.share({
-            method: 'share',
-            href: import.meta.env.VITE_URL,
-            redirect_uri: import.meta.env.VITE_URL,
-          });
+          Gtag.event('Result', 'share');
+          setTimeout(() => {
+            Facebook.share({
+              method: 'share',
+              href: import.meta.env.VITE_URL,
+              redirect_uri: import.meta.env.VITE_URL,
+            });
+          }, 500);
         } else if (className === 'again') {
           setContext({
             type: ActionType.Redirect,
             state: { enabled: true, category: HomePageType.Choose },
           });
           setContext({ type: ActionType.Page, state: PAGE.home });
+          Gtag.event('Result', 'again');
         }
       });
     }

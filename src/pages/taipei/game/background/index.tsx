@@ -14,6 +14,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiContext, TaipeiPageType } from '../../config';
 import { GHOST_TIME, TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
+import Gtag from 'lesca-gtag';
 
 const Clear = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -42,6 +43,7 @@ const Ghost = forwardRef((_, ref) => {
           },
         },
       );
+      Gtag.event('Taipei', 'ghost');
     }
     return () => {
       fadeOutSound('ghost');
@@ -161,6 +163,7 @@ const Dish = memo(() => {
       className='dish'
       onPointerDown={() => {
         playSound('dish');
+        Gtag.event('Taipei', 'dish');
       }}
     />
   );

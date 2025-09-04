@@ -18,6 +18,7 @@ import Picture from './picture';
 import Vacuum from './vacuum';
 import End from '@/components/end';
 import { fadeOutSound, playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const TweenerProvider = memo(({ children }: IReactProps) => {
   const [, setContext] = useContext(Context);
@@ -60,6 +61,7 @@ const Game = memo(() => {
     if (page === TaipeiPageType.game) {
       if (step === TaipeiGameStepType.clear) {
         fadeOutSound('gamingBGM');
+        Gtag.event('Taipei', 'clear');
       }
       if (step === TaipeiGameStepType.unset) {
         fadeOutSound('introBGM');

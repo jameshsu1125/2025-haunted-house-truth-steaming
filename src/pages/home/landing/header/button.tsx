@@ -4,6 +4,7 @@ import { memo, useContext, useEffect, useId } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomeStepType } from '../../config';
 import { playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Button = memo(() => {
   const id = useId();
@@ -35,6 +36,7 @@ const Button = memo(() => {
         setState((S) => ({ ...S, step: HomeStepType.FadeOut }));
         Click.remove(`#${id}`);
         playSound('click');
+        Gtag.event('Home', 'start');
       }
     });
   }, [step]);

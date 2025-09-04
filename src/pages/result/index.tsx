@@ -10,13 +10,15 @@ import Forms from './forms';
 import './index.less';
 import Info from './info';
 import Cistern from '@/components/cistern';
+import Gtag from 'lesca-gtag';
 
 const Result = memo(() => {
-  const [, setContext] = useContext(Context);
+  const [{ location }, setContext] = useContext(Context);
   const [state, setState] = useState(ResultState);
 
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
+    Gtag.pv(`Result-${location}`);
   }, []);
 
   return (

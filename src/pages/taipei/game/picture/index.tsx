@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 import { fadeOutSound, playSound } from '@/components/sounds';
+import Gtag from 'lesca-gtag';
 
 const Picture = memo(() => {
   const ref = useRef<ReturnType<typeof setTimeout>>(null);
@@ -16,6 +17,7 @@ const Picture = memo(() => {
       ref.current = setTimeout(() => {
         setShake(false);
       }, 1000);
+      Gtag.event('Taipei', 'picture');
     }
   };
 
