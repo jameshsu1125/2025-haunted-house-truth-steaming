@@ -53,6 +53,7 @@ const playSound = (key: SoundKeyType, speed: number = 1) => {
     tracker[key]?.track.seek(0);
     tracker[key]?.track.volume(SOUNDS_CONFIG[key].volume);
     if (speed !== 1) tracker[key]?.track.rate(speed);
+    tracker[key]?.track.stop();
     tracker[key]?.track.play();
   } else {
     if (key.toLocaleLowerCase().includes('bgm')) return;
@@ -61,6 +62,7 @@ const playSound = (key: SoundKeyType, speed: number = 1) => {
     tracker[key]?.track.seek(0);
     tracker[key]?.track.volume(SOUNDS_CONFIG[key].volume);
     if (speed !== 1) tracker[key]?.track.rate(speed);
+    tracker[key]?.track.stop();
     tracker[key]?.track.play();
   }
 };
