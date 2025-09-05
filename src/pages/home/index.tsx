@@ -40,6 +40,12 @@ const Home = memo(() => {
 
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
+
+    const onFocus = () => window.location.reload();
+    window.addEventListener('focus', onFocus);
+    return () => {
+      window.removeEventListener('focus', onFocus);
+    };
   }, []);
 
   useEffect(() => {
