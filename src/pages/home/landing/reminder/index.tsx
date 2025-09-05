@@ -5,6 +5,7 @@ import { memo, useContext, useEffect, useId } from 'react';
 import { HomeContext, HomeStepType } from '../../config';
 import './index.less';
 import Gtag from 'lesca-gtag';
+import Qrcode from 'lesca-react-qrcode';
 
 const DarkScreen = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -17,9 +18,21 @@ const DarkScreen = memo(() => {
 const P = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   useEffect(() => {
-    setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
+    setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 600 });
   }, []);
-  return <p style={style}>為確保您的體驗效果，建議開啟聲音</p>;
+  return <p style={style}>手機掃描 QR 以獲得最佳體驗，並建議開啟聲音 確認</p>;
+});
+
+const QRCode = memo(() => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 30 });
+  useEffect(() => {
+    setStyle({ opacity: 1, y: 0 }, { duration: 800, delay: 300 });
+  }, []);
+  return (
+    <div style={style}>
+      <Qrcode size={300} content={new URL(window.location.href).toString()} />
+    </div>
+  );
 });
 
 const Button = memo(() => {
@@ -32,7 +45,7 @@ const Button = memo(() => {
       { opacity: 1, scale: 1 },
       {
         duration: 500,
-        delay: 600,
+        delay: 900,
         onEnd: () => {
           Click.add(`#${id}`, () => {
             setState((S) => ({ ...S, step: HomeStepType.FadeIn }));
@@ -52,6 +65,8 @@ const Reminder = memo(() => (
   <div className='Reminder'>
     <DarkScreen />
     <div>
+      <QRCode />
+
       <P />
       <Button />
     </div>

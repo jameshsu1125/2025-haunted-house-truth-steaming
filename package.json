@@ -22,6 +22,7 @@
     "lesca-gtag": "^3.0.0",
     "lesca-number": "^1.5.9",
     "lesca-react-onload": "^2.0.10",
+    "lesca-react-qrcode": "^2.0.0",
     "lesca-react-scratch-card": "^2.2.1",
     "lesca-use-tween": "^4.0.1",
     "pixi.js": "^8.13.1",

@@ -18,8 +18,8 @@ export const ChiayiGameState = { step: ChiayiGameStepType.unset };
 export const ChiayiGameContext = createContext<TChiayiGameContext>([ChiayiGameState, () => {}]);
 
 export const VIRUS_SHOW_TIME = {
-  min: 200,
-  max: 500,
+  min: 500,
+  max: 800,
 };
 
 export const RESULT_WAIT_DURATION = 8000;

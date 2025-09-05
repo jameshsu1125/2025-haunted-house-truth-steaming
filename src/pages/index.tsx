@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Container from '@/components/container';
 import Effect from '@/components/effect';
 import Fail from '@/components/fail';
