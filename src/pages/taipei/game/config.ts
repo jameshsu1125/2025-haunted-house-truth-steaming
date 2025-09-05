@@ -15,7 +15,7 @@ export type TTaipeiGameState = { step: TaipeiGameStepType; isError: boolean; cle
 export type TTaipeiGameContext = [TTaipeiGameState, Dispatch<SetStateAction<TTaipeiGameState>>];
 
 export const TaipeiGameState: TTaipeiGameState = {
-  step: TaipeiGameStepType.end,
+  step: TaipeiGameStepType.unset,
   isError: false,
   clearTimes: 0,
 };
