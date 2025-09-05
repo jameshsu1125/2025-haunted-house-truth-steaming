@@ -41,7 +41,7 @@ export const SolveState: TSolveState = {
 };
 
 export const InitialState: IState = {
-  [ActionType.Page]: PAGE.chiayi,
+  [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.Location]: TLocationType.taipei,
   [ActionType.SmokeEffect]: false,
