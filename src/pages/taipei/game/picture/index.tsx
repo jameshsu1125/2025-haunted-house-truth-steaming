@@ -7,16 +7,39 @@ import Gtag from 'lesca-gtag';
 
 const Picture = memo(() => {
   const ref = useRef<ReturnType<typeof setTimeout>>(null);
+  const ref2 = useRef<ReturnType<typeof setTimeout>>(null);
   const [shake, setShake] = useState(false);
 
   const [{ step }] = useContext(TaipeiGameContext);
-  const onPointerDown = () => {
+
+  const shakeIt = () => {
     if (step === TaipeiGameStepType.unset) {
-      playSound('laugh');
       setShake(true);
       ref.current = setTimeout(() => {
         setShake(false);
       }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    const randomTimeShakeIt = () => {
+      ref2.current = setTimeout(
+        () => {
+          shakeIt();
+        },
+        3000 + Math.random() * 3000,
+      );
+    };
+    randomTimeShakeIt();
+    return () => {
+      if (ref2.current) clearTimeout(ref2.current);
+    };
+  }, []);
+
+  const onPointerDown = () => {
+    if (step === TaipeiGameStepType.unset) {
+      playSound('laugh');
+      shakeIt();
       Gtag.event('Taipei', 'picture');
     }
   };
