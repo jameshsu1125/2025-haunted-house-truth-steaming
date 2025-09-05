@@ -14,14 +14,15 @@ const Dirt = memo(() => {
   const onPointerDown = () => {
     if (step === TaipeiGameStepType.unset) {
       setState((S) => ({ ...S, step: TaipeiGameStepType.dialog }));
+      setStyle({ opacity: 1 }, { duration: 500 });
       Gtag.event('Taipei', 'dirt');
     }
   };
 
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
-    setStyle({ opacity: 1 }, { duration: 500, onEnd: () => {} });
-  }, [page]);
+    if (clearTimes === 0) setStyle({ opacity: 0.3 }, { duration: 500 });
+  }, [page, clearTimes]);
 
   return (
     <div className='Dirt' style={style}>

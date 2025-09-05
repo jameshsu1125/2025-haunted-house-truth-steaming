@@ -1,11 +1,13 @@
 import CoverNode from '@/components/coverNode';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType, HomeStepType } from '../../config';
 import './index.less';
 import { ChooseContext, ChooseStepType } from '../config';
 import { playSound, stopAllSounds } from '@/components/sounds';
+import { Context } from '@/settings/constant';
+import { TLocationType } from '@/settings/type';
 
 const Seal = memo(({ active }: { active: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
@@ -28,8 +30,20 @@ const Seal = memo(({ active }: { active: boolean }) => {
 });
 
 const Slider = memo(({ index }: { index: number }) => {
+  const [{ solve }] = useContext(Context);
   const [{ index: chooseIndex, step, lastIndex }, setState] = useContext(ChooseContext);
   const [style, setStyle] = useTween({ opacity: 0, y: -80, x: -20, rotate: 0 });
+  const [beenSolved, setBeenSolved] = useState(false);
+
+  useEffect(() => {
+    Object.keys(TLocationType).filter((key, i) => {
+      if (solve && i === index) {
+        if (solve[key as keyof typeof TLocationType]) {
+          setBeenSolved(true);
+        }
+      }
+    });
+  }, [solve, index]);
 
   useEffect(() => {
     if (step === ChooseStepType.unset && index === chooseIndex) {
@@ -71,7 +85,11 @@ const Slider = memo(({ index }: { index: number }) => {
   }, [chooseIndex, step]);
 
   return (
-    <div key={`file-${index}`} className={twMerge('file', `file-${index}`)} style={style}>
+    <div
+      key={`file-${index}`}
+      className={twMerge('file', `file-${index}`, beenSolved && 'grayscale-100')}
+      style={style}
+    >
       <div>
         <div>
           <Seal active={index === chooseIndex} />

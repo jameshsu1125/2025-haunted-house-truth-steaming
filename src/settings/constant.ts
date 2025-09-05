@@ -10,6 +10,7 @@ import {
   TLoadingProcessState,
   TLocationType,
   TRedirectState,
+  TSolveState,
   TSoundState,
 } from './type';
 
@@ -33,6 +34,12 @@ export const SoundsState: TSoundState = {
   enabled: false,
 };
 
+export const SolveState: TSolveState = {
+  [TLocationType.taipei]: false,
+  [TLocationType.zhongli]: false,
+  [TLocationType.chiayi]: false,
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
@@ -41,6 +48,7 @@ export const InitialState: IState = {
   [ActionType.Fail]: FailState,
   [ActionType.Redirect]: RedirectState,
   [ActionType.Sounds]: SoundsState,
+  [ActionType.Solve]: SolveState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

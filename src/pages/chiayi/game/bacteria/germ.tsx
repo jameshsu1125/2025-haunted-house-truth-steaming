@@ -1,6 +1,6 @@
 import { IReactProps } from '@/settings/type';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { Application, Assets, Container, DisplacementFilter, Sprite } from 'pixi.js';
+import { Application, Assets, Container, Sprite } from 'pixi.js';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ChiayiContext } from '../../config';
@@ -75,132 +75,100 @@ const TweenerProvider = memo(
   },
 );
 
-const Germ = memo(
-  ({ onAssetsLoaded, noise = { x: 1, y: 1 }, index, containerWidth, style, onSuck }: TGerm) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const nodeRef = useRef<HTMLDivElement>(null);
-    const [domReady, setRomReady] = useState(false);
-    const src = [v0, v1, v2][index - 1];
-    const pixiRef = useRef<{ [key: string]: any }>({});
+const Germ = memo(({ onAssetsLoaded, index, containerWidth, style, onSuck }: TGerm) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const nodeRef = useRef<HTMLDivElement>(null);
+  const [domReady, setRomReady] = useState(false);
+  const src = [v0, v1, v2][index - 1];
+  const pixiRef = useRef<{ [key: string]: any }>({});
 
-    const [clicked, setClicked] = useState(false);
-    const [hide, setHide] = useState(false);
-    const noiseRef = useRef(noise);
+  const [clicked, setClicked] = useState(false);
+  const [hide, setHide] = useState(false);
 
-    useEffect(() => {
-      const image = new Image();
-      image.onload = () => {
-        const { width, height } = image;
-        const percent = width / 1280;
-        const currentWidth = containerWidth * percent;
-        const currentHeight = height * (currentWidth / width);
-        ref.current!.style.width = `${currentWidth * scale}px`;
-        ref.current!.style.height = `${currentHeight * scale}px`;
-        ref.current!.setAttribute('data-percent', `${percent}`);
-        setRomReady(true);
-      };
-      image.src = src;
-    }, []);
-
-    useEffect(() => {
-      if (domReady) {
-        const app = new Application();
-
-        const createHuntedText = async () => {
-          if (
-            nodeRef.current &&
-            ref.current &&
-            ref.current.clientWidth > 0 &&
-            ref.current.clientHeight > 0
-          ) {
-            const percent = Number(ref.current.getAttribute('data-percent'));
-
-            await Assets.load([src, displacement]);
-
-            await app.init({
-              width: ref.current.clientWidth,
-              height: ref.current.clientHeight,
-              backgroundAlpha: 0,
-            });
-
-            app.stage.eventMode = 'static';
-            app.stage.width = ref.current.clientWidth;
-            app.stage.height = ref.current.clientHeight;
-            nodeRef.current.prepend(app.canvas);
-
-            const container = new Container();
-            app.stage.addChild(container);
-
-            const virus = Sprite.from(src);
-            container.addChild(virus);
-
-            virus.scale.set(percent * 1.7 * scale);
-
-            const displacementSprite = Sprite.from(displacement);
-            displacementSprite.texture.source.addressMode = 'repeat';
-
-            const displacementFilter = new DisplacementFilter({
-              sprite: displacementSprite,
-              scale: noise,
-            });
-
-            displacementFilter.padding = 10;
-            displacementSprite.position = virus.position;
-            app.stage.addChild(displacementSprite);
-
-            pixiRef.current.displacementSprite = displacementSprite;
-            pixiRef.current.displacementFilter = displacementFilter;
-            pixiRef.current.virus = virus;
-            pixiRef.current.app = app;
-
-            onAssetsLoaded?.();
-          } else {
-            requestAnimationFrame(() => {
-              createHuntedText();
-            });
-          }
-        };
-
-        requestAnimationFrame(() => {
-          createHuntedText();
-        });
-      }
-    }, [domReady]);
-
-    const onClick = (event: React.PointerEvent<HTMLDivElement>) => {
-      setClicked(true);
-      onSuck(event);
-      const { virus, displacementSprite, displacementFilter, app } = pixiRef.current;
-      virus.filters = [displacementFilter];
-
-      app.ticker.add(() => {
-        displacementSprite.x += 3;
-        displacementFilter.scale.x = noiseRef.current.x += 5;
-        displacementFilter.scale.y = noiseRef.current.y += 5;
-
-        if (displacementSprite.x > displacementSprite.width) {
-          displacementSprite.x = 0;
-        }
-      });
+  useEffect(() => {
+    const image = new Image();
+    image.onload = () => {
+      const { width, height } = image;
+      const percent = width / 1280;
+      const currentWidth = containerWidth * percent;
+      const currentHeight = height * (currentWidth / width);
+      ref.current!.style.width = `${currentWidth * scale}px`;
+      ref.current!.style.height = `${currentHeight * scale}px`;
+      ref.current!.setAttribute('data-percent', `${percent}`);
+      setRomReady(true);
     };
+    image.src = src;
+  }, []);
 
-    useEffect(() => {
-      if (hide) {
-        requestAnimationFrame(() => {
-          pixiRef.current.app.destroy(true);
-        });
-      }
-    }, [hide]);
+  useEffect(() => {
+    if (domReady) {
+      const app = new Application();
 
-    return (
-      <div ref={ref} className='germ' style={style}>
-        {!hide && (
-          <TweenerProvider clicked={clicked} setClicked={onClick} setHide={setHide} hide={hide}>
-            <div ref={nodeRef} className={twMerge('h-full w-full')} />
-          </TweenerProvider>
-        )}
-      </div>
-    );
-  },
-);
+      const createHuntedText = async () => {
+        if (
+          nodeRef.current &&
+          ref.current &&
+          ref.current.clientWidth > 0 &&
+          ref.current.clientHeight > 0
+        ) {
+          const percent = Number(ref.current.getAttribute('data-percent'));
+
+          await Assets.load([src, displacement]);
+
+          await app.init({
+            width: ref.current.clientWidth,
+            height: ref.current.clientHeight,
+            backgroundAlpha: 0,
+          });
+
+          app.stage.eventMode = 'static';
+          app.stage.width = ref.current.clientWidth;
+          app.stage.height = ref.current.clientHeight;
+          nodeRef.current.prepend(app.canvas);
+
+          const container = new Container();
+          app.stage.addChild(container);
+
+          const virus = Sprite.from(src);
+          container.addChild(virus);
+
+          virus.scale.set(percent * 1.7 * scale);
+
+          onAssetsLoaded?.();
+        } else {
+          requestAnimationFrame(() => {
+            createHuntedText();
+          });
+        }
+      };
+
+      requestAnimationFrame(() => {
+        createHuntedText();
+      });
+    }
+  }, [domReady]);
+
+  const onClick = (event: React.PointerEvent<HTMLDivElement>) => {
+    setClicked(true);
+    onSuck(event);
+  };
+
+  useEffect(() => {
+    if (hide) {
+      requestAnimationFrame(() => {
+        pixiRef.current.app.destroy(true);
+      });
+    }
+  }, [hide]);
+
+  return (
+    <div ref={ref} className='germ' style={style}>
+      {!hide && (
+        <TweenerProvider clicked={clicked} setClicked={onClick} setHide={setHide} hide={hide}>
+          <div ref={nodeRef} className={twMerge('h-full w-full')} />
+        </TweenerProvider>
+      )}
+    </div>
+  );
+});
 export default Germ;

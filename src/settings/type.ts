@@ -11,6 +11,7 @@ export enum ActionType {
   Fail = 'fail',
   Redirect = 'redirect',
   Sounds = 'sounds',
+  Solve = 'solve',
 }
 
 export enum LoadingProcessType {
@@ -62,6 +63,12 @@ export type TSoundState = {
   enabled?: boolean;
 };
 
+export type TSolveState = {
+  [TLocationType.taipei]?: boolean;
+  [TLocationType.zhongli]?: boolean;
+  [TLocationType.chiayi]?: boolean;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
@@ -70,6 +77,7 @@ export interface IState {
   fail?: TFailState;
   redirect?: TRedirectState;
   sounds?: TSoundState;
+  solve?: TSolveState;
 }
 
 export interface IAction {
@@ -81,7 +89,8 @@ export interface IAction {
     | boolean
     | TFailState
     | TRedirectState
-    | TSoundState;
+    | TSoundState
+    | TSolveState;
   type: ActionType;
 }
 
