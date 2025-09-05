@@ -21,7 +21,7 @@ const Dirt = memo(() => {
 
   useEffect(() => {
     if (page !== TaipeiPageType.game) return;
-    if (clearTimes === 0) setStyle({ opacity: 0.3 }, { duration: 500 });
+    if (clearTimes === 0) setStyle({ opacity: 0.2 }, { duration: 500 });
   }, [page, clearTimes]);
 
   return (
