@@ -59,7 +59,7 @@ const 蒸 = memo(({ visible }: { visible: boolean }) => {
 
   return (
     <div className='steam-text' style={style}>
-      <SteamText scale={0.65} noise={{ x: 50, y: 50 }} />
+      <SteamText scale={0.9} />
     </div>
   );
 });

@@ -1,8 +1,27 @@
 .SteamText {
-  margin-top: -100px;
-  margin-left: -100px;
-  width: image-width(@img);
-  height: image-height(@img);
+  width: 100%;
 
-  @img: './img/headline-animate.png';
+  @img: './img/split3.png';
+  @apply relative;
+
+  @keyframes split {
+    0% {
+      background-position-y: 0%;
+    }
+    100% {
+      background-position-y: 100%;
+    }
+  }
+
+  & > div {
+    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100% / (@frames+1));
+    background-image: url(@img);
+    background-position-y: 0%;
+    background-size: 100%;
+    animation: split 1.5s steps(@frames) infinite;
+
+    @frames: 59;
+
+    @apply w-full;
+  }
 }

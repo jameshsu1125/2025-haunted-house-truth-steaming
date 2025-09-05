@@ -29,7 +29,7 @@ export const HomeState: THomeState = {
   page: HomePageType.Landing,
   step: HomeStepType.Unset,
   locationIndex: Math.floor(Math.random() * 3),
-  steamImageLoaded: false,
+  steamImageLoaded: true,
   smokeImageLoaded: true,
   videoLoadedIndex: 0,
 };
