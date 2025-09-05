@@ -42,7 +42,7 @@ const Home = memo(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
 
     const onFocus = () => window.location.reload();
-    // window.addEventListener('focus', onFocus);
+    window.addEventListener('focus', onFocus);
     return () => {
       window.removeEventListener('focus', onFocus);
     };

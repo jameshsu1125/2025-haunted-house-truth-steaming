@@ -4,12 +4,14 @@ import { TaipeiGameContext, TaipeiGameStepType } from '../config';
 import './index.less';
 import { fadeOutSound, playSound } from '@/components/sounds';
 import Gtag from 'lesca-gtag';
+import { TaipeiContext, TaipeiPageType } from '../../config';
 
 const Picture = memo(() => {
   const ref = useRef<ReturnType<typeof setTimeout>>(null);
   const ref2 = useRef<ReturnType<typeof setTimeout>>(null);
   const [shake, setShake] = useState(false);
 
+  const [{ page }] = useContext(TaipeiContext);
   const [{ step }] = useContext(TaipeiGameContext);
 
   const shakeIt = () => {
@@ -22,19 +24,13 @@ const Picture = memo(() => {
   };
 
   useEffect(() => {
-    const randomTimeShakeIt = () => {
-      ref2.current = setTimeout(
-        () => {
-          shakeIt();
-        },
-        3000 + Math.random() * 3000,
-      );
-    };
-    randomTimeShakeIt();
+    if (step === TaipeiGameStepType.unset && page === TaipeiPageType.game) {
+      ref2.current = setTimeout(shakeIt, 3000 + Math.random() * 3000);
+    }
     return () => {
       if (ref2.current) clearTimeout(ref2.current);
     };
-  }, []);
+  }, [page, step]);
 
   const onPointerDown = () => {
     if (step === TaipeiGameStepType.unset) {

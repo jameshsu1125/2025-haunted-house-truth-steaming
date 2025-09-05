@@ -17,7 +17,7 @@ const Dialog = memo(() => {
           { opacity: 1, y: 0 },
           {
             duration: 1000,
-            delay: 5500,
+            delay: 5000,
             easing: Bezier.outQuart,
             onStart: () => {
               fadeOutSound('footstep');
