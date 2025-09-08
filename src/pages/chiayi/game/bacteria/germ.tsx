@@ -1,11 +1,9 @@
 import { IReactProps } from '@/settings/type';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { Application, Assets, Container, Sprite } from 'pixi.js';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ChiayiContext } from '../../config';
 import { VIRUS_GROWING_SPEED, VIRUS_SIZE_RATIO } from '../config';
-import displacement from './img/displacement_map_repeat.jpg';
 
 import v0 from './img/v0.png';
 import v1 from './img/v1.png';
@@ -65,7 +63,7 @@ const TweenerProvider = memo(
 
     return (
       <div
-        className={twMerge(hide && 'invisible', clicked && 'pointer-events-none')}
+        className={twMerge('h-full w-full', hide && 'invisible', clicked && 'pointer-events-none')}
         style={style}
         onPointerDown={setClicked}
       >
@@ -80,7 +78,6 @@ const Germ = memo(({ onAssetsLoaded, index, containerWidth, style, onSuck }: TGe
   const nodeRef = useRef<HTMLDivElement>(null);
   const [domReady, setRomReady] = useState(false);
   const src = [v0, v1, v2][index - 1];
-  const pixiRef = useRef<{ [key: string]: any }>({});
 
   const [clicked, setClicked] = useState(false);
   const [hide, setHide] = useState(false);
@@ -102,49 +99,11 @@ const Germ = memo(({ onAssetsLoaded, index, containerWidth, style, onSuck }: TGe
 
   useEffect(() => {
     if (domReady) {
-      const app = new Application();
-
-      const createHuntedText = async () => {
-        if (
-          nodeRef.current &&
-          ref.current &&
-          ref.current.clientWidth > 0 &&
-          ref.current.clientHeight > 0
-        ) {
-          const percent = Number(ref.current.getAttribute('data-percent'));
-
-          await Assets.load([src, displacement]);
-
-          await app.init({
-            width: ref.current.clientWidth,
-            height: ref.current.clientHeight,
-            backgroundAlpha: 0,
-          });
-
-          app.stage.eventMode = 'static';
-          app.stage.width = ref.current.clientWidth;
-          app.stage.height = ref.current.clientHeight;
-          nodeRef.current.prepend(app.canvas);
-
-          const container = new Container();
-          app.stage.addChild(container);
-
-          const virus = Sprite.from(src);
-          container.addChild(virus);
-
-          virus.scale.set(percent * 1.7 * scale);
-
-          onAssetsLoaded?.();
-        } else {
-          requestAnimationFrame(() => {
-            createHuntedText();
-          });
-        }
-      };
-
-      requestAnimationFrame(() => {
-        createHuntedText();
-      });
+      nodeRef.current!.style.backgroundImage = `url(${src})`;
+      nodeRef.current!.style.backgroundRepeat = 'no-repeat';
+      nodeRef.current!.style.backgroundSize = 'contain';
+      nodeRef.current!.style.backgroundPosition = 'center';
+      onAssetsLoaded?.();
     }
   }, [domReady]);
 
@@ -153,19 +112,11 @@ const Germ = memo(({ onAssetsLoaded, index, containerWidth, style, onSuck }: TGe
     onSuck(event);
   };
 
-  useEffect(() => {
-    if (hide) {
-      requestAnimationFrame(() => {
-        pixiRef.current.app.destroy(true);
-      });
-    }
-  }, [hide]);
-
   return (
     <div ref={ref} className='germ' style={style}>
       {!hide && (
         <TweenerProvider clicked={clicked} setClicked={onClick} setHide={setHide} hide={hide}>
-          <div ref={nodeRef} className={twMerge('h-full w-full')} />
+          <div ref={nodeRef} className='h-full w-full' />
         </TweenerProvider>
       )}
     </div>

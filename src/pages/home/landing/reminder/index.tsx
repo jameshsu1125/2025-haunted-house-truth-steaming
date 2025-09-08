@@ -6,6 +6,10 @@ import { HomeContext, HomeStepType } from '../../config';
 import './index.less';
 import Gtag from 'lesca-gtag';
 import Qrcode from 'lesca-react-qrcode';
+import UserAgent, { UserAgentType } from 'lesca-user-agent';
+import QueryString from 'lesca-url-parameters';
+
+const device = UserAgent.get();
 
 const DarkScreen = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -20,7 +24,13 @@ const P = memo(() => {
   useEffect(() => {
     setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 600 });
   }, []);
-  return <p style={style}>手機掃描 QR 以獲得最佳體驗，並建議開啟聲音 確認</p>;
+  return (
+    <p style={style}>
+      {device === UserAgentType.Desktop
+        ? '手機掃描 QR 以獲得最佳體驗，並建議開啟聲音確認'
+        : '為確保您的體驗效果，建議開啟聲音'}
+    </p>
+  );
 });
 
 const QRCode = memo(() => {
@@ -30,7 +40,7 @@ const QRCode = memo(() => {
   }, []);
   return (
     <div style={style}>
-      <Qrcode size={300} content={new URL(window.location.href).toString()} />
+      <Qrcode size={300} content={QueryString.root()} />
     </div>
   );
 });
@@ -65,8 +75,7 @@ const Reminder = memo(() => (
   <div className='Reminder'>
     <DarkScreen />
     <div>
-      <QRCode />
-
+      {device === UserAgentType.Desktop && <QRCode />}
       <P />
       <Button />
     </div>
